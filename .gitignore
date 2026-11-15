@@ -1,0 +1,6 @@
+*.log
+partial*.pkl
+__pycache__/
+shot*.png
+*.npz
+nohup.out

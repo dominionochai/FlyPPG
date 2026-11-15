@@ -1,0 +1,312 @@
+{
+ "rigid motion|raw": {
+  "MAE": 7.8343906957376515,
+  "RMSE": 11.659263130288922,
+  "SNR": 0.5873477172496587,
+  "success": 61.111111111111114,
+  "n": 18
+ },
+ "rigid motion|conventional": {
+  "MAE": 5.45283310897331,
+  "RMSE": 9.470489861820353,
+  "SNR": 1.3754857918953922,
+  "success": 72.22222222222221,
+  "n": 18
+ },
+ "rigid motion|surround-norm only": {
+  "MAE": 7.7855625707376515,
+  "RMSE": 11.587080093383127,
+  "SNR": 0.44263905101875534,
+  "success": 61.111111111111114,
+  "n": 18
+ },
+ "rigid motion|classical translation+surround": {
+  "MAE": 0.24103599710846288,
+  "RMSE": 0.32019986712527576,
+  "SNR": 7.351270443217148,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|classical dense-flow+surround": {
+  "MAE": 0.3771326370409468,
+  "RMSE": 0.6240606908323856,
+  "SNR": 7.572966828413103,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.6466290990138263,
+  "RMSE": 0.7560050575997446,
+  "SNR": 3.4216257626188553,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 1.9229302848645193,
+  "RMSE": 5.63741441922616,
+  "SNR": 2.6558683109410506,
+  "success": 94.44444444444444,
+  "n": 18
+ },
+ "rotation+zoom|raw": {
+  "MAE": 1.3758078031399346,
+  "RMSE": 3.2915909386875977,
+  "SNR": 0.8015027349670641,
+  "success": 94.44444444444444,
+  "n": 18
+ },
+ "rotation+zoom|conventional": {
+  "MAE": 0.4760540670331383,
+  "RMSE": 0.5952099726059658,
+  "SNR": 3.1024305352098343,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|surround-norm only": {
+  "MAE": 4.0832524956547935,
+  "RMSE": 11.859392315865307,
+  "SNR": 0.6693681752118937,
+  "success": 88.88888888888889,
+  "n": 18
+ },
+ "rotation+zoom|classical translation+surround": {
+  "MAE": 9.695237874320185,
+  "RMSE": 16.364583842360325,
+  "SNR": -0.754624240788154,
+  "success": 66.66666666666666,
+  "n": 18
+ },
+ "rotation+zoom|classical dense-flow+surround": {
+  "MAE": 0.24749980576330957,
+  "RMSE": 0.33081404442693957,
+  "SNR": 8.036858977225213,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.6474476346913222,
+  "RMSE": 0.8490551361584153,
+  "SNR": 4.018205073173761,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 2.153248019608948,
+  "RMSE": 5.356748059377347,
+  "SNR": 1.5019289888242966,
+  "success": 88.88888888888889,
+  "n": 18
+ },
+ "non-rigid|raw": {
+  "MAE": 15.297671380773075,
+  "RMSE": 23.00076946746527,
+  "SNR": 1.5040556277656156,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "non-rigid|conventional": {
+  "MAE": 13.708318568077438,
+  "RMSE": 22.54841031500684,
+  "SNR": 2.0536342513183503,
+  "success": 55.55555555555556,
+  "n": 18
+ },
+ "non-rigid|surround-norm only": {
+  "MAE": 15.297671380773075,
+  "RMSE": 23.00076946746527,
+  "SNR": 1.6783591829418996,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "non-rigid|classical translation+surround": {
+  "MAE": 9.054750714272599,
+  "RMSE": 12.905655692750635,
+  "SNR": 1.6225510589699308,
+  "success": 50.0,
+  "n": 18
+ },
+ "non-rigid|classical dense-flow+surround": {
+  "MAE": 0.28230160333082566,
+  "RMSE": 0.3490533511553562,
+  "SNR": 6.3280727687534,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 6.23742654724386,
+  "RMSE": 12.980323370053808,
+  "SNR": 2.694432187611373,
+  "success": 72.22222222222221,
+  "n": 18
+ },
+ "non-rigid|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 13.140282943207863,
+  "RMSE": 21.230732567683763,
+  "SNR": 2.1791551104324167,
+  "success": 50.0,
+  "n": 18
+ },
+ "hard motion|raw": {
+  "MAE": 15.832293626862711,
+  "RMSE": 22.704616787855613,
+  "SNR": -0.1612030724553764,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "hard motion|conventional": {
+  "MAE": 15.783465501862711,
+  "RMSE": 22.75782056466053,
+  "SNR": 0.41989424570360967,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "hard motion|surround-norm only": {
+  "MAE": 15.978778001862711,
+  "RMSE": 22.72990275643622,
+  "SNR": -0.29650743651618783,
+  "success": 38.88888888888889,
+  "n": 18
+ },
+ "hard motion|classical translation+surround": {
+  "MAE": 14.528086559928182,
+  "RMSE": 19.624911921302484,
+  "SNR": -3.072992026741322,
+  "success": 33.33333333333333,
+  "n": 18
+ },
+ "hard motion|classical dense-flow+surround": {
+  "MAE": 12.831888858774938,
+  "RMSE": 20.53479280871567,
+  "SNR": -0.6300738782478619,
+  "success": 61.111111111111114,
+  "n": 18
+ },
+ "hard motion|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 13.355006131812354,
+  "RMSE": 19.68171063848823,
+  "SNR": -0.2803218180881196,
+  "success": 38.88888888888889,
+  "n": 18
+ },
+ "hard motion|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 15.576685819312356,
+  "RMSE": 22.726288183198672,
+  "SNR": 0.41738111320237575,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "AE+flicker+drift|raw": {
+  "MAE": 21.477710154648825,
+  "RMSE": 26.79437309568253,
+  "SNR": -3.5496590392244673,
+  "success": 22.22222222222222,
+  "n": 18
+ },
+ "AE+flicker+drift|conventional": {
+  "MAE": 19.976613268235674,
+  "RMSE": 24.232998575680305,
+  "SNR": -3.0181310528434415,
+  "success": 22.22222222222222,
+  "n": 18
+ },
+ "AE+flicker+drift|surround-norm only": {
+  "MAE": 0.17674474717367517,
+  "RMSE": 0.2042761561537108,
+  "SNR": 9.09774978713678,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|classical translation+surround": {
+  "MAE": 0.17674474717367517,
+  "RMSE": 0.2042761561537108,
+  "SNR": 9.097225370375918,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|classical dense-flow+surround": {
+  "MAE": 0.17756328285117107,
+  "RMSE": 0.2051547124351152,
+  "SNR": 9.095315560582911,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.17674474717367517,
+  "RMSE": 0.2042761561537108,
+  "SNR": 9.095539798847433,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 45.9922768446918,
+  "RMSE": 48.10351703426375,
+  "SNR": 1.8872780259789836,
+  "success": 0.0,
+  "n": 18
+ },
+ "everything|raw": {
+  "MAE": 18.101275347565174,
+  "RMSE": 23.966316304875335,
+  "SNR": -2.3789087197390977,
+  "success": 27.77777777777778,
+  "n": 18
+ },
+ "everything|conventional": {
+  "MAE": 19.24516970867197,
+  "RMSE": 24.489810446062506,
+  "SNR": -1.7139791258923796,
+  "success": 27.77777777777778,
+  "n": 18
+ },
+ "everything|surround-norm only": {
+  "MAE": 15.71793502468628,
+  "RMSE": 22.429647211935695,
+  "SNR": -2.9451552152734997,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "everything|classical translation+surround": {
+  "MAE": 17.43255557674993,
+  "RMSE": 22.000243605746487,
+  "SNR": -3.6148799152373456,
+  "success": 11.11111111111111,
+  "n": 18
+ },
+ "everything|classical dense-flow+surround": {
+  "MAE": 16.866357756820232,
+  "RMSE": 22.521929528473944,
+  "SNR": -2.9400530486655985,
+  "success": 38.88888888888889,
+  "n": 18
+ },
+ "everything|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 11.444423755778221,
+  "RMSE": 16.651681231041906,
+  "SNR": -2.52583462184117,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "everything|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 16.522894694390466,
+  "RMSE": 26.564711231883248,
+  "SNR": -2.109371834251294,
+  "success": 44.44444444444444,
+  "n": 18
+ },
+ "_latency": {
+  "raw": 2.640000123695548e-06,
+  "raw|MB": 0.0,
+  "conventional": 0.9907468249999358,
+  "conventional|MB": 132.719532,
+  "surround-norm only": 0.09785818666652327,
+  "surround-norm only|MB": 66.361708,
+  "classical translation+surround": 2.3651053283333567,
+  "classical translation+surround|MB": 138.527982,
+  "classical dense-flow+surround": 2.3307939199999814,
+  "classical dense-flow+surround|MB": 132.979004,
+  "FlyPPG v3 (surround+local T4/T5)": 1.0841487666668097,
+  "FlyPPG v3 (surround+local T4/T5)|MB": 160.39043,
+  "FlyPPG v2 (step+global T4/T5)": 19.518320001666705,
+  "FlyPPG v2 (step+global T4/T5)|MB": 1111.470888
+ }
+}

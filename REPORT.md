@@ -1,20 +1,30 @@
-# FlyPPG - final report (everything achievable without SmartSpectra / real data)
+# FlyPPG - report v3 (after the three improvements)
 
-**Scope warning:** all numbers are on a synthetic face-video generator (global head translation, illumination drift/steps, noise, JPEG, low light) with a stand-in rPPG extractor (ROI green mean -> bandpass -> spectral peak). **Nothing here is a SmartSpectra or real-data result.** Success = window error <= 5 bpm; 6 clips/condition; readout tuned on separate seeds.
+**Scope:** synthetic face video + stand-in rPPG extractor (ROI green mean -> bandpass -> spectral peak). **Not a SmartSpectra or real-data result.** 6 clips/condition (18 windows/cell), readout trained on separate seeds. Success = window error <= 5 bpm.
 
-## Findings
-1. **Illumination-step cancellation works and is nearly free.** A spatially uniform ON/OFF transient is read as an illumination step and cancelled: illumination MAE 1.69 -> 0.12 bpm, SNR 2.1 -> 9.9 dB, 0.03 ms/frame. Classical stabilisation + the same step fix ties it (the step fix is what matters there).
-2. **Connectome-derived T4/T5 stabiliser (v2) matches classical phase-correlation stabilisation but does not beat it.** MAE (bpm): motion 0.13 vs 0.14; motion+illum 0.14 vs 0.14; compressed 0.13 vs 0.12; low-light 0.12 vs 0.14 (differences ~0.01-0.02 bpm, within noise at n=6). Both beat raw (0.24/0.83/0.30/0.38) and simple smoothing.
-   - Key design change v1->v2: spatially pooled T4/T5 outputs (global + 4 quadrants + centre, x8 subtypes) -> 0.71 -> 0.94 cross-validated velocity correlation.
-3. **Cost:** FlyPPG v2 10.5 ms/frame, ~1.1 GB peak (Python, 96x96) vs classical 1.4 ms/frame, ~0.13 GB. Step-only 0.03 ms/frame.
-4. **Frame-quality flagging / efficiency: not demonstrated.** Fly motion speed predicts bad windows with AUC 0.75 vs classical speed 0.77 vs plain SNR 0.80 (48 windows - weak evidence). No compute saving can be claimed without SmartSpectra's real per-frame cost.
-5. **Connectome link:** T4a-d/T5a-d input cell types, signs, synapse counts and hex offsets come from the flyvis fib25-fib19 connectome. Assumptions (not from the connectome): fast/slow time constants, subtractive-inhibition form, pixel pitch; velocity readout is fitted (linear, +-6 frame lookahead ~0.2 s). Pretrained flyvis weights were not used. Raw-weight direction selectivity index 0.70.
+## The three improvements and what they actually delivered
+1. **Illumination hardening - delivered.** v2's step-cancellation FAILED on realistic lighting (auto-exposure steps that settle + mains flicker + drift: MAE 45.99 bpm, worse than raw 21.48). Replacing it with **surround (background-referenced) divisive normalisation** (lamina-style centre-surround gain control) gives **0.18 bpm** (SNR -3.5 -> 9.1 dB). Caveat: any baseline given the same surround normalisation gets the same 0.18 - the win is the normalisation, not fly-specific motion processing.
+2. **Faster, local motion path - partly delivered.** Connectome T4/T5 bank rewritten as per-frame correlation kernels (numerically equivalent, corr ~1.0): **19.5 -> 1.1 ms/frame (18x), 1.1 GB -> 160 MB (7x)**, now cheaper than the classical dense-flow stabiliser (2.3 ms). A *local* (3x3-cell) velocity readout handles rotation/zoom (0.65 bpm vs v2 2.15, raw 1.38). It does **not** handle non-rigid motion: 6.24 bpm vs classical dense optical flow 0.28.
+3. **Harder benchmark - delivered, and it was humbling.** Added rotation, zoom, non-rigid deformation, spatially varying pulse amplitude/phase, face-edge/ROI effects, AE + flicker, JPEG. It exposed that v2 only worked on easy translation: v2 breaks on AE/flicker (46 bpm) and rotation.
 
-## Verdict against the brief's success criterion
-"Measurably better than unmodified SmartSpectra AND conventional preprocessing": **met vs raw and simple conventional smoothing; NOT met vs a competent classical stabilisation baseline; unverified on SmartSpectra/real data.** Honest headline: bio-inspired illumination-step cancellation is the one clear, cheap win; the T4/T5 pathway is a working but non-superior motion sensor.
+## MAE (bpm), lower is better
+| condition | raw | classical dense-flow+surround | FlyPPG v3 | FlyPPG v2 |
+|---|---|---|---|---|
+| rigid motion | 7.83 | 0.38 | 0.65 | 1.92 |
+| rotation+zoom | 1.38 | 0.25 | 0.65 | 2.15 |
+| non-rigid | 15.30 | 0.28 | 6.24 | 13.14 |
+| hard motion (all) | 15.83 | 12.83 | 13.36 | 15.58 |
+| AE+flicker+drift | 21.48 | 0.18 | 0.18 | 45.99 |
+| everything (+JPEG) | 18.10 | 16.87 | 11.44 | 16.52 |
 
-## Remaining (needs a human / hardware)
-SmartSpectra integration; UBFC/PURE/MMPD runs; SmartSpectra per-frame cost for any efficiency claim; real FlyWire/hemibrain neurons for the 3D model.
+## Honest verdict
+- Strong, cheap, general result: **surround-normalised illumination** (fixes a failure mode that breaks raw video and my own earlier method).
+- The connectome T4/T5 pathway is now fast and decent on rigid/rotation/zoom, but **classical dense optical flow is better on every motion condition except 'everything'** (where all methods fail: 11-17 bpm, ~40% success). It's best-of-bad there, not a win.
+- **Unsolved by anyone, incl. FlyPPG:** combined hard motion (rotation + non-rigid + translation) - 13-16 bpm error. That is the real research problem, and the brief's "better than conventional" bar is **not met** against classical dense flow.
+- Differences of ~0.1-0.3 bpm are within noise at this sample size.
 
-## Artifacts
-`flyppg.py` v0 harness; `fly_conn.py` connectome T4/T5 bank; `readout*.py` readout; `eval2.py`/`eval3.py` benchmarks; `analysis.py`; `demo_video.py`/`demo.mp4`; `build_brain.py`, `brain.html` (2D), `brain3d.html` (3D, real JRC2018F template mesh); `results_v1.json`, `results_v2.json`, `analysis.json`.
+## Still needs a human / hardware
+SmartSpectra integration, UBFC/PURE/MMPD runs, SmartSpectra per-frame cost (needed for any efficiency claim), real FlyWire/hemibrain neurons for the 3D model.
+
+## Files
+`flyppg3.py` (generator, surround norm, fast fly bank, local readout, classical baselines, benchmark); `flyppg.py`, `fly_conn.py` (connectome T4/T5 weights from flyvis fib25-fib19), `eval*.py`/`results_v*.json` earlier versions, `build_brain.py` + `brain3d.html` (3D real-mesh visual).
