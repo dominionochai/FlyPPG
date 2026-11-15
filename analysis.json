@@ -1,0 +1,12 @@
+{
+ "n_windows": 48,
+ "spearman_fly_speed_vs_err": 0.3805168778284636,
+ "spearman_classical_speed_vs_err": 0.2845813627316451,
+ "spearman_snr_vs_err": -0.5651175812369856,
+ "auc_fly": 0.75,
+ "auc_classical": 0.7710526315789474,
+ "auc_snr": 0.8026315789473684,
+ "median_err": 0.2197265625,
+ "p75_err": 0.3407486492536407,
+ "max_err": 35.42560822794616
+}

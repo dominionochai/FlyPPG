@@ -3,6 +3,8 @@
 Fruit-fly-visual-circuit-inspired preprocessing for camera-based rPPG (SmartSpectra).
 **Status: v1 prototype on synthetic video with a proxy extractor (not SmartSpectra yet). Nothing here is a SmartSpectra result.**
 
+**See REPORT.md for the final v2 results (v2 stabiliser ties classical stabilisation; illumination-step cancellation is the clear win).**
+
 ## What the v1 benchmark shows (6 videos/condition, held-out seeds)
 - ON/OFF step compensation (spatially uniform transient = illumination step): illumination MAE 1.69 -> 0.12 bpm, ~0.04 ms/frame. Classical stabilisation + the same step fix matches it.
 - Connectome-derived T4/T5 motion stabiliser beats raw and simple smoothing under motion, but **classical phase-correlation stabilisation + step beats it in every condition** (e.g. motion+illum 0.14 vs 0.20 bpm) and is ~7x cheaper (13.8 vs ~2 ms/frame; ~1.1 GB peak vs ~0.13 GB).
