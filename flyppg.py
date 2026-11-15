@@ -41,6 +41,7 @@ def make_video(seed, motion=0.0, illum=0.0, noise=0.006):
             ch = fr * k * (1 + (pulse[i] - 1) * a * 5 * (c == 1) + (pulse[i] - 1) * 0.2 * (c != 1))
             vid[i, :, :, c] = ch * gain[i]
     vid += r.normal(0, noise, vid.shape).astype(np.float32)
+    make_video.pos = pos
     return vid, hr
 
 # ---------------------------------------------------------------- preprocessors

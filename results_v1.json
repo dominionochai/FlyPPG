@@ -1,0 +1,354 @@
+{
+ "static|raw": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.27327616410141,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "static|conventional": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.27543245292447,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "static|classical stab+conv": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.275210479269708,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "static|classical stab+step": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.272997534754799,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "static|fly step only": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.27327616410141,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "static|fly T4/T5 stab only": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.274466647872584,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "static|FlyPPG v1 (step+T4/T5)": {
+  "MAE": 0.12216036963886623,
+  "RMSE": 0.1331971196726253,
+  "SNR": 10.274466647872584,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12216036963886623
+ },
+ "motion|raw": {
+  "MAE": 0.2360326232129554,
+  "RMSE": 0.2759450164243088,
+  "SNR": 6.982441339631495,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.2360326232129554
+ },
+ "motion|conventional": {
+  "MAE": 0.1872044982129554,
+  "RMSE": 0.2152331718250441,
+  "SNR": 7.659027070911397,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.1872044982129554
+ },
+ "motion|classical stab+conv": {
+  "MAE": 0.13510724958851206,
+  "RMSE": 0.15307194237336696,
+  "SNR": 10.177436372495498,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.13510724958851206
+ },
+ "motion|classical stab+step": {
+  "MAE": 0.13510724958851206,
+  "RMSE": 0.15307194237336696,
+  "SNR": 10.10370954578645,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.13510724958851206
+ },
+ "motion|fly step only": {
+  "MAE": 0.2360326232129554,
+  "RMSE": 0.2759450164243088,
+  "SNR": 6.982441339631495,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.2360326232129554
+ },
+ "motion|fly T4/T5 stab only": {
+  "MAE": 0.15785271885564237,
+  "RMSE": 0.20055399688324618,
+  "SNR": 8.917011781726414,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.15785271885564237
+ },
+ "motion|FlyPPG v1 (step+T4/T5)": {
+  "MAE": 0.15785271885564237,
+  "RMSE": 0.20055399688324618,
+  "SNR": 8.917011781726414,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.15785271885564237
+ },
+ "illum|raw": {
+  "MAE": 1.6931824332301697,
+  "RMSE": 4.8419298332549365,
+  "SNR": 2.071971442082345,
+  "success": 94.44444444444444,
+  "reported": 66.66666666666666,
+  "MAE_reported": 0.5669575914343389
+ },
+ "illum|conventional": {
+  "MAE": 1.6931824332301697,
+  "RMSE": 4.8419298332549365,
+  "SNR": 2.2689418479823167,
+  "success": 94.44444444444444,
+  "reported": 77.77777777777779,
+  "MAE_reported": 0.5678987971614389
+ },
+ "illum|classical stab+conv": {
+  "MAE": 1.6931824332301697,
+  "RMSE": 4.8419298332549365,
+  "SNR": 2.26918417666076,
+  "success": 94.44444444444444,
+  "reported": 77.77777777777779,
+  "MAE_reported": 0.5678987971614389
+ },
+ "illum|classical stab+step": {
+  "MAE": 0.12379744099385803,
+  "RMSE": 0.1358708534303174,
+  "SNR": 9.902011383348869,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12379744099385803
+ },
+ "illum|fly step only": {
+  "MAE": 0.12379744099385803,
+  "RMSE": 0.1358708534303174,
+  "SNR": 9.902049659139271,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12379744099385803
+ },
+ "illum|fly T4/T5 stab only": {
+  "MAE": 1.6931824332301697,
+  "RMSE": 4.8419298332549365,
+  "SNR": 2.072731826421322,
+  "success": 94.44444444444444,
+  "reported": 66.66666666666666,
+  "MAE_reported": 0.5669575914343389
+ },
+ "illum|FlyPPG v1 (step+T4/T5)": {
+  "MAE": 0.12379744099385803,
+  "RMSE": 0.1358708534303174,
+  "SNR": 9.91175924383111,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12379744099385803
+ },
+ "motion+illum|raw": {
+  "MAE": 0.8269078400702684,
+  "RMSE": 1.164023270828159,
+  "SNR": 1.267814680754611,
+  "success": 100.0,
+  "reported": 61.111111111111114,
+  "MAE_reported": 0.6335228806749579
+ },
+ "motion+illum|conventional": {
+  "MAE": 0.8513219025702684,
+  "RMSE": 1.1712434746318516,
+  "SNR": 1.6592810603086225,
+  "success": 100.0,
+  "reported": 66.66666666666666,
+  "MAE_reported": 0.7665097083302808
+ },
+ "motion+illum|classical stab+conv": {
+  "MAE": 0.8175275365138263,
+  "RMSE": 1.1293573533525234,
+  "SNR": 2.3810075916222253,
+  "success": 100.0,
+  "reported": 61.111111111111114,
+  "MAE_reported": 0.7331361107654644
+ },
+ "motion+illum|classical stab+step": {
+  "MAE": 0.13592578526600796,
+  "RMSE": 0.15424243126764742,
+  "SNR": 9.827165552204896,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.13592578526600796
+ },
+ "motion+illum|fly step only": {
+  "MAE": 0.26126522139045133,
+  "RMSE": 0.3192123897261268,
+  "SNR": 6.8016389900996,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.26126522139045133
+ },
+ "motion+illum|fly T4/T5 stab only": {
+  "MAE": 0.7950398157278136,
+  "RMSE": 1.0990850897975606,
+  "SNR": 1.71451403944591,
+  "success": 100.0,
+  "reported": 55.55555555555556,
+  "MAE_reported": 0.7153491780881275
+ },
+ "motion+illum|FlyPPG v1 (step+T4/T5)": {
+  "MAE": 0.19603219698278412,
+  "RMSE": 0.25126134286500046,
+  "SNR": 8.415608508720169,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.19603219698278412
+ },
+ "compressed(q25)+motion|raw": {
+  "MAE": 0.29836841535897957,
+  "RMSE": 0.46059855575144587,
+  "SNR": 9.198106227843201,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.29836841535897957
+ },
+ "compressed(q25)+motion|conventional": {
+  "MAE": 0.2331353909513124,
+  "RMSE": 0.35354912369637326,
+  "SNR": 9.403838493945091,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.2331353909513124
+ },
+ "compressed(q25)+motion|classical stab+conv": {
+  "MAE": 0.12297890531636213,
+  "RMSE": 0.134540628623785,
+  "SNR": 10.131134406496912,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12297890531636213
+ },
+ "compressed(q25)+motion|classical stab+step": {
+  "MAE": 0.12297890531636213,
+  "RMSE": 0.134540628623785,
+  "SNR": 10.051903433307482,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12297890531636213
+ },
+ "compressed(q25)+motion|fly step only": {
+  "MAE": 0.29836841535897957,
+  "RMSE": 0.46059855575144587,
+  "SNR": 9.198106227843201,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.29836841535897957
+ },
+ "compressed(q25)+motion|fly T4/T5 stab only": {
+  "MAE": 0.16972015132245014,
+  "RMSE": 0.19657509347384874,
+  "SNR": 9.837109218405368,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.16972015132245014
+ },
+ "compressed(q25)+motion|FlyPPG v1 (step+T4/T5)": {
+  "MAE": 0.16972015132245014,
+  "RMSE": 0.19657509347384874,
+  "SNR": 9.837109218405368,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.16972015132245014
+ },
+ "low-light+motion|raw": {
+  "MAE": 0.38207035389825983,
+  "RMSE": 0.6597884464837728,
+  "SNR": 8.679204384526432,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.38207035389825983
+ },
+ "low-light+motion|conventional": {
+  "MAE": 0.3368088052914635,
+  "RMSE": 0.560381950666596,
+  "SNR": 8.930229258037208,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.3368088052914635
+ },
+ "low-light+motion|classical stab+conv": {
+  "MAE": 0.12379744099385803,
+  "RMSE": 0.1358708534303174,
+  "SNR": 10.20254486808517,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.12379744099385803
+ },
+ "low-light+motion|classical stab+step": {
+  "MAE": 0.13674432094350386,
+  "RMSE": 0.15540410440124966,
+  "SNR": 10.168848016363766,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.13674432094350386
+ },
+ "low-light+motion|fly step only": {
+  "MAE": 0.38207035389825983,
+  "RMSE": 0.6597884464837728,
+  "SNR": 8.679204384526432,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.38207035389825983
+ },
+ "low-light+motion|fly T4/T5 stab only": {
+  "MAE": 0.19331567814495423,
+  "RMSE": 0.23248695571821168,
+  "SNR": 9.764534448599985,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.19331567814495423
+ },
+ "low-light+motion|FlyPPG v1 (step+T4/T5)": {
+  "MAE": 0.19331567814495423,
+  "RMSE": 0.23248695571821168,
+  "SNR": 9.764534448599985,
+  "success": 100.0,
+  "reported": 100.0,
+  "MAE_reported": 0.19331567814495423
+ },
+ "_latency": {
+  "raw": 2.3981666951537285e-05,
+  "raw|MB": 0.0,
+  "conventional": 0.7306471899998239,
+  "conventional|MB": 132.719482,
+  "classical stab+conv": 2.7410061733333655,
+  "classical stab+conv|MB": 199.075694,
+  "classical stab+step": 1.928853164999964,
+  "classical stab+step|MB": 132.723333,
+  "fly step only": 0.04323897000025075,
+  "fly step only|MB": 66.367515,
+  "fly T4/T5 stab only": 13.769757044999551,
+  "fly T4/T5 stab only|MB": 1111.470939,
+  "FlyPPG v1 (step+T4/T5)": 13.729107913333488,
+  "FlyPPG v1 (step+T4/T5)|MB": 1111.471928
+ }
+}

@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark"><title>FlyPPG · the fly brain at work</title>
+<style>:root{color-scheme:dark;--bg:#02030a;--fg:#bfe6ff}html,body{margin:0;height:100%;background:var(--bg);overflow:hidden;color:var(--fg)}canvas{position:fixed;inset:0;width:100%;height:100%;display:block}</style></head>
+<body><canvas id="c"></canvas><script>
+const D=/*DATA*/;
+const cv=document.getElementById('c'),cx=cv.getContext('2d'),bl=document.createElement('canvas'),bx=bl.getContext('2d');
+let W,H,S0,DPR;function rs(){DPR=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;bl.width=Math.ceil(W/5);bl.height=Math.ceil(H/5);S0=Math.min(W/2.15,H/1.3)}
+addEventListener('resize',rs);rs();
+let sd=11;const rnd=()=>(sd=sd*16807%2147483647)/2147483647,rr=(a,b)=>a+(b-a)*rnd();
+const HUE=[38,335,110,190],SUBN=['a','b','c','d'];
+/* ---------- geometry (schematic; wiring weights from flyvis fib25-fib19 connectome) ---------- */
+const X0=[.98,.9,.78,.68,.58,.5],HS=[.86,.83,.8,.74,.66,.58],BOW=[.07,.06,.05,.045,.04,.03];
+const xs=(k,side,y)=>side*(X0[k]+BOW[k]*(1-(y/(.5*HS[k]))**2));
+const paths=[],pts2=[],dots=[];
+function mk(p,o){o.pts=p;o.cum=[0];for(let i=1;i<p.length;i++)o.cum.push(o.cum[i-1]+Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1],p[i][2]-p[i-1][2]));o.len=o.cum[o.cum.length-1];paths.push(o);return o}
+for(const side of[-1,1]){
+ for(let iy=0;iy<24;iy++)for(let iz=0;iz<5;iz++){
+  const y=(iy/23-.5)*.98+rr(-.01,.01),z=(iz/4-.5)*.5+rr(-.02,.02);
+  const p=[];for(let k=0;k<6;k++){const yy=y*HS[k];p.push([xs(k,side,yy)+rr(-.004,.004),yy,z*(1-.25*k/5)])}
+  mk(p,{kind:'col',side});
+  if(rnd()<.8){const s=Math.floor(rnd()*4);mk([p[3],[p[3][0]+side*-.05,p[3][1]+rr(-.02,.02),p[3][2]],[side*(X0[5]-.012*s)+0,p[5][1]+rr(-.02,.02),p[5][2]]],{kind:'T4',s,side})}
+  if(rnd()<.8){const s=Math.floor(rnd()*4);mk([p[4],[p[4][0]+side*-.04,p[4][1]+rr(-.02,.02),p[4][2]],[side*(X0[5]-.012*s),p[5][1]+rr(-.02,.02),p[5][2]]],{kind:'T5',s:s,side})}
+  if(iz==2)dots.push({side,y,z,k:0});if(iz==2||iz==1||iz==3)dots.push({side,y,z,k:1})}
+ for(let i=0;i<38;i++){const y=rr(-.3,.3),z=rr(-.2,.2),a=[side*X0[5],y,z];const c=[side*rr(.33,.4),y*.8,z*.6],h=[side*rr(.12,.2),y*.3-.05,z*.3],n=[side*.02,-.2,0],nk=[0,-.5,0];
+  mk([a,c,h,n,nk],{kind:'out',side})}
+}
+/* central brain: dim structure, not used by FlyPPG */
+const ell=(cx0,cy0,rx,ry,z,n,o)=>{const p=[];for(let i=0;i<=n;i++){const a=i/n*6.283;p.push([cx0+Math.cos(a)*rx,cy0+Math.sin(a)*ry,z])}mk(p,o)};
+for(let i=0;i<260;i++){const p=[];let x=rr(-.3,.3),y=rr(-.3,.3),z=rr(-.18,.18);for(let k=0;k<4;k++){p.push([x,y,z]);x+=rr(-.09,.09);y+=rr(-.09,.09);z+=rr(-.05,.05);const r=(x/.4)**2+(y/.38)**2;if(r>1){x*=.9;y*=.9}}mk(p,{kind:'bg'})}
+for(const s of[-1,1]){const p=[];for(let i=0;i<=14;i++){const t=i/14;p.push([s*(.09+.1*t),.22-.2*t,.03*Math.sin(t*3)])}
+ mk(p,{kind:'mb',side:s});mk([[s*.1,.04,.03],[s*.15,.3,.0],[s*.2,.34,-.02]],{kind:'mb',side:s});mk([[s*.1,.04,.03],[s*.06,-.12,.06],[s*.1,-.22,.06]],{kind:'mb',side:s});
+ ell(s*.1,-.3,.06,.06,.1,18,{kind:'al',side:s})}
+ell(0,.02,.07,.045,.02,26,{kind:'cc'});ell(0,.02,.035,.022,.02,18,{kind:'cc'});
+{const p=[];for(let i=0;i<=20;i++){const t=i/20*2-1;p.push([t*.16,.2-.05*t*t,.0])}mk(p,{kind:'cc'})}
+{const p=[];for(let i=0;i<=20;i++){const t=i/20*2-1;p.push([t*.12,.09-.03*(1-t*t),.0])}mk(p,{kind:'cc'})}
+const outl=[];for(let i=0;i<=60;i++){const a=i/60*6.283;outl.push([Math.cos(a)*.44,Math.sin(a)*.4,0])}mk(outl,{kind:'ol'});
+/* ---------- projection ---------- */
+let yaw=0;const proj=p=>{const c=Math.cos(yaw),s=Math.sin(yaw),x=p[0]*c+p[2]*s,z=-p[0]*s+p[2]*c,f=1/(1-.45*z);return[W/2+S0*x*f,H/2+S0*p[1]*f*-1+H*.01,f]};
+/* ---------- activity ---------- */
+let fi=0,A={};
+function act(){const x=D.X[fi],m=x.reduce((a,b)=>a+b,0)/8;A={lam:Math.max(D.L[fi],D.S[fi]),step:D.S[fi],med:.45*D.L[fi]+.55*m,x,lob:Math.max(...x.slice(4))*.9+.1*m,v:D.V[fi]};
+ A.st=[A.lam,A.lam,A.med,A.med,A.lob,Math.max(A.v,A.lob*.7)]}
+/* ---------- particles ---------- */
+const PA=[];function spawn(){const lim=2400;
+ for(let n=0;n<26&&PA.length<lim;n++){const p=paths[Math.floor(rnd()*paths.length)];let a=0;
+  if(p.kind=='col')a=A.lam*.9;else if(p.kind=='T4')a=A.x[p.s];else if(p.kind=='T5')a=A.x[4+p.s];else if(p.kind=='out')a=A.v;else if(p.kind=='mb'||p.kind=='bg'||p.kind=='cc'||p.kind=='al')a=.05;
+  if(rnd()<a*a*1.6)PA.push({p,t:0,v:rr(.25,.5)*(p.kind=='out'?.7:1)/Math.max(.3,p.len)*1.4})}}
+function pos(p,t){const d=t*p.len;let i=1;while(i<p.pts.length-1&&p.cum[i]<d)i++;const f=(d-p.cum[i-1])/(p.cum[i]-p.cum[i-1]+1e-9),a=p.pts[i-1],b=p.pts[i];return[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f]}
+/* ---------- drawing ---------- */
+const col=(h,s,l,a)=>`hsla(${h},${s}%,${l}%,${a})`;
+function line(p,w,c){cx.beginPath();let q=proj(p.pts[0]);cx.moveTo(q[0],q[1]);for(let i=1;i<p.pts.length;i++){q=proj(p.pts[i]);cx.lineTo(q[0],q[1])}cx.lineWidth=w;cx.strokeStyle=c;cx.stroke()}
+function seg(p,i,w,c){const a=proj(p.pts[i]),b=proj(p.pts[i+1]);cx.beginPath();cx.moveTo(a[0],a[1]);cx.lineTo(b[0],b[1]);cx.lineWidth=w;cx.strokeStyle=c;cx.stroke()}
+function slab(k,side,a,h){cx.beginPath();for(let i=0;i<=40;i++){const y=(i/20-1)*.5*HS[k],q=proj([xs(k,side,y),y,0]);i?cx.lineTo(q[0],q[1]):cx.moveTo(q[0],q[1])}cx.lineWidth=S0*.012*(k==2?1.7:1);cx.strokeStyle=col(h,90,55,a);cx.stroke()}
+function frame(ts){const t=ts/1000;fi=Math.floor(t*30)%D.T;yaw=.2*Math.sin(t*.12);act();spawn();
+ cx.setTransform(DPR,0,0,DPR,0,0);cx.globalCompositeOperation='source-over';cx.fillStyle='#02030a';cx.fillRect(0,0,W,H);
+ const g=cx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.6);g.addColorStop(0,'rgba(20,40,80,.35)');g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.fillRect(0,0,W,H);
+ cx.globalCompositeOperation='lighter';cx.lineCap='round';cx.lineJoin='round';
+ for(const side of[-1,1]){slab(0,side,.08+.5*A.lam,190);slab(1,side,.08+.5*A.lam,175);slab(2,side,.08+.55*A.med,235);slab(3,side,.06+.4*A.med,250);slab(4,side,.07+.5*A.lob,285);slab(5,side,.07+.6*A.st[5],320)}
+ for(const p of paths){const k=p.kind;
+  if(k=='col'){for(let i=0;i<5;i++){const a=A.st[i+1];seg(p,i,1,col(i<2?190:(i<4?230:280),85,60,.07+.5*a*a))}}
+  else if(k=='T4'||k=='T5'){const a=A.x[(k=='T4'?0:4)+p.s];line(p,k=='T4'?1.3:1,col(HUE[p.s],95,k=='T4'?58:70,.05+.8*a*a))}
+  else if(k=='out'){line(p,1.1,col(325,90,62,.04+.7*A.v*A.v))}
+  else if(k=='ol')line(p,1.2,col(200,70,60,.12))
+  else if(k=='mb')line(p,2.4,col(32,90,58,.10+.06*Math.sin(t*1.5)))
+  else if(k=='cc')line(p,2,col(150,85,58,.12+.07*Math.sin(t*2)))
+  else if(k=='al')line(p,2,col(120,80,55,.10))
+  else line(p,.7,col(215,60,45,.05+.03*Math.sin(t*2+p.len*40)))}
+ for(const d of dots){const q=proj([xs(d.k,d.side,d.y*HS[d.k]),d.y*HS[d.k],d.z]),a=A.lam;cx.fillStyle=col(d.k?178:195,90,70,.12+.55*a);cx.beginPath();cx.arc(q[0],q[1],S0*.0032*q[2],0,6.3);cx.fill()}
+ for(let i=PA.length-1;i>=0;i--){const q=PA[i];q.t+=q.v;if(q.t>=1){PA.splice(i,1);continue}const a=proj(pos(q.p,q.t)),b=proj(pos(q.p,Math.max(0,q.t-.07)));const k=q.p.kind,c=k=='T4'||k=='T5'?col(HUE[q.p.s],100,78,.95):k=='out'?col(325,100,78,.95):col(190,100,82,.9);
+  cx.strokeStyle=c;cx.lineWidth=2.2*a[2];cx.beginPath();cx.moveTo(b[0],b[1]);cx.lineTo(a[0],a[1]);cx.stroke()}
+ /* bloom */
+ bx.globalCompositeOperation='copy';bx.drawImage(cv,0,0,bl.width,bl.height);
+ cx.setTransform(1,0,0,1,0,0);cx.globalAlpha=1;cx.imageSmoothingEnabled=true;cx.imageSmoothingQuality='high';for(let i=0;i<3;i++)cx.drawImage(bl,0,0,cv.width,cv.height);
+ cx.setTransform(DPR,0,0,DPR,0,0);cx.globalCompositeOperation='source-over';hud(t)}
+/* ---------- HUD ---------- */
+function bar(x,y,w,a,c){cx.fillStyle='rgba(120,170,220,.18)';cx.fillRect(x,y,w,3);cx.fillStyle=c;cx.fillRect(x,y,w*Math.min(1,a),3)}
+function hud(t){const fs=Math.max(10,Math.min(14,W/110));cx.font=`${fs}px ui-monospace,Menlo,Consolas,monospace`;cx.textBaseline='top';
+ const pad=Math.max(16,W*.02),sat=0;cx.fillStyle='rgba(200,235,255,.95)';cx.font=`600 ${fs*1.5}px ui-monospace,Menlo,Consolas,monospace`;cx.fillText('FLYPPG',pad,pad);
+ cx.font=`${fs}px ui-monospace,Menlo,Consolas,monospace`;cx.fillStyle='rgba(150,200,240,.8)';cx.fillText('drosophila visual circuit · live activation',pad,pad+fs*2.2);
+ const L=[['RETINA','R1–R6 photoreceptors',0,A.lam,'#5ff'],['LAMINA','L1–L5 · contrast adaptation',1,A.lam,'#5ff'],['MEDULLA','Mi1 Tm3 ⊕  Mi4 Mi9 C3 ⊖',2,A.med,'#7af'],['LOBULA','T5 OFF pathway · a–d',4,A.lob,'#c8f'],['LOBULA PLATE','direction readout → velocity',5,A.st[5],'#f8c']];
+ const top=H*.17;L.forEach(([n,sub,k,a,c],ix)=>{const q=proj([xs(k,-1,.5*HS[k]),.5*HS[k]+.03,0]);const x=q[0],y=top-(ix%2)*fs*4.6;
+  cx.strokeStyle='rgba(140,190,255,.35)';cx.lineWidth=1;cx.beginPath();cx.moveTo(x,q[1]);cx.lineTo(x,y+fs*3);cx.stroke();
+  cx.fillStyle=c;cx.fillText(n,x-8,y-fs*.2);cx.fillStyle='rgba(160,205,240,.75)';cx.fillText(sub,x-8,y+fs*1.1);bar(x-8,y+fs*2.4,60,a,c)});
+ /* T4 ON labels with subtype colours */
+ const q4=proj([xs(3,1,0),.5*HS[3]+.03,0]);cx.fillStyle='#fc8';cx.fillText('T4 ON · subtypes',q4[0]-8,H*.1);
+ for(let s=0;s<4;s++){cx.fillStyle=col(HUE[s],95,62,1);cx.fillText(SUBN[s],q4[0]-8+fs*11+s*fs*1.6,H*.1);bar(q4[0]-8+fs*11+s*fs*1.6,H*.1+fs*1.3,fs*1.1,A.x[s],col(HUE[s],95,62,1))}
+ const qd=proj([0,-.5,0]);cx.fillStyle='#f9c';cx.textAlign='center';cx.fillText('DESCENDING  →  FRAME STABILISATION',qd[0],qd[1]+6);cx.fillStyle='rgba(150,190,220,.5)';cx.fillText('central brain · not used by FlyPPG',W/2,H/2-S0*.47);cx.textAlign='left';
+ if(A.step>.5){cx.fillStyle='rgba(255,255,255,.9)';cx.fillText('ILLUMINATION STEP — uniform ON/OFF transient detected, cancelled',pad,pad+fs*4)}
+ /* bottom traces */
+ const bw=Math.min(W*.3,380),bh=Math.min(H*.09,64),by=H-bh-pad-fs*1.4;
+ function trace(x,tag,a,b,ca,cb){cx.fillStyle='rgba(150,200,240,.8)';cx.fillText(tag,x,by-fs*1.5);cx.fillStyle='rgba(60,100,160,.12)';cx.fillRect(x,by,bw,bh);
+  for(const[arr,c]of[[a,ca],[b,cb]]){cx.beginPath();for(let i=0;i<150;i++){const j=(fi-149+i+D.T)%D.T,px=x+bw*i/149,py=by+bh*(.5-.45*arr[j]);i?cx.lineTo(px,py):cx.moveTo(px,py)}cx.lineWidth=1.4;cx.strokeStyle=c;cx.stroke()}}
+ trace(pad,'HEAD MOTION  true (white) vs fly estimate (pink)',D.Vt,D.Ve,'rgba(255,255,255,.6)','rgba(255,110,190,.95)');
+ trace(W-bw-pad,'PULSE SIGNAL  raw (grey) vs FlyPPG (cyan)',D.raw,D.fly,'rgba(180,190,200,.55)','rgba(90,240,255,.95)');
+ cx.fillStyle='rgba(130,170,210,.55)';cx.textAlign='center';cx.fillText('schematic layout · connectivity weights from the flyvis fib25-fib19 connectome · synthetic video, proxy rPPG extractor',W/2,H-fs*2);cx.textAlign='left'}
+requestAnimationFrame(function L(ts){frame(ts);requestAnimationFrame(L)});
+</script></body></html>
