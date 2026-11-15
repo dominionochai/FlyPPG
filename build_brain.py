@@ -13,5 +13,5 @@ def pulse(x): y = signal.filtfilt(b, a, signal.detrend(x)); return np.clip(y / (
 raw = pulse(F.rppg_proxy(v)); fly = pulse(F.rppg_proxy(F.step_comp(E.stab_fly(v))))
 r = lambda a: np.round(a, 2).tolist()
 D = dict(T=len(v), X=r(Xn), L=r(lam), S=r(S), V=r(V), Vt=r(np.clip(Vt, -1, 1)), Ve=r(np.clip(Ve, -1, 1)), raw=r(raw), fly=r(fly))
-open('brain.html', 'w').write(open('brain_tpl.html').read().replace('/*DATA*/', json.dumps(D, separators=(',', ':'))))
+for tpl,out in [('brain_tpl.html','brain.html'),('brain3d_tpl.html','brain3d.html')]: open(out, 'w').write(open(tpl).read().replace('/*DATA*/', json.dumps(D, separators=(',', ':'))))
 print('ok', len(open('brain.html').read()) // 1024, 'KB; step frames', int(S.sum() > 0), 'corr est/true', round(float(np.corrcoef(Ve, Vt)[0, 1]), 2))
