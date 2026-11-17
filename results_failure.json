@@ -1,0 +1,182 @@
+{
+ "shared lighting (reference)|raw (green)": {
+  "MAE": 26.396179805594333,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "shared lighting (reference)|POS chrominance only": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "shared lighting (reference)|surround-norm (green)": {
+  "MAE": 0.13817484649315612,
+  "success": 100.0,
+  "n": 24
+ },
+ "shared lighting (reference)|surround-norm + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "shared lighting (reference)|gated surround + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "shared lighting (reference)|gated surround (green)": {
+  "MAE": 0.13817484649315612,
+  "success": 100.0,
+  "n": 24
+ },
+ "face-only lighting (screen glow)|raw (green)": {
+  "MAE": 26.396179805594333,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "face-only lighting (screen glow)|POS chrominance only": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "face-only lighting (screen glow)|surround-norm (green)": {
+  "MAE": 26.451111446219333,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "face-only lighting (screen glow)|surround-norm + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "face-only lighting (screen glow)|gated surround + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "face-only lighting (screen glow)|gated surround (green)": {
+  "MAE": 26.396179805594333,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "partial coupling (50%)|raw (green)": {
+  "MAE": 26.396179805594333,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "partial coupling (50%)|POS chrominance only": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "partial coupling (50%)|surround-norm (green)": {
+  "MAE": 26.286316524344333,
+  "success": 37.5,
+  "n": 24
+ },
+ "partial coupling (50%)|surround-norm + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "partial coupling (50%)|gated surround + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "partial coupling (50%)|gated surround (green)": {
+  "MAE": 26.286316524344333,
+  "success": 37.5,
+  "n": 24
+ },
+ "background-only distractor|raw (green)": {
+  "MAE": 0.0951893146682498,
+  "success": 100.0,
+  "n": 24
+ },
+ "background-only distractor|POS chrominance only": {
+  "MAE": 0.1959923606831735,
+  "success": 100.0,
+  "n": 24
+ },
+ "background-only distractor|surround-norm (green)": {
+  "MAE": 18.991476717132578,
+  "success": 37.5,
+  "n": 24
+ },
+ "background-only distractor|surround-norm + POS": {
+  "MAE": 0.1959923606831735,
+  "success": 100.0,
+  "n": 24
+ },
+ "background-only distractor|gated surround + POS": {
+  "MAE": 0.1959923606831735,
+  "success": 100.0,
+  "n": 24
+ },
+ "background-only distractor|gated surround (green)": {
+  "MAE": 0.0951893146682498,
+  "success": 100.0,
+  "n": 24
+ },
+ "bg clutter + shared lighting|raw (green)": {
+  "MAE": 26.396179805594333,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "bg clutter + shared lighting|POS chrominance only": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "bg clutter + shared lighting|surround-norm (green)": {
+  "MAE": 34.377055736371894,
+  "success": 8.333333333333332,
+  "n": 24
+ },
+ "bg clutter + shared lighting|surround-norm + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "bg clutter + shared lighting|gated surround + POS": {
+  "MAE": 0.24368958015622896,
+  "success": 100.0,
+  "n": 24
+ },
+ "bg clutter + shared lighting|gated surround (green)": {
+  "MAE": 34.377055736371894,
+  "success": 8.333333333333332,
+  "n": 24
+ },
+ "clean (no lighting issue)|raw (green)": {
+  "MAE": 0.0951893146682498,
+  "success": 100.0,
+  "n": 24
+ },
+ "clean (no lighting issue)|POS chrominance only": {
+  "MAE": 0.1959923606831735,
+  "success": 100.0,
+  "n": 24
+ },
+ "clean (no lighting issue)|surround-norm (green)": {
+  "MAE": 0.13943363584907656,
+  "success": 100.0,
+  "n": 24
+ },
+ "clean (no lighting issue)|surround-norm + POS": {
+  "MAE": 0.1959923606831735,
+  "success": 100.0,
+  "n": 24
+ },
+ "clean (no lighting issue)|gated surround + POS": {
+  "MAE": 0.1959923606831735,
+  "success": 100.0,
+  "n": 24
+ },
+ "clean (no lighting issue)|gated surround (green)": {
+  "MAE": 0.0951893146682498,
+  "success": 100.0,
+  "n": 24
+ }
+}

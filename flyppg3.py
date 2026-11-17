@@ -12,7 +12,7 @@ CELLS = np.array([((i + .5) * 32, (j + .5) * 32) for i in range(3) for j in rang
 def sm(r, s, shape=(H, W)):
     a = ndi.gaussian_filter(r.standard_normal(shape), s); return (a / a.std()).astype(np.float32)
 
-def make_video3(seed, tr=1., rot=0., nr=0., il=0., ae=0., fl=0., noise=.006, jpegq=None):
+def make_video3(seed, tr=1., rot=0., nr=0., il=0., ae=0., fl=0., noise=.006, jpegq=None, sh=1., bgd=0., cl=0., cs=0., two=0.):
     r = np.random.default_rng(seed); hr = r.uniform(55, 120); f = hr / 60; t = np.arange(N) / FPS
     tex = sm(r, 1.3) * .10; bgt = sm(r, 3) * .03
     amap = np.clip(1.15 - RAD / 38 * .8 + .3 * sm(r, 6), .15, 1.5); ph = .5 * sm(r, 8)
@@ -32,6 +32,14 @@ def make_video3(seed, tr=1., rot=0., nr=0., il=0., ae=0., fl=0., noise=.006, jpe
         for _ in range(3):
             s = r.integers(60, N - 90); a = r.choice([-1, 1]) * .08; tt = np.arange(N) - s; gain *= 1 + a * np.where(tt >= 0, np.exp(-np.maximum(tt, 0) / (1.2 * FPS)), 0)
     gain *= 1 + fl * .003 * np.sin(2 * np.pi * r.uniform(1.4, 2.4) * t + r.uniform(0, 6.28))
+    gb = 1 + (gain - 1) * sh      # sh=1: lighting shared by face and background; sh=0: face-only lighting (screen glow)
+    if bgd:                        # independent lighting changes that only the background sees
+        rb = np.random.default_rng(seed + 99); gb = gb * (1 + bgd * .15 * np.sin(2 * np.pi * .2 * t + rb.uniform(0, 6.28)))
+        for _ in range(3): gb[rb.integers(40, N - 40):] *= 1 + rb.choice([-1, 1]) * .12 * bgd
+    gS = np.ones(N)
+    if two:   # two independent lights with different colours: shared ambient (face+bg) and a screen glow only the face sees
+        rs = np.random.default_rng(seed + 7); gS = 1 + .12 * np.sin(2 * np.pi * .17 * t + rs.uniform(0, 6.28)) + .003 * np.sin(2 * np.pi * rs.uniform(1.2, 2.6) * t)
+        for _ in range(2): gS[rs.integers(60, N - 60):] *= 1 + rs.choice([-1, 1]) * .10
     vid = np.empty((N, H, W, 3), np.float32); U = np.zeros((N, 9, 2))
     for i in range(N):
         c, s_ = np.cos(th[i]), np.sin(th[i]); dy, dx = YY - CY, XX - CX
@@ -39,7 +47,11 @@ def make_video3(seed, tr=1., rot=0., nr=0., il=0., ae=0., fl=0., noise=.006, jpe
         sy = CY + (c * dy + s_ * dx) / sc[i] - pos[i, 0] + d[0]; sx = CX + (-s_ * dy + c * dx) / sc[i] - pos[i, 1] + d[1]
         pul = 1 + np.array([.0125, .0125 * .2, .0125 * .2])[:, None, None] * amap * np.sin(2 * np.pi * f * t[i] + ph)
         fc = np.stack([ndi.map_coordinates(base[k] * pul[k], [sy, sx], order=1, mode='nearest') for k in range(3)]); m = ndi.map_coordinates(maskf, [sy, sx], order=1, mode='nearest')
-        vid[i] = ((bgc * (1 - m) + fc * m) * gain[i]).transpose(1, 2, 0)
+        blob = np.exp(-((YY - (CY + 62 * np.sin(.5 * t[i]))) ** 2 + (XX - (CX + 62 * np.cos(.5 * t[i]))) ** 2) / (2 * 10 ** 2))
+        mc = (np.array([1., .4, 1.8]) if cs else np.ones(3))[:, None, None]   # cs: lighting changes colour (warm/cool), not just brightness
+        if two: mA, mS = np.array([1., .7, .4])[:, None, None], np.array([.4, .9, 1.6])[:, None, None]; fg = 1 + (gain[i] - 1) * mA + (gS[i] - 1) * mS; bgg = 1 + (gb[i] - 1) * mA
+        else: fg = 1 + (gain[i] - 1) * mc; bgg = 1 + (gb[i] - 1) * mc
+        vid[i] = ((bgc - cl * .10 * blob) * bgg * (1 - m) + fc * fg * m).transpose(1, 2, 0)
         for k, (cyy, cxx) in enumerate(CELLS):   # true content displacement at cell centres = -(src - x)
             dyy, dxx = cyy - CY, cxx - CX; iy, ix = int(cyy), int(cxx)
             U[i, k] = [-((CY + (c * dyy + s_ * dxx) / sc[i] - pos[i, 0] + d[0][iy, ix]) - cyy), -((CX + (-s_ * dyy + c * dxx) / sc[i] - pos[i, 1] + d[1][iy, ix]) - cxx)]
@@ -60,6 +72,22 @@ BG = RAD > 52   # far corners only: face (r=38) + max head shift stays clear of 
 def bg_norm(v):
     g = v[:, BG, :].mean((1, 2)); g = g / np.median(g)
     return v / g[:, None, None, None].astype(np.float32)
+
+def bg_norm_pc(v):
+    g = v[:, BG, :].mean(1); g = g / np.median(g, 0); return v / g[:, None, None, :].astype(np.float32)
+
+def surround_gated(v):
+    """Apply surround normalisation only when background and face lighting are coupled (guards face-only / bg-only changes)."""
+    lg = lambda x: np.log(x + 1e-6); bp = lambda x: ndi.gaussian_filter1d(x, 3) - ndi.gaussian_filter1d(x, 30)
+    b = bp(lg(v[:, BG, :].mean((1, 2)))); f = bp(lg(v[:, 24:72, 24:72, :].mean((1, 2, 3))))
+    return bg_norm(v) if (np.corrcoef(b, f)[0, 1] > .5) else v
+
+def rppg_pos(v, l=48):
+    """POS chrominance rPPG (Wang et al. 2017) on face-ROI mean RGB."""
+    c = v[:, 24:72, 24:72, :].mean((1, 2)); hsig = np.zeros(len(c)); P = np.array([[0, 1, -1], [-2, 1, 1]])
+    for s0 in range(len(c) - l + 1):
+        w = c[s0:s0 + l]; cn = (w / w.mean(0)).T; S = P @ cn; h = S[0] + S[0].std() / (S[1].std() + 1e-9) * S[1]; hsig[s0:s0 + l] += h - h.mean()
+    return hsig
 
 # ------------------------------------------------------------------ (2) fast fly bank (cv2 correlation kernels) + local readout
 def _kern(offs):
@@ -135,7 +163,7 @@ def run_eval(n, Wr, tag):
         for k in range(n):
             v, hr, _ = make_video3(1000 + k, **pr)
             for a, fn in A.items():
-                for est, snr in F.window_est(rppg(fn(v)), hr): res[(c, a)]['err'].append(est - hr); res[(c, a)]['snr'].append(snr)
+                for est, snr in F.window_est((rppg_pos if os.environ.get('EXTRACTOR') == 'pos' else rppg)(fn(v)), hr): res[(c, a)]['err'].append(est - hr); res[(c, a)]['snr'].append(snr)
         pickle.dump(res, open(f'partial_{tag}.pkl', 'wb')); print(c, 'done', flush=True)
     out = {}
     for (c, a), r in res.items():

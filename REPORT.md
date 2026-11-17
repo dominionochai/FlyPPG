@@ -1,4 +1,36 @@
-# FlyPPG - report v3 (after the three improvements)
+# FlyPPG - report (READ FIRST: the lighting-fix plan did not survive testing)
+
+**Scope:** synthetic video + proxy extractors. **Not a SmartSpectra or real-data result.**
+
+## Update: failure tests and a stronger extractor (supersedes the v3 claims below)
+Earlier "wins" were measured against a weak extractor (green-channel ROI mean). Adding the standard chrominance method **POS** (Wang et al. 2017) as the baseline changes the picture:
+
+| lighting scenario (8 clips, no motion) | raw green | POS only | surround-norm (green) | surround-norm + POS |
+|---|---|---|---|---|
+| shared lighting (AE + flicker + drift) | 26.4 | 0.24 | 0.14 | 0.24 |
+| face-only lighting (screen glow) | 26.4 | 0.24 | **26.5 (fails)** | 0.24 |
+| partial coupling (50%) | 26.4 | 0.24 | **26.3 (fails)** | 0.24 |
+| background-only distractor | 0.10 | 0.20 | **19.0 (fails)** | 0.20 |
+| background clutter + shared lighting | 26.4 | 0.24 | **34.4 (worse than raw)** | 0.24 |
+| coloured lighting (shared / face-only) | 26.1 | 0.17 | 26.1 / 26.1 | 0.25 / 0.19 |
+| two independent lights (ambient + screen) | 27.9 | 0.16 | 24.2 | 0.13 |
+
+(MAE bpm; success rate is 100% for every POS arm.)
+
+**Findings**
+1. **Background-referenced normalisation is fragile**: it breaks whenever face and background lighting are decoupled (screen glow, bg distractors, bg clutter).
+2. **A standard chrominance extractor already solves every lighting scenario in this simulator.** Surround-norm adds at most ~0.1 bpm on top of POS and only in some cases. The simulator's lighting is mostly slow, so this may be too forgiving (no specular glare, shadows, spatial gradients) - not proof POS is robust in reality.
+3. **With POS as the extractor, the motion benchmark shows no FlyPPG advantage.** Raw video already gets 0.33-0.45 bpm, 100% success, in all rigid/rotation/non-rigid/hard-motion/lighting conditions; every arm (classical stabilisation, FlyPPG v2/v3) ties within ~0.1 bpm. Only in "everything" (JPEG q30 + all disturbances) do methods differ, and all fail there (8-13 bpm, 55-67% success); **simple conventional smoothing is best (7.9 bpm), FlyPPG v3 worst (13.1)**.
+4. Therefore: **"the contribution is the lighting fix" is NOT supported**, and no FlyPPG component beats a strong baseline in simulation. Standing result: against a green-mean extractor the fly-style pieces help; against POS they don't.
+
+## What this means for the project
+- The decisive test is raw SmartSpectra on real, disturbed video. If SmartSpectra already behaves like POS, there is little left for preprocessing to fix in lighting or mild motion.
+- The only regime where preprocessing mattered at all is **heavy compression / noise / low light**. A biologically grounded, untested candidate: lamina-style **light-adaptive spatial pooling** (neural superposition: pool more photoreceptors when it is dim). Not built.
+- Differences of ~0.1 bpm are within noise; 18 windows per cell.
+
+---
+(Earlier v3 report follows; read it with the caveat above.)
+
 
 **Scope:** synthetic face video + stand-in rPPG extractor (ROI green mean -> bandpass -> spectral peak). **Not a SmartSpectra or real-data result.** 6 clips/condition (18 windows/cell), readout trained on separate seeds. Success = window error <= 5 bpm.
 

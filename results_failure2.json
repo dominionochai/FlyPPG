@@ -1,0 +1,77 @@
+{
+ "coloured shared lighting|raw (green)": {
+  "MAE": 26.121521602469333,
+  "success": 37.5,
+  "n": 24
+ },
+ "coloured shared lighting|POS only": {
+  "MAE": 0.16767619101375164,
+  "success": 100.0,
+  "n": 24
+ },
+ "coloured shared lighting|surround scalar (green)": {
+  "MAE": 26.125410501473837,
+  "success": 16.666666666666664,
+  "n": 24
+ },
+ "coloured shared lighting|surround per-channel (green)": {
+  "MAE": 0.1960432112688754,
+  "success": 100.0,
+  "n": 24
+ },
+ "coloured shared lighting|surround per-channel + POS": {
+  "MAE": 0.25180474339167436,
+  "success": 100.0,
+  "n": 24
+ },
+ "coloured face-only lighting|raw (green)": {
+  "MAE": 26.121521602469333,
+  "success": 37.5,
+  "n": 24
+ },
+ "coloured face-only lighting|POS only": {
+  "MAE": 0.16767619101375164,
+  "success": 100.0,
+  "n": 24
+ },
+ "coloured face-only lighting|surround scalar (green)": {
+  "MAE": 26.158142696219333,
+  "success": 37.5,
+  "n": 24
+ },
+ "coloured face-only lighting|surround per-channel (green)": {
+  "MAE": 26.121521602469333,
+  "success": 37.5,
+  "n": 24
+ },
+ "coloured face-only lighting|surround per-channel + POS": {
+  "MAE": 0.18598673788875164,
+  "success": 100.0,
+  "n": 24
+ },
+ "coloured + bg clutter|raw (green)": {
+  "MAE": 26.121521602469333,
+  "success": 37.5,
+  "n": 24
+ },
+ "coloured + bg clutter|POS only": {
+  "MAE": 0.16767619101375164,
+  "success": 100.0,
+  "n": 24
+ },
+ "coloured + bg clutter|surround scalar (green)": {
+  "MAE": 27.405048561965216,
+  "success": 20.833333333333336,
+  "n": 24
+ },
+ "coloured + bg clutter|surround per-channel (green)": {
+  "MAE": 35.036235423871894,
+  "success": 4.166666666666666,
+  "n": 24
+ },
+ "coloured + bg clutter|surround per-channel + POS": {
+  "MAE": 0.1340958243274626,
+  "success": 100.0,
+  "n": 24
+ }
+}

@@ -1,0 +1,312 @@
+{
+ "rigid motion|raw": {
+  "MAE": 0.41882760925453943,
+  "RMSE": 0.5244473930821906,
+  "SNR": 4.397748031405507,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|conventional": {
+  "MAE": 0.5254347968197517,
+  "RMSE": 0.631098279242216,
+  "SNR": 2.6903411485749142,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|surround-norm only": {
+  "MAE": 0.41882760925453943,
+  "RMSE": 0.5244473930821906,
+  "SNR": 4.396786436090503,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|classical translation+surround": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.397264261449812,
+  "SNR": 6.309144555816017,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|classical dense-flow+surround": {
+  "MAE": 0.3069592993127021,
+  "RMSE": 0.365153661221603,
+  "SNR": 6.406618595001839,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.40648441639825983,
+  "RMSE": 0.48958227808208393,
+  "SNR": 6.132624706767471,
+  "success": 100.0,
+  "n": 18
+ },
+ "rigid motion|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 0.4387990850554103,
+  "RMSE": 0.5139026154639409,
+  "SNR": 5.44184063171133,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|raw": {
+  "MAE": 0.4468082481477431,
+  "RMSE": 0.5287776255682042,
+  "SNR": 5.527358126645398,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|conventional": {
+  "MAE": 0.545283033825239,
+  "RMSE": 0.6680546560908024,
+  "SNR": 3.650838284557134,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|surround-norm only": {
+  "MAE": 0.4468082481477431,
+  "RMSE": 0.5287776255682042,
+  "SNR": 5.5268994759824075,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|classical translation+surround": {
+  "MAE": 0.32868549931744795,
+  "RMSE": 0.36117541866339475,
+  "SNR": 5.373549826860993,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|classical dense-flow+surround": {
+  "MAE": 0.2633804589380166,
+  "RMSE": 0.3471617403664647,
+  "SNR": 6.634992537744436,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.3184834967592853,
+  "RMSE": 0.4039089907915385,
+  "SNR": 5.8333394050526595,
+  "success": 100.0,
+  "n": 18
+ },
+ "rotation+zoom|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 0.28486074821295543,
+  "RMSE": 0.3217870472231202,
+  "SNR": 5.68479135331096,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|raw": {
+  "MAE": 0.4083678582152592,
+  "RMSE": 0.512119822998674,
+  "SNR": 5.245574667991772,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|conventional": {
+  "MAE": 0.49500356997960065,
+  "RMSE": 0.6052787934026469,
+  "SNR": 4.038825910431909,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|surround-norm only": {
+  "MAE": 0.4083678582152592,
+  "RMSE": 0.512119822998674,
+  "SNR": 5.245718106509525,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|classical translation+surround": {
+  "MAE": 0.35453635931975175,
+  "RMSE": 0.4065366682841012,
+  "SNR": 4.407944723529921,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|classical dense-flow+surround": {
+  "MAE": 0.3426398107781677,
+  "RMSE": 0.410453787452024,
+  "SNR": 6.112249837982038,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.42131473816490506,
+  "RMSE": 0.4855096202304358,
+  "SNR": 5.126992003363373,
+  "success": 100.0,
+  "n": 18
+ },
+ "non-rigid|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 0.3595397332152592,
+  "RMSE": 0.4445753671368477,
+  "SNR": 5.033551103535787,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|raw": {
+  "MAE": 0.4150634626006718,
+  "RMSE": 0.5249890368442756,
+  "SNR": 5.0262042586899724,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|conventional": {
+  "MAE": 0.45049806333633036,
+  "RMSE": 0.5483110160749404,
+  "SNR": 4.23166390461506,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|surround-norm only": {
+  "MAE": 0.4150634626006718,
+  "RMSE": 0.5249890368442756,
+  "SNR": 5.025762538755538,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|classical translation+surround": {
+  "MAE": 0.34719654035897957,
+  "RMSE": 0.4354496973357586,
+  "SNR": 4.965083006691439,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|classical dense-flow+surround": {
+  "MAE": 0.344709411448614,
+  "RMSE": 0.42034373381354134,
+  "SNR": 5.034356612527601,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.4051050935243856,
+  "RMSE": 0.47447408402508995,
+  "SNR": 4.958798926821379,
+  "success": 100.0,
+  "n": 18
+ },
+ "hard motion|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 0.30345290113995205,
+  "RMSE": 0.3721623226166694,
+  "SNR": 4.92565960876771,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|raw": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.3804259231736533,
+  "SNR": 6.6259691394239795,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|conventional": {
+  "MAE": 0.5594900746815361,
+  "RMSE": 0.6910576276762838,
+  "SNR": 2.57025190571431,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|surround-norm only": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.3804259231736533,
+  "SNR": 6.608173291775574,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|classical translation+surround": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.3804259231736533,
+  "SNR": 6.609216898410485,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|classical dense-flow+surround": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.3804259231736533,
+  "SNR": 6.60294131123297,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.3804259231736533,
+  "SNR": 6.611717511342599,
+  "success": 100.0,
+  "n": 18
+ },
+ "AE+flicker+drift|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 0.32930376114225585,
+  "RMSE": 0.3804259231736533,
+  "SNR": 6.62414694887388,
+  "success": 100.0,
+  "n": 18
+ },
+ "everything|raw": {
+  "MAE": 11.683926965656035,
+  "RMSE": 19.967427351008194,
+  "SNR": -2.9414198643362113,
+  "success": 55.55555555555556,
+  "n": 18
+ },
+ "everything|conventional": {
+  "MAE": 7.901673619870023,
+  "RMSE": 14.191898908946689,
+  "SNR": -2.5456742160770642,
+  "success": 66.66666666666666,
+  "n": 18
+ },
+ "everything|surround-norm only": {
+  "MAE": 11.672906427420378,
+  "RMSE": 19.967306077881997,
+  "SNR": -2.9620341998700983,
+  "success": 55.55555555555556,
+  "n": 18
+ },
+ "everything|classical translation+surround": {
+  "MAE": 10.10932697993754,
+  "RMSE": 17.582258980822157,
+  "SNR": -2.8450525711986234,
+  "success": 61.111111111111114,
+  "n": 18
+ },
+ "everything|classical dense-flow+surround": {
+  "MAE": 12.010057278544336,
+  "RMSE": 21.86811628936562,
+  "SNR": -2.860286510601453,
+  "success": 61.111111111111114,
+  "n": 18
+ },
+ "everything|FlyPPG v3 (surround+local T4/T5)": {
+  "MAE": 13.127290426381098,
+  "RMSE": 22.2317845612608,
+  "SNR": -3.004288918297104,
+  "success": 55.55555555555556,
+  "n": 18
+ },
+ "everything|FlyPPG v2 (step+global T4/T5)": {
+  "MAE": 10.648076589616757,
+  "RMSE": 19.50732195947486,
+  "SNR": -2.9117373033982297,
+  "success": 61.111111111111114,
+  "n": 18
+ },
+ "_latency": {
+  "raw": 1.85666654791324e-06,
+  "raw|MB": 0.0,
+  "conventional": 0.6902446833333897,
+  "conventional|MB": 132.719532,
+  "surround-norm only": 0.08405492833333028,
+  "surround-norm only|MB": 66.361708,
+  "classical translation+surround": 1.970575641666604,
+  "classical translation+surround|MB": 138.527982,
+  "classical dense-flow+surround": 2.0808141983333903,
+  "classical dense-flow+surround|MB": 132.979004,
+  "FlyPPG v3 (surround+local T4/T5)": 0.9782536466665684,
+  "FlyPPG v3 (surround+local T4/T5)|MB": 160.390736,
+  "FlyPPG v2 (step+global T4/T5)": 12.046948701666716,
+  "FlyPPG v2 (step+global T4/T5)|MB": 1111.471247
+ }
+}

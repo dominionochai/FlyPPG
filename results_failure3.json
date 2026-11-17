@@ -1,0 +1,62 @@
+{
+ "two lights: ambient + screen glow|raw (green)": {
+  "MAE": 27.849911792042203,
+  "success": 16.666666666666664,
+  "n": 24
+ },
+ "two lights: ambient + screen glow|POS only": {
+  "MAE": 0.15795407082175603,
+  "success": 100.0,
+  "n": 24
+ },
+ "two lights: ambient + screen glow|surround per-ch (green)": {
+  "MAE": 24.162132708436314,
+  "success": 25.0,
+  "n": 24
+ },
+ "two lights: ambient + screen glow|surround per-ch + POS": {
+  "MAE": 0.12792150941374883,
+  "success": 100.0,
+  "n": 24
+ },
+ "screen glow only (no ambient change)|raw (green)": {
+  "MAE": 22.73129246482344,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "screen glow only (no ambient change)|POS only": {
+  "MAE": 0.08709463030967601,
+  "success": 100.0,
+  "n": 24
+ },
+ "screen glow only (no ambient change)|surround per-ch (green)": {
+  "MAE": 22.65805027732344,
+  "success": 33.33333333333333,
+  "n": 24
+ },
+ "screen glow only (no ambient change)|surround per-ch + POS": {
+  "MAE": 0.10582746314849671,
+  "success": 100.0,
+  "n": 24
+ },
+ "two lights + bg clutter|raw (green)": {
+  "MAE": 27.849911792042203,
+  "success": 16.666666666666664,
+  "n": 24
+ },
+ "two lights + bg clutter|POS only": {
+  "MAE": 0.15795407082175603,
+  "success": 100.0,
+  "n": 24
+ },
+ "two lights + bg clutter|surround per-ch (green)": {
+  "MAE": 27.62580175101851,
+  "success": 20.833333333333336,
+  "n": 24
+ },
+ "two lights + bg clutter|surround per-ch + POS": {
+  "MAE": 0.12792150941374883,
+  "success": 100.0,
+  "n": 24
+ }
+}
