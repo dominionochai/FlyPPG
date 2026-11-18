@@ -28,6 +28,10 @@ Earlier "wins" were measured against a weak extractor (green-channel ROI mean). 
 - The only regime where preprocessing mattered at all is **heavy compression / noise / low light**. A biologically grounded, untested candidate: lamina-style **light-adaptive spatial pooling** (neural superposition: pool more photoreceptors when it is dim). Not built.
 - Differences of ~0.1 bpm are within noise; 18 windows per cell.
 
+## Update 2: light-adaptive pooling (lamina-style) - hypothesis not supported
+Tested dim/noisy and JPEG-compressed clips (no motion, 6 clips each, POS and green extractors). Adaptive spatial+temporal pooling did **not** help: with POS on dim clips raw video was best (0.20 vs 0.34 bpm). Reason: the ROI mean already pools thousands of pixels, so extra pooling adds nothing against white noise. Added noise (up to sigma 0.04) barely hurt at all. The only large errors came from JPEG quantisation (q15 with POS: 22 bpm; q30 with green: 20 bpm), which behaves erratically across quality levels and extractors and is not fixed by any preprocessing tried. n=6, so treat as noise-level evidence. `lowlight_test.py`, `results_lowlight.json`.
+Net: in simulation, nothing in FlyPPG beats a plain POS pipeline. Next informative step is real SmartSpectra output on real disturbed video.
+
 ---
 (Earlier v3 report follows; read it with the caveat above.)
 

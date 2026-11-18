@@ -1,0 +1,194 @@
+{
+ "JPEG q30|raw|POS": {
+  "MAE": 0.11521977722804048,
+  "success": 100.0
+ },
+ "JPEG q30|raw|green": {
+  "MAE": 20.34832851358913,
+  "success": 66.66666666666666
+ },
+ "JPEG q30|conventional|POS": {
+  "MAE": 0.10879938371106472,
+  "success": 100.0
+ },
+ "JPEG q30|conventional|green": {
+  "MAE": 20.37274257608913,
+  "success": 66.66666666666666
+ },
+ "JPEG q30|lamina adaptive pooling|POS": {
+  "MAE": 0.11521977722804048,
+  "success": 100.0
+ },
+ "JPEG q30|lamina adaptive pooling|green": {
+  "MAE": 20.34832851358913,
+  "success": 66.66666666666666
+ },
+ "JPEG q30|temporal mean(5) only|POS": {
+  "MAE": 0.11521977722804048,
+  "success": 100.0
+ },
+ "JPEG q30|temporal mean(5) only|green": {
+  "MAE": 13.544455965206518,
+  "success": 77.77777777777779
+ },
+ "JPEG q15|raw|POS": {
+  "MAE": 22.164534605518803,
+  "success": 61.111111111111114
+ },
+ "JPEG q15|raw|green": {
+  "MAE": 0.13801529114220262,
+  "success": 100.0
+ },
+ "JPEG q15|conventional|POS": {
+  "MAE": 22.96298572654931,
+  "success": 55.55555555555556
+ },
+ "JPEG q15|conventional|green": {
+  "MAE": 0.1308083275307743,
+  "success": 100.0
+ },
+ "JPEG q15|lamina adaptive pooling|POS": {
+  "MAE": 22.164534605518803,
+  "success": 61.111111111111114
+ },
+ "JPEG q15|lamina adaptive pooling|green": {
+  "MAE": 0.13801529114220262,
+  "success": 100.0
+ },
+ "JPEG q15|temporal mean(5) only|POS": {
+  "MAE": 22.96298572654931,
+  "success": 55.55555555555556
+ },
+ "JPEG q15|temporal mean(5) only|green": {
+  "MAE": 0.13801529114220262,
+  "success": 100.0
+ },
+ "dim (noise .02)|raw|POS": {
+  "MAE": 0.19845308294655814,
+  "success": 100.0
+ },
+ "dim (noise .02)|raw|green": {
+  "MAE": 0.23187802966402377,
+  "success": 100.0
+ },
+ "dim (noise .02)|conventional|POS": {
+  "MAE": 0.3937655829465581,
+  "success": 100.0
+ },
+ "dim (noise .02)|conventional|green": {
+  "MAE": 0.21388436068099953,
+  "success": 100.0
+ },
+ "dim (noise .02)|lamina adaptive pooling|POS": {
+  "MAE": 0.3399389099082646,
+  "success": 100.0
+ },
+ "dim (noise .02)|lamina adaptive pooling|green": {
+  "MAE": 0.21388436068099953,
+  "success": 100.0
+ },
+ "dim (noise .02)|temporal mean(5) only|POS": {
+  "MAE": 0.3937655829465581,
+  "success": 100.0
+ },
+ "dim (noise .02)|temporal mean(5) only|green": {
+  "MAE": 0.23187802966402377,
+  "success": 100.0
+ },
+ "very dim (noise .04)|raw|POS": {
+  "MAE": 0.23124873213786362,
+  "success": 100.0
+ },
+ "very dim (noise .04)|raw|green": {
+  "MAE": 0.33595467318099953,
+  "success": 100.0
+ },
+ "very dim (noise .04)|conventional|POS": {
+  "MAE": 0.4425937079465581,
+  "success": 100.0
+ },
+ "very dim (noise .04)|conventional|green": {
+  "MAE": 0.31154061068099953,
+  "success": 100.0
+ },
+ "very dim (noise .04)|lamina adaptive pooling|POS": {
+  "MAE": 0.3765584840579865,
+  "success": 100.0
+ },
+ "very dim (noise .04)|lamina adaptive pooling|green": {
+  "MAE": 0.319922197372305,
+  "success": 100.0
+ },
+ "very dim (noise .04)|temporal mean(5) only|POS": {
+  "MAE": 0.4425937079465581,
+  "success": 100.0
+ },
+ "very dim (noise .04)|temporal mean(5) only|green": {
+  "MAE": 0.33595467318099953,
+  "success": 100.0
+ },
+ "JPEG q30 + dim|raw|POS": {
+  "MAE": 0.29599563653975536,
+  "success": 100.0
+ },
+ "JPEG q30 + dim|raw|green": {
+  "MAE": 37.00871623466571,
+  "success": 38.88888888888889
+ },
+ "JPEG q30 + dim|conventional|POS": {
+  "MAE": 0.4172734010872333,
+  "success": 100.0
+ },
+ "JPEG q30 + dim|conventional|green": {
+  "MAE": 29.976673686713198,
+  "success": 55.55555555555556
+ },
+ "JPEG q30 + dim|lamina adaptive pooling|POS": {
+  "MAE": 0.32040969903975536,
+  "success": 100.0
+ },
+ "JPEG q30 + dim|lamina adaptive pooling|green": {
+  "MAE": 33.29777873466571,
+  "success": 50.0
+ },
+ "JPEG q30 + dim|temporal mean(5) only|POS": {
+  "MAE": 0.4172734010872333,
+  "success": 100.0
+ },
+ "JPEG q30 + dim|temporal mean(5) only|green": {
+  "MAE": 29.952259624213198,
+  "success": 55.55555555555556
+ },
+ "JPEG q15 + very dim|raw|POS": {
+  "MAE": 0.3841535006548394,
+  "success": 100.0
+ },
+ "JPEG q15 + very dim|raw|green": {
+  "MAE": 1.0223021643078514,
+  "success": 94.44444444444444
+ },
+ "JPEG q15 + very dim|conventional|POS": {
+  "MAE": 0.48259632074929193,
+  "success": 100.0
+ },
+ "JPEG q15 + very dim|conventional|green": {
+  "MAE": 2.234700731458829,
+  "success": 94.44444444444444
+ },
+ "JPEG q15 + very dim|lamina adaptive pooling|POS": {
+  "MAE": 0.4157745267662677,
+  "success": 100.0
+ },
+ "JPEG q15 + very dim|lamina adaptive pooling|green": {
+  "MAE": 0.39643908034740094,
+  "success": 100.0
+ },
+ "JPEG q15 + very dim|temporal mean(5) only|POS": {
+  "MAE": 0.5070103832492919,
+  "success": 100.0
+ },
+ "JPEG q15 + very dim|temporal mean(5) only|green": {
+  "MAE": 2.072106851807851,
+  "success": 88.88888888888889
+ }
+}
