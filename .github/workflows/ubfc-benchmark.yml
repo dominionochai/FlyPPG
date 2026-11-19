@@ -5,14 +5,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - .github/workflows/ubfc-benchmark.yml
-      - experiments/ubfc_single.py
-      - flyppg3.py
-      - flyppg.py
-      - fly_conn.py
-      - connectome/**
-      - readout_W3.npy
 
 permissions:
   contents: read
@@ -24,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: benchmark/integrity-audit
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
