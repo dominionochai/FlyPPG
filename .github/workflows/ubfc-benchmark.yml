@@ -27,7 +27,7 @@ jobs:
           python - <<'PY'
           import gdown
           url = "https://drive.google.com/drive/folders/1o0XU4gTIo46YfwaWjIgbtCncc-oF44Xk"
-          paths = gdown.download_folder(url, output="ubfc_data", quiet=False, remaining_ok=True)
+          paths = gdown.download_folder(url, output="ubfc_data", quiet=False)
           if not paths:
               raise SystemExit("Google Drive returned no downloadable files")
           print(f"Downloaded {len(paths)} files")
