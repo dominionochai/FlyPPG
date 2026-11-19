@@ -40,11 +40,15 @@ def extract_face_video(path, limit_seconds=None):
     cap = cv2.VideoCapture(str(path))
     fps = cap.get(cv2.CAP_PROP_FPS) or FPS_FALLBACK
     frames, last_box = [], None
+    frame_index = 0
     max_frames = int(limit_seconds * fps) if limit_seconds else None
-    while max_frames is None or len(frames) < max_frames:
+    height = width = 0
+    while max_frames is None or frame_index < max_frames:
         ok, frame = cap.read()
         if not ok:
             break
+        frame_index += 1
+        height, width = frame.shape[:2]
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = FACE.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5,
                                       minSize=(80, 80))
@@ -52,14 +56,24 @@ def extract_face_video(path, limit_seconds=None):
             x, y, w, h = max(faces, key=lambda b: b[2] * b[3])
             last_box = (x, y, w, h)
         if last_box is None:
-            continue
-        x, y, w, h = last_box
-        # Cheek/forehead region; avoid the eyes and mouth.
-        xa, xb = x + int(.18 * w), x + int(.82 * w)
-        ya, yb = y + int(.18 * h), y + int(.78 * h)
+            # Keep the original frame index; use a conservative central ROI
+            # until the detector acquires a face rather than shifting timestamps.
+            side = min(height, width) // 2
+            x = (width - side) // 2
+            y = (height - side) // 2
+            w = h = side
+        else:
+            x, y, w, h = last_box
+        # Preserve facial context and some surrounding background: FlyPPG's
+        # surround normaliser requires both, unlike a face-only cheek crop.
+        side = int(max(w, h) * 1.8)
+        cx, cy = x + w // 2, y + h // 2
+        xa, ya = max(0, cx - side // 2), max(0, cy - side // 2)
+        xb, yb = min(width, xa + side), min(height, ya + side)
+        xa, ya = max(0, xb - side), max(0, yb - side)
         crop = frame[ya:yb, xa:xb]
         if crop.size == 0:
-            continue
+            raise RuntimeError(f"Invalid crop at video frame {frame_index}")
         rgb = cv2.cvtColor(cv2.resize(crop, (96, 96)), cv2.COLOR_BGR2RGB)
         frames.append(rgb.astype(np.float32) / 255.0)
     cap.release()
@@ -147,6 +161,7 @@ def main():
     ref_t, ref_hr = parse_ground_truth(args.ground_truth)
     import flyppg3 as fly
 
+    # Use the repository's own POS implementation consistently across arms.
     arms = {"raw_POS": frames}
     weights_path = Path(args.flyppg_weights)
     if weights_path.exists():
@@ -174,7 +189,7 @@ def main():
             "estimate_bpm", "absolute_error_bpm"])
         writer.writeheader()
         for name, video in arms.items():
-            pulse = pos_signal(video, fps)
+            pulse = fly.rppg_pos(video, l=max(2, int(round(1.6 * fps))))
             rows = estimate_windows(pulse, fps, ref_t, ref_hr)
             report["arms"][name] = summarize(rows)
             for row in rows:
