@@ -39,3 +39,19 @@
 ## Decision
 
 Do not claim FlyPPG beats POS or SmartSpectra. The next valid milestone is a successful single-recording run with a populated `windows.csv` and `report.json`, followed by an SDK run on the exact same source recording.
+
+
+## Latest hosted execution attempt
+
+**2026-11-19 — GitHub Actions run 44451617172**
+
+- Python test workflow: passed on the same commit.
+- UBFC real-video workflow: failed before video processing.
+- The ground-truth text file downloaded successfully (74.3 kB).
+- The official Google Drive video download was blocked by Google's "too many users have viewed or downloaded this file recently" quota response.
+- The FlyPPG benchmark script was therefore skipped; no real-video metrics or output artifact exist.
+- The separate SmartSpectra workflow has not been executed. It requires the video plus a configured `SMARTSPECTRA_API_KEY` repository secret.
+
+Run: https://github.com/dominionochai/FlyPPG/actions/runs/44451617172
+
+The official UBFC page also exposes a OneDrive link, but the available browser route redirects to Microsoft sign-in, so anonymous access has not been verified. Do not substitute an unlicensed third-party copy or claim the benchmark ran.
