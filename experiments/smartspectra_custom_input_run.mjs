@@ -1,147 +1,100 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
-import {
-  SmartSpectraSDK,
-  ProcessingStatus,
-  breathingMetrics,
-  cardioMetrics,
-  PixelFormat,
-} from '@smartspectra/node-sdk';
+import { SmartSpectraSDK, PixelFormat, breathingMetrics, cardioMetrics } from '@smartspectra/node-sdk';
 import { decodeMetrics } from '@smartspectra/node-sdk/messages';
 
-const [inputPath, outputDir = 'smartspectra-custom-input'] = process.argv.slice(2);
+const [videoPath, outputDir = 'smartspectra-custom-input'] = process.argv.slice(2);
 const apiKey = process.env.SMARTSPECTRA_API_KEY;
+if (!apiKey) throw new Error('SMARTSPECTRA_API_KEY is required');
+if (!videoPath || !fs.existsSync(videoPath)) throw new Error('Usage: node experiments/smartspectra_custom_input_run.mjs <video> [output-dir]');
 
-if (!apiKey) throw new Error('SMARTSPECTRA_API_KEY is not set');
-if (!inputPath || !fs.existsSync(inputPath)) {
-  throw new Error('Usage: node experiments/smartspectra_custom_input_run.mjs <processed-video> [output-dir]');
-}
-
-function runProbe(args) {
-  const result = spawnSync('ffprobe', args, { encoding: 'utf8' });
+function probeVideo(file) {
+  const result = spawnSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height,avg_frame_rate,r_frame_rate', '-of', 'json', file], { encoding: 'utf8' });
+  if (result.error) throw result.error;
   if (result.status !== 0) throw new Error(result.stderr || 'ffprobe failed');
-  return JSON.parse(result.stdout);
+  const stream = JSON.parse(result.stdout).streams?.[0];
+  if (!stream) throw new Error('Input contains no video stream');
+  const rate = (value) => { const [n, d = '1'] = String(value).split('/'); return Number(n) / Number(d); };
+  const width = Number(stream.width);
+  const height = Number(stream.height);
+  const fps = rate(stream.avg_frame_rate) || rate(stream.r_frame_rate);
+  if (!Number.isInteger(width) || !Number.isInteger(height) || width < 1 || height < 1) throw new Error('Invalid video dimensions');
+  if (!Number.isFinite(fps) || fps <= 0) throw new Error('Invalid video frame rate');
+  return { width, height, fps };
 }
 
-function parseRate(value) {
-  const [n, d] = String(value).split('/').map(Number);
-  return d ? n / d : n;
+async function* readRgbFrames(readable, frameSize) {
+  let frame = Buffer.allocUnsafe(frameSize);
+  let filled = 0;
+  for await (const chunk of readable) {
+    let offset = 0;
+    while (offset < chunk.length) {
+      const copied = chunk.copy(frame, filled, offset);
+      filled += copied;
+      offset += copied;
+      if (filled === frameSize) {
+        yield frame;
+        frame = Buffer.allocUnsafe(frameSize);
+        filled = 0;
+      }
+    }
+  }
+  if (filled !== 0) throw new Error(`Decoder ended with an incomplete frame (${filled}/${frameSize} bytes)`);
 }
 
-const probe = runProbe([
-  '-v', 'error', '-select_streams', 'v:0',
-  '-show_entries', 'stream=width,height,avg_frame_rate,r_frame_rate',
-  '-of', 'json', inputPath,
-]);
-const stream = probe.streams?.[0];
-if (!stream) throw new Error('No video stream found');
-
-const width = Number(stream.width);
-const height = Number(stream.height);
-const avgFps = parseRate(stream.avg_frame_rate);\nconst fallbackFps = parseRate(stream.r_frame_rate);\nconst fps = Number.isFinite(avgFps) && avgFps > 0 ? avgFps : fallbackFps;
-if (!width || !height || !Number.isFinite(fps) || fps <= 0) {
-  throw new Error('Invalid video dimensions or frame rate');
-}
-
-fs.mkdirSync(outputDir, { recursive: true });
+const { width, height, fps } = probeVideo(videoPath);
+const stride = width * 3;
+const frameSize = stride * height;
 const packets = [];
 const validations = [];
 const errors = [];
-let runningResolve;
-const running = new Promise((resolve) => { runningResolve = resolve; });
-
-const sdk = new SmartSpectraSDK({
-  apiKey,
-  requestedMetrics: [...breathingMetrics, ...cardioMetrics],
-});
-
-sdk.on('processingStatus', (status) => {
-  if (status === ProcessingStatus.kRunning) runningResolve();
-});
-sdk.on('metrics', (buf, timestampUs) => {
-  packets.push({ timestamp_us: timestampUs, metrics: decodeMetrics(buf) });
-});
-sdk.on('validationStatus', (code, timestampUs, hint) => {
-  validations.push({ code, timestamp_us: timestampUs, hint });
-});
+const sdk = new SmartSpectraSDK({ apiKey, requestedMetrics: [...breathingMetrics, ...cardioMetrics] });
+sdk.on('metrics', (buffer, timestampUs) => packets.push({ timestamp_us: timestampUs, metrics: decodeMetrics(buffer) }));
+sdk.on('validationStatus', (code, timestampUs, hint) => validations.push({ code, timestamp_us: timestampUs, hint }));
 sdk.on('error', (code, message, retryable) => {
   errors.push({ code, message, retryable });
   process.stderr.write(`SmartSpectra error ${code}: ${message} (retryable=${retryable})\n`);
 });
 
-const ffmpeg = spawn('ffmpeg', [
-  '-v', 'error', '-i', inputPath, '-map', '0:v:0',
-  '-f', 'rawvideo', '-pix_fmt', 'rgb24', 'pipe:1',
-], { stdio: ['ignore', 'pipe', 'pipe'] });
-
-let ffmpegError = '';
-ffmpeg.stderr.setEncoding('utf8');
-ffmpeg.stderr.on('data', (chunk) => { ffmpegError += chunk; });
-
-async function* readRgbFrames(readable, frameBytes) {
-  let pending = Buffer.alloc(0);
-  for await (const chunk of readable) {
-    pending = pending.length ? Buffer.concat([pending, chunk]) : chunk;
-    while (pending.length >= frameBytes) {
-      yield pending.subarray(0, frameBytes);
-      pending = pending.subarray(frameBytes);
-    }
-  }
-  if (pending.length) throw new Error(`Decoder ended with ${pending.length} trailing bytes (expected a full frame)`);
-}
-
-let frameCount = 0;
-const frameBytes = width * height * 3;
-const frameIntervalMs = 1000 / fps;
+const decoder = spawn('ffmpeg', ['-v', 'error', '-i', videoPath, '-map', '0:v:0', '-vsync', '0', '-f', 'rawvideo', '-pix_fmt', 'rgb24', 'pipe:1'], { stdio: ['ignore', 'pipe', 'pipe'] });
+let decoderError = '';
+decoder.stderr.setEncoding('utf8');
+decoder.stderr.on('data', (chunk) => { decoderError += chunk; });
+const decoderClosed = new Promise((resolve) => decoder.once('close', resolve));
+let framesSubmitted = 0;
 
 try {
   sdk.useCustomInput();
   sdk.start();
-  await Promise.race([
-    running,
-    new Promise((_, reject) => setTimeout(() => reject(new Error('SDK did not enter running state')), 30000)),
-  ]);
-
-  for await (const frame of readRgbFrames(ffmpeg.stdout, frameBytes)) {
-    const timestampUs = Math.round(frameCount * 1_000_000 / fps);
-    const accepted = sdk.sendFrame(
-      frame, width, height, width * 3, PixelFormat.kRGB, timestampUs,
-    );
-    if (!accepted) throw new Error(`SmartSpectra rejected input frame ${frameCount}`);
-    frameCount += 1;
-    await new Promise((resolve) => setTimeout(resolve, frameIntervalMs));
+  for await (const frame of readRgbFrames(decoder.stdout, frameSize)) {
+    const timestampUs = Math.round(framesSubmitted * 1_000_000 / fps);
+    if (!sdk.sendFrame(frame, width, height, stride, PixelFormat.kRGB, timestampUs)) {
+      throw new Error(`SmartSpectra rejected frame ${framesSubmitted}`);
+    }
+    framesSubmitted += 1;
   }
-
-  const exit = await ffmpegClosed;
-  if (exit !== 0) throw new Error(`ffmpeg exited ${exit}: ${ffmpegError}`);
+  const exitCode = await decoderClosed;
+  if (exitCode !== 0) throw new Error(decoderError || `ffmpeg exited with code ${exitCode}`);
   await sdk.stopAsync();
+} catch (error) {
+  decoder.kill('SIGTERM');
+  throw error;
 } finally {
-  if (ffmpeg.exitCode === null) ffmpeg.kill('SIGTERM');
   await sdk.destroy();
 }
 
-const pulsePackets = packets.filter((p) => p.metrics?.cardio?.pulseRate?.length);
-const breathingPackets = packets.filter((p) => p.metrics?.breathing?.rate?.length);
+const pulsePackets = packets.filter(({ metrics }) => metrics?.cardio?.pulseRate?.length);
+const breathingPackets = packets.filter(({ metrics }) => metrics?.breathing?.rate?.length);
 const summary = {
-  input: path.basename(inputPath),
-  input_mode: 'useCustomInput + sendFrame',
-  width, height, fps,
-  frames_submitted: frameCount,
-  packet_count: packets.length,
-  pulse_packet_count: pulsePackets.length,
-  breathing_packet_count: breathingPackets.length,
-  validation_event_count: validations.length,
-  error_count: errors.length,
-  pulse_rate_samples: pulsePackets.flatMap((p) => p.metrics.cardio.pulseRate),
-  breathing_rate_samples: breathingPackets.flatMap((p) => p.metrics.breathing.rate),
+  input: path.basename(videoPath), input_mode: 'custom_rgb_frames', sdk_version: SmartSpectraSDK.version,
+  width, height, fps, frames_submitted: framesSubmitted, packet_count: packets.length,
+  pulse_packet_count: pulsePackets.length, breathing_packet_count: breathingPackets.length,
+  validation_event_count: validations.length, error_count: errors.length,
+  pulse_rate_samples: pulsePackets.flatMap(({ metrics }) => metrics.cardio.pulseRate),
+  breathing_rate_samples: breathingPackets.flatMap(({ metrics }) => metrics.breathing.rate),
 };
-
-fs.writeFileSync(path.join(outputDir, 'metrics.json'), JSON.stringify({
-  summary, packets, validations, errors,
-}, null, 2));
-fs.writeFileSync(path.join(outputDir, 'summary.json'), JSON.stringify(summary, null, 2));
-process.stdout.write(JSON.stringify(summary, null, 2) + '\n');
-
-if (!frameCount) throw new Error('No video frames were submitted');
-if (!summary.pulse_packet_count) process.exitCode = 1;
+fs.mkdirSync(outputDir, { recursive: true });
+fs.writeFileSync(path.join(outputDir, 'metrics.json'), JSON.stringify({ summary, packets, validations, errors }, null, 2));
+process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
+if (framesSubmitted === 0 || pulsePackets.length === 0) process.exitCode = 1;
