@@ -24,6 +24,7 @@ const errors = [];
 let started = false;
 let settled = false;
 let timeout;
+let resolveDone;
 
 const sdk = new SmartSpectraSDK({
   apiKey,
@@ -52,6 +53,7 @@ sdk.on('error', (code, message, retryable) => {
   console.error(`SmartSpectra error ${code}: ${message} (retryable=${retryable})`);
 });
 const done = new Promise((resolve) => {
+  resolveDone = resolve;
   sdk.on('processingStatus', (status) => {
     console.log('SmartSpectra processing status:', status);
     if (status === ProcessingStatus.kRunning) started = true;
@@ -66,6 +68,7 @@ timeout = setTimeout(async () => {
   errors.push({ code: 'TIMEOUT', message: 'SDK did not finish video playback within 180 seconds' });
   finish();
   try { await sdk.stop(); } catch {}
+  resolveDone();
 }, 180_000);
 
 sdk.useFile(videoPath);
