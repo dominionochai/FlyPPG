@@ -3,7 +3,6 @@ import path from 'node:path';
 import {
   SmartSpectraSDK,
   ProcessingStatus,
-  breathingMetrics,
   cardioMetrics,
 } from '@smartspectra/node-sdk';
 import { decodeMetrics } from '@smartspectra/node-sdk/messages';
@@ -28,7 +27,9 @@ let resolveDone;
 
 const sdk = new SmartSpectraSDK({
   apiKey,
-  requestedMetrics: [...breathingMetrics, ...cardioMetrics],
+  // This benchmark evaluates pulse only. Requesting breathing also requires
+  // the chest to remain in frame, which this face-focused MCD recording lacks.
+  requestedMetrics: [...cardioMetrics],
 });
 
 const finish = () => {
@@ -85,6 +86,11 @@ const summary = {
   pulse_packet_count: pulsePackets.length,
   breathing_packet_count: breathingPackets.length,
   validation_event_count: validations.length,
+  validation_summary: Object.entries(validations.reduce((acc, item) => {
+    const key = `${item.code}: ${item.hint}`;
+    acc[key] = (acc[key] ?? 0) + 1;
+    return acc;
+  }, {})).map(([message, count]) => ({ message, count })),
   error_count: errors.length,
   pulse_rate_samples: pulsePackets.flatMap((p) => p.metrics.cardio.pulseRate),
   breathing_rate_samples: breathingPackets.flatMap((p) => p.metrics.breathing.rate),
