@@ -40,8 +40,8 @@ jobs:
         run: |
           set -euo pipefail
           base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
-          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_FullHDwebcam_before.avi" -o video.avi
-          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_FullHDwebcam_before.txt" -o ppg_sync.txt
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_USBVideo_before.avi" -o video.avi
+          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_USBVideo_before.txt" -o ppg_sync.txt
           test "$(stat -c%s video.avi)" -gt 10000000
           test "$(wc -l < ppg_sync.txt)" -gt 1000
           ffmpeg -y -i video.avi -an -c:v libx264 -preset veryfast -pix_fmt yuv420p video.mp4
