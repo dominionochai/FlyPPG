@@ -1,6 +1,7 @@
 name: UBFC real-video benchmark
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - benchmark/integrity-audit
