@@ -20,6 +20,7 @@ class ReadingParserTests(unittest.TestCase):
         parsed = ss_score.readings(line)
         self.assertEqual(len(parsed), 2)
         self.assertEqual(parsed[0]["value"], 72.5)
+        self.assertEqual(parsed[0]["timestamp_us"], 12000000)
         self.assertEqual(parsed[0]["confidence"], 0.91)
         self.assertIs(parsed[0]["stable"], True)
 
