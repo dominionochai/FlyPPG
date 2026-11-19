@@ -42,32 +42,39 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
           ffprobe -v error -select_streams v:0 \
-            -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames,duration \
+            -count_frames -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames,nb_read_frames,duration \
             -of json /tmp/mcd-one/video.avi | tee /tmp/mcd-one/video_metadata.json
           ffmpeg -v error -i /tmp/mcd-one/video.avi -frames:v 1 -f null -
           python - <<'PY'
           import json
-          import numpy as np
           from pathlib import Path
+          import statistics
 
           meta = json.loads(Path("/tmp/mcd-one/video_metadata.json").read_text())
           streams = meta.get("streams", [])
           if not streams:
               raise SystemExit("No video stream found in downloaded AVI")
           stream = streams[0]
-          ref = np.loadtxt("/tmp/mcd-one/ppg_sync.txt")
-          if ref.ndim != 2 or ref.shape[1] != 2 or len(ref) < 1000:
-              raise SystemExit(f"Unexpected synchronized PPG shape: {ref.shape}")
+          rows = []
+          for line in Path("/tmp/mcd-one/ppg_sync.txt").read_text().splitlines():
+              parts = line.split()
+              if len(parts) != 2:
+                  continue
+              rows.append((float(parts[0]), float(parts[1])))
+          if len(rows) < 1000:
+              raise SystemExit(f"Unexpected synchronized PPG row count: {len(rows)}")
+          intervals = [row[1] for row in rows]
           print({
               "video": stream,
               "decoded_first_frame": True,
-              "reference_rows": int(ref.shape[0]),
-              "reference_columns": int(ref.shape[1]),
-              "reference_first_rows": ref[:3].tolist(),
-              "reference_last_rows": ref[-3:].tolist(),
-              "reference_interval_median_seconds": float(np.median(ref[:, 1])),
-              "reference_interval_min_seconds": float(np.min(ref[:, 1])),
-              "reference_interval_max_seconds": float(np.max(ref[:, 1])),
+              "reference_rows": len(rows),
+              "reference_columns": 2,
+              "reference_first_rows": rows[:3],
+              "reference_last_rows": rows[-3:],
+              "reference_interval_median_seconds": statistics.median(intervals),
+              "reference_interval_min_seconds": min(intervals),
+              "reference_interval_max_seconds": max(intervals),
+              "reference_elapsed_seconds_sum": sum(intervals),
           })
           PY
           rm -rf /tmp/mcd-one
