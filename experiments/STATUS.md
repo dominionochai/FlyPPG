@@ -67,3 +67,18 @@ The official UBFC page also exposes a OneDrive link, but the available browser r
 ## Next decision
 
 Stop spending cycles retrying the inaccessible UBFC Google Drive link and LGI archive endpoint. The benchmark harness and tests are ready, but real-data validation is blocked on obtaining one authorized, downloadable face-video recording with its synchronized reference signal. Do not use unlicensed mirrors, research-only datasets for commercial claims, or synthetic data as a substitute for real-video evidence. Once an authorized recording is available, run FlyPPG and POS on the same recording first; add SmartSpectra only when its licensed runtime and credentials are configured.
+
+
+## MCD-rPPG single-recording access check — 2026-11-19
+
+**Hosted run:** https://github.com/dominionochai/FlyPPG/actions/runs/44453665031  
+**Pinned dataset revision:** `akramic/mcd_rppg@04df5b6`  
+**Recording:** `1020_IriunWebcam_before`
+
+- Downloaded the video (16,252,928 bytes) and matching `ppg_sync` file (51,219 bytes) successfully in GitHub Actions. No dataset files were committed to this repository or retained as workflow artifacts.
+- FFprobe identified an MPEG-4 video stream at 640×480 and nominal 24 fps; it counted 4,310 frames. FFmpeg decoded the first frame, but emitted a macroblock decode warning during inspection.
+- The paired reference contains 4,310 rows and two numeric columns. The second column's intervals have a median of 0.003953 seconds and sum to 15.731 seconds.
+- **This is not yet a validated synchronized benchmark input.** The video reports a zero duration in its container metadata, and its nominal frame count/rate imply about 179.6 seconds, while the reference intervals sum to about 15.7 seconds. The timestamp/sample semantics and video timing must be resolved before aligning signals.
+- No FlyPPG or POS score was calculated. Do not report this as a real-data accuracy result.
+
+The access gate is now passed for this one recording. The next engineering task is to resolve the timing discrepancy and verify full-frame decoding before any model comparison.
