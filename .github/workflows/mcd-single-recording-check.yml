@@ -1,0 +1,77 @@
+name: MCD single-recording access check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/mcd-single-recording-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inspect-one-recording:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out FlyPPG
+        uses: actions/checkout@v4
+
+      - name: Download one licensed MCD-rPPG video and its synchronized PPG reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/mcd-one
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 \
+            "$base/video/1020_IriunWebcam_before.avi" \
+            -o /tmp/mcd-one/video.avi
+          curl -fL --retry 2 --connect-timeout 20 --max-time 60 \
+            "$base/ppg_sync/1020_IriunWebcam_before.txt" \
+            -o /tmp/mcd-one/ppg_sync.txt
+          test "$(stat -c%s /tmp/mcd-one/video.avi)" -gt 10000000
+          test "$(stat -c%s /tmp/mcd-one/ppg_sync.txt)" -gt 10000
+          echo "Video bytes: $(stat -c%s /tmp/mcd-one/video.avi)"
+          echo "Reference bytes: $(stat -c%s /tmp/mcd-one/ppg_sync.txt)"
+
+      - name: Inspect video metadata and synchronized reference format
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --quiet opencv-python-headless numpy
+          python - <<'PY'
+          import cv2
+          import numpy as np
+          from pathlib import Path
+
+          video_path = "/tmp/mcd-one/video.avi"
+          ref_path = Path("/tmp/mcd-one/ppg_sync.txt")
+          cap = cv2.VideoCapture(video_path)
+          if not cap.isOpened():
+              raise SystemExit("Downloaded AVI could not be opened")
+          fps = cap.get(cv2.CAP_PROP_FPS)
+          frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+          width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+          height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+          ok, frame = cap.read()
+          cap.release()
+          if not ok or frames < 100 or fps <= 0:
+              raise SystemExit("Video metadata/frame validation failed")
+
+          raw = ref_path.read_text(errors="replace")
+          lines = [line.strip() for line in raw.splitlines() if line.strip()]
+          print({
+              "video": "1020_IriunWebcam_before.avi",
+              "fps": fps,
+              "frame_count": frames,
+              "duration_seconds": frames / fps,
+              "resolution": [width, height],
+              "first_frame_decoded": bool(ok),
+              "reference_line_count": len(lines),
+              "reference_first_lines": lines[:3],
+          })
+          if len(lines) < 2:
+              raise SystemExit("Reference file has fewer than two non-empty lines")
+          PY
+          rm -rf /tmp/mcd-one
