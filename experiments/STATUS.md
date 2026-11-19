@@ -100,3 +100,17 @@ A corrected hosted inspection on commit `d4d0feb` found:
 **Conclusion:** the 15.7-second discrepancy is not evidence of a 15.7-second reference against a 179.5-second video. Row counts and per-frame timestamps now align structurally. Do not score this recording yet: identify column 2 semantics and quantify damaged frames first.
 
 **Corrected hosted run:** https://github.com/dominionochai/FlyPPG/actions/runs/44454005357
+
+
+## Reference-file semantics check — 2026-11-19
+
+Inspected the published MCD-rPPG baseline documentation and its dataset issue tracker. The baseline repository identifies `ppg_sync/` as the synchronized PPG signal associated with each video. A separate published dataset analysis explicitly identifies **column 1** of `ppg_sync/*.txt` as the synchronized PPG ground truth and warns against using the discrete clinical `pulse` biomarker as video-window ground truth.
+
+For this recording, column 1 therefore contains the reference waveform (values 0–255), not timestamps or heart-rate values. The 4,310-row correspondence with the 4,310 video frames is consistent with the per-frame synchronized reference representation used by this recording. Column 2 remains uninterpreted; do not sum it or use it as elapsed time without confirming its definition in the official data-generation code.
+
+Sources:
+- https://github.com/garrulus2003/MCD-rPPG-baselines
+- https://github.com/ksyegorov/mcd_rppg/issues/5
+- https://github.com/ksyegorov/mcd_rppg/issues/8
+
+**Benchmark gate remains closed:** quantify and isolate MPEG-4 decode corruption, then validate the waveform-to-video sampling relationship before calculating HR error.
