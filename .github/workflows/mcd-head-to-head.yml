@@ -41,6 +41,7 @@ jobs:
           test "$(wc -l < ppg_sync.txt)" -eq 4310
 
       - name: Run SmartSpectra on the source video
+        continue-on-error: true
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
         run: |
