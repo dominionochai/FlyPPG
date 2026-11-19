@@ -30,3 +30,6 @@ The script reports raw-video POS, surround-normalised POS, and FlyPPG-v3 stabili
 - SmartSpectra is not run by this script. It requires the licensed SDK and key. Use the existing `ss_preprocess.py`, `ss_run.py`, and `ss_score.py` path for the SDK arm, then add its timestamped outputs to the same window-level scoring protocol.
 - One subject cannot establish generalisation. Repeat across held-out participants and report coverage, MAE, RMSE and paired per-subject uncertainty.
 - No results are claimed until a real video and its reference file have actually been processed.
+
+
+The UBFC runner is executed on GitHub Actions; it downloads the research dataset on the hosted runner and uploads `report.json` and `windows.csv` as an artifact.
