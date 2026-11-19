@@ -21,6 +21,15 @@ def _number(value):
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
 
 
+def _timestamp(value, fallback):
+    # Protobuf JSON serializes int64 fields as decimal strings.
+    if _number(value):
+        return int(value)
+    if isinstance(value, str) and value.isdecimal():
+        return int(value)
+    return fallback
+
+
 def readings(text):
     """Return pulse samples with value, confidence, stability and timestamps."""
     found = []
@@ -36,8 +45,9 @@ def readings(text):
                       if k in item and _number(item[k])), None)
         if value is None:
             return
-        stamp = next((item[k] for k in ("timestamp", "time_stamp", "timeStamp")
-                      if k in item and _number(item[k])), callback_us)
+        raw_stamp = next((item[k] for k in ("timestamp", "time_stamp", "timeStamp")
+                          if k in item), None)
+        stamp = _timestamp(raw_stamp, callback_us)
         confidence = item.get("confidence")
         stable = item.get("stable")
         found.append({
