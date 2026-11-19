@@ -39,7 +39,7 @@ if (!stream) throw new Error('No video stream found');
 
 const width = Number(stream.width);
 const height = Number(stream.height);
-const fps = parseRate(stream.avg_frame_rate || stream.r_frame_rate);
+const avgFps = parseRate(stream.avg_frame_rate);\nconst fallbackFps = parseRate(stream.r_frame_rate);\nconst fps = Number.isFinite(avgFps) && avgFps > 0 ? avgFps : fallbackFps;
 if (!width || !height || !Number.isFinite(fps) || fps <= 0) {
   throw new Error('Invalid video dimensions or frame rate');
 }
@@ -113,7 +113,7 @@ try {
     await new Promise((resolve) => setTimeout(resolve, frameIntervalMs));
   }
 
-  const exit = await new Promise((resolve) => ffmpeg.once('close', (code) => resolve(code)));
+  const exit = await ffmpegClosed;
   if (exit !== 0) throw new Error(`ffmpeg exited ${exit}: ${ffmpegError}`);
   await sdk.stopAsync();
 } finally {
