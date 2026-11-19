@@ -163,10 +163,10 @@ def main():
 
     # Use the repository's own POS implementation consistently across arms.
     arms = {"raw_POS": frames}
+    arms["surround_POS"] = fly.surround_gated(frames)
     weights_path = Path(args.flyppg_weights)
     if weights_path.exists():
         weights = np.load(weights_path)
-        arms["surround_POS"] = fly.surround_gated(frames)
         arms["flyppg_v3_POS"] = fly.stab_fly_local(frames, weights)
     else:
         print("WARNING: readout_W3.npy missing; FlyPPG v3 arm skipped")
