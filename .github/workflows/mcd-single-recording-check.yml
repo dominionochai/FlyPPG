@@ -41,10 +41,12 @@ jobs:
           set -euo pipefail
           sudo apt-get update -qq
           sudo apt-get install -y -qq ffmpeg
-          ffprobe -v error -select_streams v:0 \
-            -count_frames -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames,nb_read_frames,duration \
+          ffprobe -v error -select_streams v:0 -count_frames \
+            -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames,nb_read_frames,duration,time_base \
             -of json /tmp/mcd-one/video.avi | tee /tmp/mcd-one/video_metadata.json
-          ffmpeg -v error -i /tmp/mcd-one/video.avi -frames:v 1 -f null -
+          ffprobe -v error -select_streams v:0 -show_entries frame=best_effort_timestamp_time \
+            -of csv=p=0 /tmp/mcd-one/video.avi > /tmp/mcd-one/frame_timestamps.txt
+          ffmpeg -v error -i /tmp/mcd-one/video.avi -f null -
           python - <<'PY'
           import json
           from pathlib import Path
@@ -58,23 +60,35 @@ jobs:
           rows = []
           for line in Path("/tmp/mcd-one/ppg_sync.txt").read_text().splitlines():
               parts = line.split()
-              if len(parts) != 2:
-                  continue
-              rows.append((float(parts[0]), float(parts[1])))
+              if len(parts) == 2:
+                  rows.append((float(parts[0]), float(parts[1])))
           if len(rows) < 1000:
               raise SystemExit(f"Unexpected synchronized PPG row count: {len(rows)}")
-          intervals = [row[1] for row in rows]
+
+          frame_times = []
+          for line in Path("/tmp/mcd-one/frame_timestamps.txt").read_text().splitlines():
+              try:
+                  frame_times.append(float(line.strip()))
+              except ValueError:
+                  continue
+
+          second_column = [row[1] for row in rows]
+          second_deltas = [b - a for a, b in zip(second_column, second_column[1:])]
           print({
-              "video": stream,
-              "decoded_first_frame": True,
+              "video_stream": stream,
+              "decoded_frame_timestamp_count": len(frame_times),
+              "video_first_frame_time": frame_times[0] if frame_times else None,
+              "video_last_frame_time": frame_times[-1] if frame_times else None,
+              "video_timestamp_span_seconds": frame_times[-1] - frame_times[0] if len(frame_times) > 1 else None,
               "reference_rows": len(rows),
-              "reference_columns": 2,
-              "reference_first_rows": rows[:3],
-              "reference_last_rows": rows[-3:],
-              "reference_interval_median_seconds": statistics.median(intervals),
-              "reference_interval_min_seconds": min(intervals),
-              "reference_interval_max_seconds": max(intervals),
-              "reference_elapsed_seconds_sum": sum(intervals),
+              "reference_first_rows": rows[:5],
+              "reference_last_rows": rows[-5:],
+              "reference_column_1_range": [min(r[0] for r in rows), max(r[0] for r in rows)],
+              "reference_column_2_range": [min(second_column), max(second_column)],
+              "reference_column_2_delta_median": statistics.median(second_deltas) if second_deltas else None,
+              "reference_column_2_delta_min": min(second_deltas) if second_deltas else None,
+              "reference_column_2_delta_max": max(second_deltas) if second_deltas else None,
+              "reference_rows_equal_decoded_frames": len(rows) == len(frame_times),
           })
           PY
           rm -rf /tmp/mcd-one
