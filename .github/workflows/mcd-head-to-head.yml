@@ -1,4 +1,3 @@
-# Re-run after SMARTSPECTRA_API_KEY repository secret was configured.
 name: MCD FlyPPG vs SmartSpectra baseline
 
 on:
@@ -6,7 +5,7 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/mcd-head-to-head.yml"
-      - "experiments/mcd_head_to_head.py"
+      - "experiments/**"
   workflow_dispatch:
 
 permissions:
@@ -29,10 +28,13 @@ jobs:
 
       - name: Install processing dependencies
         run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
           python -m pip install --upgrade pip
           python -m pip install numpy scipy opencv-python-headless
 
-      - name: Download the same MCD recording and synchronized PPG
+      - name: Download MCD video and synchronized reference
         shell: bash
         run: |
           set -euo pipefail
@@ -42,26 +44,39 @@ jobs:
           test "$(stat -c%s video.avi)" -gt 10000000
           test "$(wc -l < ppg_sync.txt)" -eq 4310
 
-      - name: Run SmartSpectra on the source video
+      - name: Install SmartSpectra SDK
+        run: npm install --no-save @smartspectra/node-sdk
+
+      - name: Run SmartSpectra on original video
+        id: smartspectra
         continue-on-error: true
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
-        run: |
-          npm install --no-save @smartspectra/node-sdk
-          node experiments/smartspectra_file_run.mjs video.avi smartspectra_results
+        run: node experiments/smartspectra_file_run.mjs video.avi smartspectra_results
 
-      - name: Smoke-test SmartSpectra custom frame input with source frames\n        if: steps.smartspectra.outcome == 'success'\n        continue-on-error: true\n        env:\n          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}\n        run: |\n          node experiments/smartspectra_custom_input_run.mjs video.avi smartspectra_custom_input\n\n      - name: Run FlyPPG and score both against synchronized PPG
-        run: |
-          python experiments/mcd_head_to_head.py --video video.avi --reference ppg_sync.txt --smartspectra smartspectra_results/metrics.json --out head_to_head.json
+      - name: Smoke-test SmartSpectra custom-frame input
+        if: steps.smartspectra.outcome == 'success'
+        continue-on-error: true
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        run: node experiments/smartspectra_custom_input_run.mjs video.avi smartspectra_custom_input
 
-      - name: Upload measured baseline
+      - name: Run FlyPPG and score against synchronized PPG
+        run: |
+          python experiments/mcd_head_to_head.py \
+            --video video.avi \
+            --reference ppg_sync.txt \
+            --smartspectra smartspectra_results/metrics.json \
+            --out head_to_head.json
+
+      - name: Upload benchmark artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mcd-flyppg-smartspectra-baseline
           path: |
             head_to_head.json
-            smartspectra_results/summary.json
-            smartspectra_results/metrics.json\n            smartspectra_custom_input/
+            smartspectra_results/
+            smartspectra_custom_input/
           if-no-files-found: warn
           retention-days: 30
