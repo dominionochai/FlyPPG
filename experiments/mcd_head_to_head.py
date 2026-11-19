@@ -3,6 +3,8 @@ import argparse, json, re
 from pathlib import Path
 import cv2
 import numpy as np
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scipy import signal
 import flyppg3 as fly
 
