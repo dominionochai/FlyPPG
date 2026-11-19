@@ -23,18 +23,18 @@ def pulse_bpm(x, fps):
 def load_frames(video):
     cap = cv2.VideoCapture(str(video))
     fps = cap.get(cv2.CAP_PROP_FPS) or FPS
-    detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") if hasattr(cv2, "CascadeClassifier") else None
     frames, box = [], None
     while True:
         ok, frame = cap.read()
         if not ok: break
         h, w = frame.shape[:2]
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = detector.detectMultiScale(gray, 1.1, 5, minSize=(80,80))
+        faces = detector.detectMultiScale(gray, 1.1, 5, minSize=(80,80)) if detector is not None else []
         if len(faces):
             x,y,bw,bh = max(faces, key=lambda b:b[2]*b[3]); box=(x,y,bw,bh)
         if box is None:
-            side=min(h,w)//2; x=(w-side)//2; y=(h-side)//2; bw=bh=side
+            side=int(min(h,w)*0.72); x=(w-side)//2; y=(h-side)//2; bw=bh=side
         else: x,y,bw,bh=box
         side=int(max(bw,bh)*1.8); cx=x+bw//2; cy=y+bh//2
         xa=max(0,cx-side//2); ya=max(0,cy-side//2)
