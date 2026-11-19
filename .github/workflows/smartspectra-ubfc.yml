@@ -1,0 +1,60 @@
+name: SmartSpectra UBFC single-video run
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smartspectra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install SmartSpectra Node SDK
+        run: npm install --no-save @smartspectra/node-sdk
+
+      - name: Download UBFC subject 1 video and reference
+        run: |
+          python -m pip install --upgrade pip gdown
+          mkdir -p ubfc_data/DATASET_2/subject1
+          python - <<'PY'
+          import gdown
+          files = {
+              "1q7LX_8Ggfl43ZmsFXMrUkV2hNnKr-yTE": "ubfc_data/DATASET_2/subject1/ground_truth.txt",
+              "1qBlkbaB8y3-KlWC_A61KsY42Wjo66ss4": "ubfc_data/DATASET_2/subject1/vid.avi",
+          }
+          for file_id, output in files.items():
+              result = gdown.download(id=file_id, output=output, quiet=False)
+              if not result:
+                  raise SystemExit(f"Failed to download required file: {output}")
+          PY
+
+      - name: Run SmartSpectra on the real face video
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        run: |
+          node experiments/smartspectra_file_run.mjs \
+            ubfc_data/DATASET_2/subject1/vid.avi \
+            smartspectra_results
+
+      - name: Upload SmartSpectra measurements
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smartspectra-ubfc-subject1
+          path: smartspectra_results/
+          if-no-files-found: warn
+          retention-days: 14
