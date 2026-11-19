@@ -1,0 +1,64 @@
+name: MCD FlyPPG vs SmartSpectra baseline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/mcd-head-to-head.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  head-to-head:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install processing dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy opencv-python-headless
+
+      - name: Download the same MCD recording and synchronized PPG
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_IriunWebcam_before.avi" -o video.avi
+          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_IriunWebcam_before.txt" -o ppg_sync.txt
+          test "$(stat -c%s video.avi)" -gt 10000000
+          test "$(wc -l < ppg_sync.txt)" -eq 4310
+
+      - name: Run SmartSpectra on the source video
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        run: |
+          npm install --no-save @smartspectra/node-sdk
+          node experiments/smartspectra_file_run.mjs video.avi smartspectra_results
+
+      - name: Run FlyPPG and score both against synchronized PPG
+        run: |
+          python experiments/mcd_head_to_head.py --video video.avi --reference ppg_sync.txt --smartspectra smartspectra_results/metrics.json --out head_to_head.json
+
+      - name: Upload measured baseline
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcd-flyppg-smartspectra-baseline
+          path: |
+            head_to_head.json
+            smartspectra_results/summary.json
+            smartspectra_results/metrics.json
+          if-no-files-found: warn
+          retention-days: 30
