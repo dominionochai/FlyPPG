@@ -55,3 +55,15 @@ Do not claim FlyPPG beats POS or SmartSpectra. The next valid milestone is a suc
 Run: https://github.com/dominionochai/FlyPPG/actions/runs/44451617172
 
 The official UBFC page also exposes a OneDrive link, but the available browser route redirects to Microsoft sign-in, so anonymous access has not been verified. Do not substitute an unlicensed third-party copy or claim the benchmark ran.
+
+
+## LGI-PPGI access probe — 2026-11-19
+
+- Evaluated the LGI-PPGI dataset as an alternative. Its repository describes 100 webcam recordings from 25 participants with synchronized finger pulse-oximeter reference data and lists the dataset under CC BY 4.0.
+- The published archive endpoint was probed from GitHub Actions using HEAD and a 1 KiB HTTP byte-range request. Both requests timed out after 25 seconds; the server returned no HTTP status (curl status 000).
+- No archive bytes were retained and no video was downloaded. Range access and partial-archive extraction are not available to us through this endpoint at present.
+- This is an access failure, not evidence that the dataset itself is invalid or that its licence is unsuitable. Do not claim an LGI real-video benchmark has run.
+
+## Next decision
+
+Stop spending cycles retrying the inaccessible UBFC Google Drive link and LGI archive endpoint. The benchmark harness and tests are ready, but real-data validation is blocked on obtaining one authorized, downloadable face-video recording with its synchronized reference signal. Do not use unlicensed mirrors, research-only datasets for commercial claims, or synthetic data as a substitute for real-video evidence. Once an authorized recording is available, run FlyPPG and POS on the same recording first; add SmartSpectra only when its licensed runtime and credentials are configured.
