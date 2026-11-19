@@ -1,0 +1,38 @@
+name: LGI dataset access probe
+
+on:
+  push:
+    paths:
+      - ".github/workflows/lgi-access-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check public dataset endpoint without downloading the dataset
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://gw.cancontrols.com/LGI_DATABASE/id1.zip"
+          echo "Checking endpoint headers..."
+          curl --location --silent --show-error --head --max-time 25 "$url"             | tr -d '\r'             | grep -Ei '^(HTTP/|content-length:|content-type:|accept-ranges:|last-modified:)' || true
+
+          echo
+          echo "Checking whether a 1 KiB byte range can be read..."
+          headers="$(mktemp)"
+          code="$(curl --location --silent --show-error --max-time 25 \
+            --range 0-1023 --dump-header "$headers" --output /dev/null \
+            --write-out '%{http_code}' "$url" || true)"
+          echo "HTTP status: $code"
+          tr -d '\r' < "$headers" | grep -Ei '^(HTTP/|content-range:|content-length:|accept-ranges:)' || true
+          rm -f "$headers"
+          if [ "$code" != "206" ]; then
+            echo "Range access is not confirmed; no dataset bytes were retained."
+            exit 1
+          fi
+          echo "Range access confirmed. Only the requested 1 KiB was transferred and discarded."
