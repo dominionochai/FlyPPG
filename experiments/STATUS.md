@@ -114,3 +114,21 @@ Sources:
 - https://github.com/ksyegorov/mcd_rppg/issues/8
 
 **Benchmark gate remains closed:** quantify and isolate MPEG-4 decode corruption, then validate the waveform-to-video sampling relationship before calculating HR error.
+
+
+## MCD same-recording baseline — 2026-11-19
+
+**Hosted run:** https://github.com/dominionochai/FlyPPG/actions/runs/44455239442  
+**Artifact:** `mcd-flyppg-smartspectra-baseline`  
+**Recording:** `1020_IriunWebcam_before.avi`, 4,310 frames, 24 fps, 179.58 s  
+**Reference:** synchronized `ppg_sync` column 1, scored in 10-second windows with 5-second stride.
+
+| Arm | Windows | Coverage | MAE (BPM) | RMSE (BPM) | Within 5 BPM |
+|---|---:|---:|---:|---:|---:|
+| Raw POS | 34/34 | 100% | 20.15 | 24.56 | 11.76% |
+| FlyPPG v3 stabilization + POS | 34/34 | 100% | 24.39 | 30.18 | 8.82% |
+| SmartSpectra | 0/34 | 0% | Not measured | Not measured | 0% |
+
+**Measured result:** On this recording and this pipeline, FlyPPG v3 is 4.24 BPM worse in MAE than raw POS. This is a negative preliminary result, not a claim about general performance. The run used the centered ROI fallback because the hosted OpenCV build did not expose `CascadeClassifier`; the recording also has a corrupt final AVI packet. Reference HR was estimated from the synchronized PPG waveform's dominant 0.7–3.0 Hz frequency in each window.
+
+**SmartSpectra blocker:** the workflow environment had an empty `SMARTSPECTRA_API_KEY`; the SDK runner stopped before processing. Therefore there is still no measured FlyPPG-vs-SmartSpectra result. The exact same-video workflow is now implemented and retains the FlyPPG baseline artifact even when the SDK cannot run. Configure the repository Actions secret `SMARTSPECTRA_API_KEY` with the licensed key, then rerun `MCD FlyPPG vs SmartSpectra baseline`. Do not report SmartSpectra as zero BPM or treat the missing run as a score.
