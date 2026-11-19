@@ -1,0 +1,71 @@
+name: MCD MPEG-4 integrity check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/mcd-video-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Download the same MCD recording
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/mcd-integrity/frames
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_IriunWebcam_before.avi" -o /tmp/mcd-integrity/video.avi
+          test "$(stat -c%s /tmp/mcd-integrity/video.avi)" -gt 10000000
+          echo "Downloaded bytes: $(stat -c%s /tmp/mcd-integrity/video.avi)"
+
+      - name: Strict and permissive decode diagnostics
+        shell: bash
+        run: |
+          set -uo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffprobe -v error -select_streams v:0 -count_frames -show_entries stream=codec_name,width,height,r_frame_rate,nb_read_frames -of json /tmp/mcd-integrity/video.avi | tee /tmp/mcd-integrity/metadata.json
+
+          set +e
+          ffmpeg -hide_banner -v warning -xerror -err_detect explode -i /tmp/mcd-integrity/video.avi -map 0:v:0 -f null - 2>/tmp/mcd-integrity/strict.log
+          strict_status=$?
+          set -e
+          echo "STRICT_DECODE_EXIT_CODE=$strict_status"
+          echo "STRICT_DECODE_DIAGNOSTICS:"
+          tail -n 60 /tmp/mcd-integrity/strict.log
+
+          set +e
+          ffmpeg -hide_banner -v warning -i /tmp/mcd-integrity/video.avi -map 0:v:0 -vsync 0 /tmp/mcd-integrity/frames/frame-%06d.png 2>/tmp/mcd-integrity/permissive.log
+          permissive_status=$?
+          set -e
+          frame_count=$(find /tmp/mcd-integrity/frames -maxdepth 1 -name 'frame-*.png' | wc -l)
+          echo "PERMISSIVE_DECODE_EXIT_CODE=$permissive_status"
+          echo "PERMISSIVE_EXTRACTED_FRAMES=$frame_count"
+          echo "PERMISSIVE_DECODE_DIAGNOSTICS:"
+          tail -n 80 /tmp/mcd-integrity/permissive.log
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          import re
+
+          root = Path("/tmp/mcd-integrity")
+          metadata = json.loads((root / "metadata.json").read_text())
+          strict = (root / "strict.log").read_text(errors="replace")
+          permissive = (root / "permissive.log").read_text(errors="replace")
+          patterns = re.compile(r"error|corrupt|conceal|invalid|damaged|macroblock", re.I)
+          print("SUMMARY")
+          print({
+              "stream": metadata.get("streams", [{}])[0],
+              "strict_error_lines": [x for x in strict.splitlines() if patterns.search(x)][-30:],
+              "permissive_error_lines": [x for x in permissive.splitlines() if patterns.search(x)][-30:],
+              "permissive_png_count": len(list((root / "frames").glob("frame-*.png"))),
+          })
+          PY
