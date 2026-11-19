@@ -82,3 +82,21 @@ Stop spending cycles retrying the inaccessible UBFC Google Drive link and LGI ar
 - No FlyPPG or POS score was calculated. Do not report this as a real-data accuracy result.
 
 The access gate is now passed for this one recording. The next engineering task is to resolve the timing discrepancy and verify full-frame decoding before any model comparison.
+
+
+## MCD timing diagnosis — 2026-11-19
+
+The earlier apparent 15.7-second reference duration was a parser mistake: it summed the second reference column as if every value were a sample interval. That interpretation is unsupported and must not be used.
+
+A corrected hosted inspection on commit `d4d0feb` found:
+
+- 4,310 decoded video-frame timestamps, from 0.000000 to 179.541667 seconds.
+- 4,310 reference rows: exactly one row per decoded video frame.
+- Reference column 1 spans 0–255 and is consistent with the PPG waveform values.
+- Reference column 2 spans 0–0.008977 and is not monotonic; summing it does not produce recording duration. Its exact meaning still requires confirmation from the dataset's official preprocessing code.
+- The AVI reports a zero container duration despite valid per-frame timestamps.
+- Full decode emits MPEG-4 macroblock errors (including around macroblock 108). The workflow exits successfully, but this warning means video integrity is not yet cleared.
+
+**Conclusion:** the 15.7-second discrepancy is not evidence of a 15.7-second reference against a 179.5-second video. Row counts and per-frame timestamps now align structurally. Do not score this recording yet: identify column 2 semantics and quantify damaged frames first.
+
+**Corrected hosted run:** https://github.com/dominionochai/FlyPPG/actions/runs/44454005357
