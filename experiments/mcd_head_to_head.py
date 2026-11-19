@@ -8,7 +8,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scipy import signal
 import flyppg3 as fly
 
-FPS = 24.0
 WINDOW = 10.0
 STRIDE = 5.0
 
@@ -22,7 +21,8 @@ def pulse_bpm(x, fps):
 
 def load_frames(video):
     cap = cv2.VideoCapture(str(video))
-    fps = cap.get(cv2.CAP_PROP_FPS) or FPS
+    fps = cap.get(cv2.CAP_PROP_FPS)
+    if not fps or fps < 1: raise RuntimeError(f"Invalid video FPS: {fps}")
     detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") if hasattr(cv2, "CascadeClassifier") else None
     frames, box = [], None
     while True:
@@ -44,7 +44,7 @@ def load_frames(video):
         if crop.size:
             frames.append(cv2.cvtColor(cv2.resize(crop,(96,96)),cv2.COLOR_BGR2RGB).astype(np.float32)/255)
     cap.release()
-    if len(frames)<FPS*30: raise RuntimeError(f"Only {len(frames)} usable frames")
+    if len(frames)<fps*30: raise RuntimeError(f"Only {len(frames)} usable frames")
     return np.asarray(frames,dtype=np.float32), float(fps)
 
 def sdk_samples(path):
@@ -74,9 +74,10 @@ def main():
     ap.add_argument("--weights",default="readout_W3.npy")
     a=ap.parse_args()
     frames,fps=load_frames(a.video)
-    if abs(fps-FPS)>0.5: raise RuntimeError(f"Unexpected video FPS: {fps}")
     ref=np.loadtxt(a.reference)[:,0]
-    n=min(len(frames),len(ref)); frames=frames[:n]; ref=ref[:n]
+    if len(frames) != len(ref):
+        raise RuntimeError(f"Frame/reference alignment mismatch: {len(frames)} video frames vs {len(ref)} reference samples")
+    n=len(frames)
     weights=np.load(a.weights)
     fly_frames=fly.stab_fly_local(frames,weights)
     fly_signal=fly.rppg_pos(fly_frames,l=max(2,round(1.6*fps)))
