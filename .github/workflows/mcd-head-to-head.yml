@@ -40,10 +40,12 @@ jobs:
         run: |
           set -euo pipefail
           base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
-          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_IriunWebcam_before.avi" -o video.avi
-          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_IriunWebcam_before.txt" -o ppg_sync.txt
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_FullHDwebcam_before.avi" -o video.avi
+          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_FullHDwebcam_before.txt" -o ppg_sync.txt
           test "$(stat -c%s video.avi)" -gt 10000000
-          test "$(wc -l < ppg_sync.txt)" -eq 4310
+          test "$(wc -l < ppg_sync.txt)" -gt 1000
+          ffmpeg -y -i video.avi -an -c:v libx264 -preset veryfast -pix_fmt yuv420p video.mp4
+          ffprobe -v error -select_streams v:0 -show_entries stream=avg_frame_rate,nb_frames -of default=noprint_wrappers=1 video.mp4
 
       - name: Install SmartSpectra SDK
         run: npm install --no-save @smartspectra/node-sdk
@@ -53,19 +55,19 @@ jobs:
         continue-on-error: true
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
-        run: node experiments/smartspectra_file_run.mjs video.avi smartspectra_results
+        run: node experiments/smartspectra_file_run.mjs video.mp4 smartspectra_results
 
       - name: Smoke-test SmartSpectra custom-frame input
         if: steps.smartspectra.outcome == 'success'
         continue-on-error: true
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
-        run: node experiments/smartspectra_custom_input_run.mjs video.avi smartspectra_custom_input
+        run: node experiments/smartspectra_custom_input_run.mjs video.mp4 smartspectra_custom_input
 
       - name: Run FlyPPG and score against synchronized PPG
         run: |
           python experiments/mcd_head_to_head.py \
-            --video video.avi \
+            --video video.mp4 \
             --reference ppg_sync.txt \
             --smartspectra smartspectra_results/metrics.json \
             --out head_to_head.json
