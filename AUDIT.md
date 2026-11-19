@@ -67,3 +67,8 @@ Verified:
 ## Claim policy
 
 Until the real head-to-head evaluation is complete, permitted wording is: "FlyPPG is an experimental rPPG preprocessing research prototype." Do not claim it is more accurate, more stable, or more reliable than SmartSpectra.
+
+
+## Automated test workflow
+
+GitHub Actions workflow `.github/workflows/tests.yml` was added to `main`. It compiles Python sources and runs unittest discovery on pull requests and pushes to main. The audit branch is awaiting its first CI run.
