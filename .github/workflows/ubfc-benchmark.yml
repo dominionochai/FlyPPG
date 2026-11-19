@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - benchmark/integrity-audit
+      - main
     paths:
       - .github/workflows/ubfc-benchmark.yml
       - experiments/ubfc_single.py
