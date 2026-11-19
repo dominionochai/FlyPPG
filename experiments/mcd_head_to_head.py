@@ -68,7 +68,7 @@ def sdk_samples(path):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--video",required=True); ap.add_argument("--reference",required=True)
-    ap.add_argument("--smartspectra",required=True); ap.add_argument("--out",required=True)
+    ap.add_argument("--smartspectra"); ap.add_argument("--out",required=True)
     ap.add_argument("--weights",default="readout_W3.npy")
     a=ap.parse_args()
     frames,fps=load_frames(a.video)
@@ -79,7 +79,7 @@ def main():
     fly_frames=fly.stab_fly_local(frames,weights)
     fly_signal=fly.rppg_pos(fly_frames,l=max(2,round(1.6*fps)))
     raw_signal=fly.rppg_pos(frames,l=max(2,round(1.6*fps)))
-    ss=sdk_samples(a.smartspectra)
+    ss=sdk_samples(a.smartspectra) if a.smartspectra and Path(a.smartspectra).exists() else []
     rows=[]
     size=round(WINDOW*fps); step=round(STRIDE*fps)
     for start in range(0,n-size+1,step):
@@ -94,7 +94,7 @@ def main():
             "windows_total":len(rows),"arms":{},"windows":rows,
             "reference_method":"dominant 0.7-3.0 Hz frequency of synchronized ppg_sync column 1 per 10s window",
             "flyppg_method":"FlyPPG v3 local motion stabilization followed by POS; same ROI for raw POS control",
-            "smartspectra_samples":len(ss)}
+            "smartspectra_samples":len(ss),"smartspectra_status":"measured" if ss else "not run: SDK output missing"}
     for arm,key in (("raw_POS","raw_pos_bpm"),("FlyPPG_v3","flyppg_bpm"),("SmartSpectra","smartspectra_bpm")):
         valid=[r for r in rows if r[key] is not None]
         err=np.array([r[key]-r["reference_bpm"] for r in valid])
