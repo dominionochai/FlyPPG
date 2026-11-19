@@ -35,43 +35,39 @@ jobs:
           echo "Video bytes: $(stat -c%s /tmp/mcd-one/video.avi)"
           echo "Reference bytes: $(stat -c%s /tmp/mcd-one/ppg_sync.txt)"
 
-      - name: Inspect video metadata and synchronized reference format
+      - name: Inspect video stream and synchronized reference
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --quiet opencv-python-headless numpy
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          ffprobe -v error -select_streams v:0 \
+            -show_entries stream=codec_name,width,height,r_frame_rate,nb_frames,duration \
+            -of json /tmp/mcd-one/video.avi | tee /tmp/mcd-one/video_metadata.json
+          ffmpeg -v error -i /tmp/mcd-one/video.avi -frames:v 1 -f null -
           python - <<'PY'
-          import cv2
+          import json
           import numpy as np
           from pathlib import Path
 
-          video_path = "/tmp/mcd-one/video.avi"
-          ref_path = Path("/tmp/mcd-one/ppg_sync.txt")
-          cap = cv2.VideoCapture(video_path)
-          if not cap.isOpened():
-              raise SystemExit("Downloaded AVI could not be opened")
-          fps = cap.get(cv2.CAP_PROP_FPS)
-          frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-          width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-          height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-          ok, frame = cap.read()
-          cap.release()
-          if not ok or frames < 100 or fps <= 0:
-              raise SystemExit("Video metadata/frame validation failed")
-
-          raw = ref_path.read_text(errors="replace")
-          lines = [line.strip() for line in raw.splitlines() if line.strip()]
+          meta = json.loads(Path("/tmp/mcd-one/video_metadata.json").read_text())
+          streams = meta.get("streams", [])
+          if not streams:
+              raise SystemExit("No video stream found in downloaded AVI")
+          stream = streams[0]
+          ref = np.loadtxt("/tmp/mcd-one/ppg_sync.txt")
+          if ref.ndim != 2 or ref.shape[1] != 2 or len(ref) < 1000:
+              raise SystemExit(f"Unexpected synchronized PPG shape: {ref.shape}")
           print({
-              "video": "1020_IriunWebcam_before.avi",
-              "fps": fps,
-              "frame_count": frames,
-              "duration_seconds": frames / fps,
-              "resolution": [width, height],
-              "first_frame_decoded": bool(ok),
-              "reference_line_count": len(lines),
-              "reference_first_lines": lines[:3],
+              "video": stream,
+              "decoded_first_frame": True,
+              "reference_rows": int(ref.shape[0]),
+              "reference_columns": int(ref.shape[1]),
+              "reference_first_rows": ref[:3].tolist(),
+              "reference_last_rows": ref[-3:].tolist(),
+              "reference_interval_median_seconds": float(np.median(ref[:, 1])),
+              "reference_interval_min_seconds": float(np.min(ref[:, 1])),
+              "reference_interval_max_seconds": float(np.max(ref[:, 1])),
           })
-          if len(lines) < 2:
-              raise SystemExit("Reference file has fewer than two non-empty lines")
           PY
           rm -rf /tmp/mcd-one
