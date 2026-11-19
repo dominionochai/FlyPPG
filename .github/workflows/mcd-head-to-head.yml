@@ -50,7 +50,7 @@ jobs:
           npm install --no-save @smartspectra/node-sdk
           node experiments/smartspectra_file_run.mjs video.avi smartspectra_results
 
-      - name: Run FlyPPG and score both against synchronized PPG
+      - name: Smoke-test SmartSpectra custom frame input with source frames\n        if: steps.smartspectra.outcome == 'success'\n        continue-on-error: true\n        env:\n          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}\n        run: |\n          node experiments/smartspectra_custom_input_run.mjs video.avi smartspectra_custom_input\n\n      - name: Run FlyPPG and score both against synchronized PPG
         run: |
           python experiments/mcd_head_to_head.py --video video.avi --reference ppg_sync.txt --smartspectra smartspectra_results/metrics.json --out head_to_head.json
 
@@ -62,6 +62,6 @@ jobs:
           path: |
             head_to_head.json
             smartspectra_results/summary.json
-            smartspectra_results/metrics.json
+            smartspectra_results/metrics.json\n            smartspectra_custom_input/
           if-no-files-found: warn
           retention-days: 30
