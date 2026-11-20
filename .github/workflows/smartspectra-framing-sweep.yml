@@ -1,0 +1,66 @@
+name: SmartSpectra framing sweep
+
+# Which public clips frame head + upper chest well enough to pass SmartSpectra's chest gate?
+# Per clip: below-chin framing (face heights) and SmartSpectra pulse-packet count. Results land on `ci-diagnostics` under sweep/.
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Video URLs, one per line (any ffmpeg-readable format)"
+        default: "https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6/video/1020_IriunWebcam_before.avi"
+
+permissions:
+  contents: write
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - name: Install
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg libvulkan1 mesa-vulkan-drivers
+          python -m pip install numpy scipy opencv-python-headless mediapipe==0.10.14
+          npm install --no-save @smartspectra/node-sdk
+      - name: Sweep
+        shell: bash
+        run: |
+          mkdir -p out; i=0
+          while read -r url; do
+            [ -z "$url" ] && continue; i=$((i+1)); d="out/clip$i"; mkdir -p "$d"
+            echo "$url" > "$d/url.txt"
+            curl -fL --retry 2 --max-time 240 "$url" -o "$d/raw" || { echo "download failed" > "$d/result.txt"; continue; }
+            ffmpeg -y -i "$d/raw" -an -t 40 -c:v libx264 -preset veryfast -pix_fmt yuv420p "$d/v.mp4" 2> "$d/ffmpeg.log" || { echo "convert failed" > "$d/result.txt"; continue; }
+            python experiments/diagnose_video.py "$d/v.mp4" --out "$d/diag" --label "clip$i" > /dev/null 2>&1 || true
+            node experiments/smartspectra_file_run.mjs "$d/v.mp4" "$d/run" --metrics=cardio --label="clip$i" --log-level=info > "$d/sdk.log" 2>&1 || true
+            python - "$d" <<'PY' | tee "$d/result.txt"
+          import json, sys, pathlib
+          d = pathlib.Path(sys.argv[1])
+          g = json.loads((d / "diag/report.json").read_text()) if (d / "diag/report.json").exists() else {}
+          s = json.loads((d / "run/summary.json").read_text()) if (d / "run/summary.json").exists() else {}
+          fg = g.get("framing_summary") or {}
+          print(d.name, "| url:", (d / "url.txt").read_text().strip().split("/")[-1],
+                "| below-chin:", json.dumps(fg.get("below_chin_face_heights", fg)), "| status:", s.get("status"),
+                "| pulse packets:", s.get("pulse_packet_count"), "| validation:", json.dumps(s.get("validation_summary")))
+          PY
+          done <<< "${{ github.event.inputs.urls }}"
+          cat out/*/result.txt > out/RESULTS.txt
+      - name: Mask key and publish
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          for f in out/*/*.log; do sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" "$f"; done
+          find out -name 'raw' -delete; find out -name 'v.mp4' -delete; find out -name metrics.json -size +3M -delete
+          grep -rIl -F "${SMARTSPECTRA_API_KEY}" out && { echo "::error::key in output"; exit 1; }
+          git config user.name github-actions; git config user.email actions@users.noreply.github.com
+          git fetch origin ci-diagnostics:ci-diagnostics 2>/dev/null; git checkout -f ci-diagnostics 2>/dev/null || git checkout --orphan ci-diagnostics
+          mkdir -p sweep && rm -rf "sweep/run-${GITHUB_RUN_ID}" && cp -r out "sweep/run-${GITHUB_RUN_ID}"
+          git add sweep && git commit -q -m "framing sweep ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
