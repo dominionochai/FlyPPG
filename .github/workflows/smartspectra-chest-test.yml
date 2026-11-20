@@ -1,0 +1,132 @@
+name: SmartSpectra chest-visible dataset test
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/smartspectra-chest-test.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  chest-visible-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install video tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3
+          ffmpeg -version | head -n 1
+
+      - name: Download a frontal chest recording from MPSC-RR
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import pathlib
+          import urllib.request
+
+          api = "https://huggingface.co/api/datasets/justchugh/MPSC-RR/tree/main?recursive=true"
+          req = urllib.request.Request(api, headers={"User-Agent": "FlyPPG-dataset-test/1.0"})
+          with urllib.request.urlopen(req, timeout=60) as response:
+              entries = json.load(response)
+
+          candidates = [
+              item for item in entries
+              if item.get("type") == "file"
+              and pathlib.PurePosixPath(item["path"]).name.lower() in {"s1_front.mov", "s1_front.mp4"}
+          ]
+          if not candidates:
+              candidates = [
+                  item for item in entries
+                  if item.get("type") == "file"
+                  and "front" in pathlib.PurePosixPath(item["path"]).stem.lower()
+                  and pathlib.PurePosixPath(item["path"]).suffix.lower() in {".mov", ".mp4"}
+              ]
+          if not candidates:
+              raise SystemExit("No frontal chest video found in MPSC-RR repository tree.")
+
+          chosen = candidates[0]["path"]
+          url = "https://huggingface.co/datasets/justchugh/MPSC-RR/resolve/main/" + urllib.parse.quote(chosen, safe="/")
+          req = urllib.request.Request(url, headers={"User-Agent": "FlyPPG-dataset-test/1.0"})
+          with urllib.request.urlopen(req, timeout=180) as response, open("chest_source_video", "wb") as output:
+              while True:
+                  chunk = response.read(1024 * 1024)
+                  if not chunk:
+                      break
+                  output.write(chunk)
+
+          size = pathlib.Path("chest_source_video").stat().st_size
+          if size < 100_000:
+              raise SystemExit(f"Downloaded file is unexpectedly small: {size} bytes")
+          pathlib.Path("dataset_source.txt").write_text(
+              f"dataset=justchugh/MPSC-RR\nfile={chosen}\nbytes={size}\nlicense=CC-BY-4.0\n",
+              encoding="utf-8",
+          )
+          print(f"Downloaded {chosen}: {size:,} bytes")
+          PY
+          ffmpeg -y -i chest_source_video -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p chest_test.mp4
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,avg_frame_rate,duration -of json chest_test.mp4 | tee video_probe.json
+
+      - name: Install SmartSpectra SDK
+        run: npm install --no-save @smartspectra/node-sdk
+
+      - name: Run SmartSpectra on chest-visible video
+        id: smartspectra
+        continue-on-error: true
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        run: |
+          set +e
+          node experiments/smartspectra_file_run.mjs chest_test.mp4 smartspectra_chest_results --metrics=breathing+cardio --label=MPSC-RR-frontal-chest
+          code=$?
+          echo "runner_exit_code=$code" > runner_status.txt
+          exit 0
+
+      - name: Upload chest visibility test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smartspectra-mpsc-chest-test
+          path: |
+            dataset_source.txt
+            video_probe.json
+            chest_test.mp4
+            runner_status.txt
+            smartspectra_chest_results/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Print result summary
+        if: always()
+        run: |
+          if [ -f smartspectra_chest_results/summary.json ]; then
+            python3 - <<'PY'
+          import json
+          from pathlib import Path
+          x = json.loads(Path("smartspectra_chest_results/summary.json").read_text())
+          print(json.dumps({
+              "dataset_video": x.get("label"),
+              "status": x.get("status"),
+              "packet_count": x.get("packet_count"),
+              "pulse_packet_count": x.get("pulse_packet_count"),
+              "breathing_packet_count": x.get("breathing_packet_count"),
+              "validation_summary": x.get("validation_summary"),
+              "error_count": x.get("error_count"),
+              "errors": x.get("errors"),
+          }, indent=2))
+          PY
+          else
+            echo "No SmartSpectra summary was produced."
+            exit 1
+          fi
