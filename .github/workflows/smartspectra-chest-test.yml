@@ -21,11 +21,29 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Install video tools
+      - name: Install video and Vulkan tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg python3
+          sudo apt-get install -y ffmpeg python3 libvulkan1 mesa-vulkan-drivers vulkan-tools
           ffmpeg -version | head -n 1
+          echo "Installed Vulkan ICDs:"
+          ls -la /usr/share/vulkan/icd.d/ || true
+          echo "Vulkan loader summary:"
+          vulkaninfo --summary || true
+
+      - name: Configure software Vulkan (Mesa lavapipe)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \( -name 'lvp_icd*.json' -o -name '*lvp*.json' \) | head -n 1)"
+          if [ -z "$ICD" ]; then
+            echo "Mesa lavapipe ICD was not installed."
+            exit 1
+          fi
+          echo "Using Vulkan ICD: $ICD"
+          echo "VK_ICD_FILENAMES=$ICD" >> "$GITHUB_ENV"
+          echo "VK_DRIVER_FILES=$ICD" >> "$GITHUB_ENV"
+          VK_ICD_FILENAMES="$ICD" VK_DRIVER_FILES="$ICD" vulkaninfo --summary
 
       - name: Download a frontal chest recording from MPSC-RR
         shell: bash
@@ -34,6 +52,7 @@ jobs:
           python3 - <<'PY'
           import json
           import pathlib
+          import urllib.parse
           import urllib.request
 
           api = "https://huggingface.co/api/datasets/justchugh/MPSC-RR/tree/main?recursive=true"
@@ -88,6 +107,7 @@ jobs:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
         run: |
           set +e
+          echo "Vulkan ICD: $VK_ICD_FILENAMES"
           node experiments/smartspectra_file_run.mjs chest_test.mp4 smartspectra_chest_results --metrics=breathing+cardio --label=MPSC-RR-frontal-chest
           code=$?
           echo "runner_exit_code=$code" > runner_status.txt
