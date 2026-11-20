@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/mcd-head-to-head.yml"
       - "experiments/**"
+      - "facial_signal.py"
+      - "tests/test_facial_signal.py"
   workflow_dispatch:
 
 permissions:
@@ -73,6 +75,14 @@ jobs:
             --smartspectra smartspectra_results/metrics.json \
             --out head_to_head.json
 
+      - name: Run multi-region performance benchmark
+        if: always()
+        run: |
+          python experiments/mcd_multiregion.py \
+            --video video.mp4 \
+            --reference ppg_sync.txt \
+            --out multiregion_benchmark.json
+
       - name: Upload benchmark artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -80,6 +90,7 @@ jobs:
           name: mcd-flyppg-smartspectra-baseline
           path: |
             head_to_head.json
+            multiregion_benchmark.json
             smartspectra_results/
             smartspectra_custom_input/
           if-no-files-found: warn
