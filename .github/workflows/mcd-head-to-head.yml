@@ -73,6 +73,7 @@ jobs:
             --video video.mp4 \
             --reference ppg_sync.txt \
             --smartspectra smartspectra_results/metrics.json \
+            --smartspectra-summary smartspectra_results/summary.json \
             --out head_to_head.json
 
       - name: Run multi-region performance benchmark
@@ -96,22 +97,14 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-      - name: Enforce valid SmartSpectra output
+      - name: Enforce valid SmartSpectra baseline (final gate; artifacts are already uploaded)
         if: always()
         shell: bash
         run: |
-          set -euo pipefail
-          file_pulses=0
-          custom_pulses=0
-          if [ -f smartspectra_results/summary.json ]; then
-            file_pulses="$(node -e "const x=require('./smartspectra_results/summary.json'); process.stdout.write(String(x.pulse_packet_count ?? 0))")"
-          fi
+          set -uo pipefail
+          # Informational only: the custom-frame smoke test is not the scored baseline.
           if [ -f smartspectra_custom_input/metrics.json ]; then
-            custom_pulses="$(node -e "const x=require('./smartspectra_custom_input/metrics.json'); process.stdout.write(String(x.summary?.pulse_packet_count ?? 0))")"
+            node -e "const x=require('./smartspectra_custom_input/metrics.json'); console.log('Custom-input pulse packets (informational, not scored):', x.summary?.pulse_packet_count ?? 0)" || true
           fi
-          echo "File-input pulse packets: $file_pulses"
-          echo "Custom-input pulse packets: $custom_pulses"
-          if [ "$file_pulses" -eq 0 ] && [ "$custom_pulses" -eq 0 ]; then
-            echo "::error::INVALID_NO_OUTPUT: no SmartSpectra pulse readings from either input path."
-            exit 1
-          fi
+          # Fails unless the SmartSpectra arm of head_to_head.json is VALID (usable, non-zero-confidence samples aligned to scored windows).
+          python experiments/benchmark_gate.py head_to_head.json

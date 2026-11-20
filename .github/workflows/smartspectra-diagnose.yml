@@ -1,0 +1,114 @@
+name: SmartSpectra MCD diagnosis
+
+# Establishes WHY SmartSpectra produces zero pulse packets on MCD-rPPG, using a control clip run through the identical runner.
+# Results are committed to the `ci-diagnostics` branch (logs + contact sheets) so they can be read without artifact access.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/smartspectra-diagnose.yml"
+      - "experiments/diagnose_video.py"
+      - "experiments/summarize_diagnosis.py"
+      - "experiments/smartspectra_file_run.mjs"
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libvulkan1 mesa-vulkan-drivers vulkan-tools
+          python -m pip install --upgrade pip
+          python -m pip install numpy scipy opencv-python-headless mediapipe==0.10.14
+          npm install --no-save @smartspectra/node-sdk
+          mkdir -p diagnostics_out/runs diagnostics_out/diag diagnostics_out/logs
+
+      - name: Download MCD USBVideo recording (unmodified) and a control clip
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_USBVideo_before.avi" -o video.avi
+          # Control: openly licensed (MIT repo) sample face video; used only as an environment control, never redistributed.
+          curl -fL --retry 2 --connect-timeout 20 --max-time 120 "https://raw.githubusercontent.com/Rouast-Labs/vitallens.js/main/examples/sample_video_2.mp4" -o control.mp4
+          ls -l video.avi control.mp4
+
+      - name: Convert MCD exactly as the benchmark does (H.264 MP4)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ffmpeg -y -i video.avi -an -c:v libx264 -preset veryfast -pix_fmt yuv420p video.mp4 2> diagnostics_out/logs/ffmpeg_convert.log || true
+          tail -n 15 diagnostics_out/logs/ffmpeg_convert.log
+          for f in video.avi video.mp4 control.mp4; do
+            ffprobe -v error -show_streams -show_format -of json "$f" > "diagnostics_out/logs/ffprobe_${f}.json"
+          done
+
+      - name: Inspect actual decoded frames, framing and timestamps
+        run: |
+          set -euo pipefail
+          python experiments/diagnose_video.py video.mp4 --out diagnostics_out/diag/mcd --label mcd_converted --reference-video video.avi
+          python experiments/diagnose_video.py control.mp4 --out diagnostics_out/diag/control --label control
+
+      - name: SmartSpectra on control clip (documented breathing+cardio request)
+        continue-on-error: true
+        run: node experiments/smartspectra_file_run.mjs control.mp4 diagnostics_out/runs/control --metrics=breathing+cardio --label=control --log-level=info 2>&1 | tee diagnostics_out/logs/sdk_control.log
+
+      - name: SmartSpectra on MCD, pulse-only request (as in the benchmark)
+        continue-on-error: true
+        run: node experiments/smartspectra_file_run.mjs video.mp4 diagnostics_out/runs/mcd_cardio --metrics=cardio --label=mcd_cardio --log-level=info 2>&1 | tee diagnostics_out/logs/sdk_mcd_cardio.log
+
+      - name: SmartSpectra on MCD, documented breathing+cardio request
+        continue-on-error: true
+        run: node experiments/smartspectra_file_run.mjs video.mp4 diagnostics_out/runs/mcd_breathing_cardio --metrics=breathing+cardio --label=mcd_breathing_cardio --log-level=info 2>&1 | tee diagnostics_out/logs/sdk_mcd_breathing_cardio.log
+
+      - name: Summarize and render verdict
+        if: always()
+        run: python experiments/summarize_diagnosis.py diagnostics_out
+
+      - name: Mask secrets and drop bulky files before publishing
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          for f in diagnostics_out/logs/*.log; do [ -f "$f" ] && sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" "$f"; done
+          find diagnostics_out/runs -name metrics.json -size +3M -delete
+          find diagnostics_out/diag -name '*.png' -path '*frames*' -size +1500k -delete
+          if grep -rIl -F "${SMARTSPECTRA_API_KEY}" diagnostics_out; then echo "::error::API key found in diagnostics output; refusing to publish"; rm -rf diagnostics_out; fi
+          du -sh diagnostics_out 2>/dev/null || true
+
+      - name: Upload diagnostics artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smartspectra-mcd-diagnosis
+          path: diagnostics_out/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Publish diagnostics to ci-diagnostics branch (readable without artifact access)
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          [ -d diagnostics_out ] || exit 0
+          git config user.name "github-actions"; git config user.email "actions@users.noreply.github.com"
+          git checkout --orphan ci-diagnostics-tmp && git rm -rf . -q 2>/dev/null
+          mkdir -p "run-${GITHUB_RUN_ID}" && cp -r diagnostics_out/. "run-${GITHUB_RUN_ID}/" && cp -r "run-${GITHUB_RUN_ID}" latest
+          git add "run-${GITHUB_RUN_ID}" latest && git commit -q -m "diagnostics for run ${GITHUB_RUN_ID} (${GITHUB_SHA})" && git push -f origin HEAD:ci-diagnostics

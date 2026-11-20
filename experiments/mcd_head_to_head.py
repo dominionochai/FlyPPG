@@ -7,6 +7,8 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from scipy import signal
 import flyppg3 as fly
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import benchmark_status as status
 
 WINDOW = 10.0
 STRIDE = 5.0
@@ -48,6 +50,7 @@ def load_frames(video):
     return np.asarray(frames,dtype=np.float32), float(fps)
 
 def sdk_samples(path):
+    """All SDK pulse-rate entries as (time_s, value, confidence). Unusable (zero-confidence / non-positive) entries are filtered in benchmark_status."""
     data=json.loads(Path(path).read_text())
     out=[]
     def walk(node, callback=None):
@@ -57,10 +60,10 @@ def sdk_samples(path):
                 if re.sub(r"[^a-z]","",k.lower())=="pulserate":
                     for item in (v if isinstance(v,list) else [v]):
                         if isinstance(item,dict):
-                            val=next((item[q] for q in ("value","rate","bpm") if isinstance(item.get(q),(int,float))),None)
-                            stamp=item.get("timestamp",ts)
-                        else: val=item; stamp=ts
-                        if isinstance(val,(int,float)): out.append((float(stamp or 0)/1e6,float(val)))
+                            val=next((item[q] for q in ("value","rate","bpm") if status._num(item.get(q)) is not None),None)
+                            stamp=status._num(item.get("timestamp")) or status._num(ts); conf=item.get("confidence")
+                        else: val=item; stamp=status._num(ts); conf=None
+                        if status._num(val) is not None: out.append(((stamp or 0.0)/1e6,val,conf))
                 else: walk(v,ts)
         elif isinstance(node,list):
             for v in node: walk(v,callback)
@@ -70,7 +73,7 @@ def sdk_samples(path):
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--video",required=True); ap.add_argument("--reference",required=True)
-    ap.add_argument("--smartspectra"); ap.add_argument("--out",required=True)
+    ap.add_argument("--smartspectra"); ap.add_argument("--smartspectra-summary"); ap.add_argument("--out",required=True)
     ap.add_argument("--weights",default="readout_W3.npy")
     a=ap.parse_args()
     frames,fps=load_frames(a.video)
@@ -90,7 +93,8 @@ def main():
         name: fly.rppg_pos(video, l=max(2, round(1.6*fps)))
         for name, video in variants.items()
     }
-    ss=sdk_samples(a.smartspectra) if a.smartspectra and Path(a.smartspectra).exists() else []
+    raw_ss=sdk_samples(a.smartspectra) if a.smartspectra and Path(a.smartspectra).exists() else []
+    ss,discarded=status.split_samples(raw_ss)
     rows=[]
     size=round(WINDOW*fps); step=round(STRIDE*fps)
     for start in range(0,n-size+1,step):
@@ -109,16 +113,22 @@ def main():
             "reference_method":"dominant 0.7-3.0 Hz frequency of synchronized ppg_sync column 1 per 10s window",
             "flyppg_method":"Ablation: raw POS, unconditional surround normalization + POS, gated surround normalization + POS, and FlyPPG v3 local stabilization + POS",
             "ablation_note":"The added arms isolate whether the real-video regression comes from surround normalization or the synthetic-trained motion readout. This is diagnostic, not an algorithm change.",
-            "smartspectra_samples":len(ss),"smartspectra_status":"measured" if ss else "invalid_no_output"}
+            "smartspectra_samples":len(ss),"smartspectra_raw_entries":len(raw_ss)}
     for arm,key in (("raw_POS","raw_POS_bpm"),("surround_norm_POS","surround_norm_POS_bpm"),
                     ("surround_gated_POS","surround_gated_POS_bpm"),("FlyPPG_v3","FlyPPG_v3_POS_bpm"),
-                    ("SmartSpectra","smartspectra_bpm")):
+                    ):
         valid=[r for r in rows if r[key] is not None]
         err=np.array([r[key]-r["reference_bpm"] for r in valid])
         report["arms"][arm]={"windows_scored":len(valid),"coverage_pct":100*len(valid)/max(1,len(rows)),
             "mae_bpm":float(np.mean(np.abs(err))) if len(err) else None,
             "rmse_bpm":float(np.sqrt(np.mean(err**2))) if len(err) else None,
             "within_5_bpm_pct_of_all_windows":100*sum(abs(x)<=5 for x in err)/max(1,len(rows)) if len(err) else None}
+    report["arms"]["SmartSpectra"]=status.smartspectra_arm(rows,len(ss),discarded)
+    report["smartspectra_status"]=report["arms"]["SmartSpectra"]["status"]
+    report["baseline_valid"]=report["smartspectra_status"]==status.VALID
+    if a.smartspectra_summary and Path(a.smartspectra_summary).exists():
+        sm=json.loads(Path(a.smartspectra_summary).read_text())
+        report["smartspectra_sdk_summary"]={k:sm.get(k) for k in ("packet_count","pulse_packet_count","pulse_samples_nonzero_confidence","validation_event_count","validation_summary","error_count","requested_metrics")}
     Path(a.out).write_text(json.dumps(report,indent=2))
     print(json.dumps(report["arms"],indent=2))
 if __name__=="__main__": main()
