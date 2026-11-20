@@ -58,13 +58,14 @@ jobs:
         run: node experiments/smartspectra_file_run.mjs video.mp4 smartspectra_results
 
       - name: Smoke-test SmartSpectra custom-frame input
-        if: steps.smartspectra.outcome == 'success'
+        if: always()
         continue-on-error: true
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
         run: node experiments/smartspectra_custom_input_run.mjs video.mp4 smartspectra_custom_input
 
       - name: Run FlyPPG and score against synchronized PPG
+        if: always()
         run: |
           python experiments/mcd_head_to_head.py \
             --video video.mp4 \
@@ -83,3 +84,23 @@ jobs:
             smartspectra_custom_input/
           if-no-files-found: warn
           retention-days: 30
+
+      - name: Enforce valid SmartSpectra output
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          file_pulses=0
+          custom_pulses=0
+          if [ -f smartspectra_results/summary.json ]; then
+            file_pulses="$(node -e "const x=require('./smartspectra_results/summary.json'); process.stdout.write(String(x.pulse_packet_count ?? 0))")"
+          fi
+          if [ -f smartspectra_custom_input/metrics.json ]; then
+            custom_pulses="$(node -e "const x=require('./smartspectra_custom_input/metrics.json'); process.stdout.write(String(x.summary?.pulse_packet_count ?? 0))")"
+          fi
+          echo "File-input pulse packets: $file_pulses"
+          echo "Custom-input pulse packets: $custom_pulses"
+          if [ "$file_pulses" -eq 0 ] && [ "$custom_pulses" -eq 0 ]; then
+            echo "::error::INVALID_NO_OUTPUT: no SmartSpectra pulse readings from either input path."
+            exit 1
+          fi
