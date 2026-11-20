@@ -1,6 +1,7 @@
 """Compare raw-face POS, each facial region, and quality-weighted fusion."""
 import argparse
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -8,6 +9,7 @@ import cv2
 import numpy as np
 from scipy import signal
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from facial_signal import (
     FaceCropper, REGIONS, _region_pixels, bandpass_pulse,
     extract_region_readings, fuse_region_signals, pos_signal,
