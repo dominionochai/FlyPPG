@@ -84,6 +84,15 @@ jobs:
             --reference ppg_sync.txt \
             --out multiregion_benchmark.json
 
+      - name: Landmark-tracked region fusion benchmark
+        if: always()
+        run: |
+          python -m pip install "mediapipe==0.10.14" "numpy<2" scipy opencv-python-headless
+          python experiments/mcd_landmark_fusion.py \
+            --video video.mp4 \
+            --reference ppg_sync.txt \
+            --out landmark_fusion.json
+
       - name: Upload benchmark artifacts
         if: always()
         uses: actions/upload-artifact@v4
@@ -92,6 +101,7 @@ jobs:
           path: |
             head_to_head.json
             multiregion_benchmark.json
+            landmark_fusion.json
             smartspectra_results/
             smartspectra_custom_input/
           if-no-files-found: warn
