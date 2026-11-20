@@ -80,25 +80,39 @@ def main():
     n=len(frames)
     weights=np.load(a.weights)
     fly_frames=fly.stab_fly_local(frames,weights)
-    fly_signal=fly.rppg_pos(fly_frames,l=max(2,round(1.6*fps)))
-    raw_signal=fly.rppg_pos(frames,l=max(2,round(1.6*fps)))
+    variants = {
+        "raw_POS": frames,
+        "surround_norm_POS": fly.bg_norm(frames),
+        "surround_gated_POS": fly.surround_gated(frames),
+        "FlyPPG_v3_POS": fly_frames,
+    }
+    signals = {
+        name: fly.rppg_pos(video, l=max(2, round(1.6*fps)))
+        for name, video in variants.items()
+    }
     ss=sdk_samples(a.smartspectra) if a.smartspectra and Path(a.smartspectra).exists() else []
     rows=[]
     size=round(WINDOW*fps); step=round(STRIDE*fps)
     for start in range(0,n-size+1,step):
         stop=start+size; center=(start+stop-1)/(2*fps)
         truth=pulse_bpm(ref[start:stop],fps)
-        raw=pulse_bpm(raw_signal[start:stop],fps)
-        fp=pulse_bpm(fly_signal[start:stop],fps)
+        estimates = {
+            name: pulse_bpm(values[start:stop], fps)
+            for name, values in signals.items()
+        }
         ssw=[v for t,v in ss if center-WINDOW/2 <= t <= center+WINDOW/2]
-        rows.append({"center_s":center,"reference_bpm":truth,"raw_pos_bpm":raw,
-                     "flyppg_bpm":fp,"smartspectra_bpm":float(np.median(ssw)) if ssw else None})
+        rows.append({"center_s":center,"reference_bpm":truth, **{
+            f"{name}_bpm": value for name, value in estimates.items()
+        }, "smartspectra_bpm":float(np.median(ssw)) if ssw else None})
     report={"recording":Path(a.video).name,"fps":fps,"frames_used":n,"duration_s":n/fps,
             "windows_total":len(rows),"arms":{},"windows":rows,
             "reference_method":"dominant 0.7-3.0 Hz frequency of synchronized ppg_sync column 1 per 10s window",
-            "flyppg_method":"FlyPPG v3 local motion stabilization followed by POS; same ROI for raw POS control",
+            "flyppg_method":"Ablation: raw POS, unconditional surround normalization + POS, gated surround normalization + POS, and FlyPPG v3 local stabilization + POS",
+            "ablation_note":"The added arms isolate whether the real-video regression comes from surround normalization or the synthetic-trained motion readout. This is diagnostic, not an algorithm change.",
             "smartspectra_samples":len(ss),"smartspectra_status":"measured" if ss else "invalid_no_output"}
-    for arm,key in (("raw_POS","raw_pos_bpm"),("FlyPPG_v3","flyppg_bpm"),("SmartSpectra","smartspectra_bpm")):
+    for arm,key in (("raw_POS","raw_POS_bpm"),("surround_norm_POS","surround_norm_POS_bpm"),
+                    ("surround_gated_POS","surround_gated_POS_bpm"),("FlyPPG_v3","FlyPPG_v3_POS_bpm"),
+                    ("SmartSpectra","smartspectra_bpm")):
         valid=[r for r in rows if r[key] is not None]
         err=np.array([r[key]-r["reference_bpm"] for r in valid])
         report["arms"][arm]={"windows_scored":len(valid),"coverage_pct":100*len(valid)/max(1,len(rows)),
