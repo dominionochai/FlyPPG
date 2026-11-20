@@ -97,14 +97,14 @@ def main():
             "windows_total":len(rows),"arms":{},"windows":rows,
             "reference_method":"dominant 0.7-3.0 Hz frequency of synchronized ppg_sync column 1 per 10s window",
             "flyppg_method":"FlyPPG v3 local motion stabilization followed by POS; same ROI for raw POS control",
-            "smartspectra_samples":len(ss),"smartspectra_status":"measured" if ss else "not run: SDK output missing"}
+            "smartspectra_samples":len(ss),"smartspectra_status":"measured" if ss else "invalid_no_output"}
     for arm,key in (("raw_POS","raw_pos_bpm"),("FlyPPG_v3","flyppg_bpm"),("SmartSpectra","smartspectra_bpm")):
         valid=[r for r in rows if r[key] is not None]
         err=np.array([r[key]-r["reference_bpm"] for r in valid])
         report["arms"][arm]={"windows_scored":len(valid),"coverage_pct":100*len(valid)/max(1,len(rows)),
             "mae_bpm":float(np.mean(np.abs(err))) if len(err) else None,
             "rmse_bpm":float(np.sqrt(np.mean(err**2))) if len(err) else None,
-            "within_5_bpm_pct_of_all_windows":100*sum(abs(x)<=5 for x in err)/max(1,len(rows))}
+            "within_5_bpm_pct_of_all_windows":100*sum(abs(x)<=5 for x in err)/max(1,len(rows)) if len(err) else None}
     Path(a.out).write_text(json.dumps(report,indent=2))
     print(json.dumps(report["arms"],indent=2))
 if __name__=="__main__": main()
