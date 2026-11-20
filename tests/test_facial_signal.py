@@ -1,5 +1,6 @@
+import unittest
+
 import numpy as np
-import pytest
 
 from facial_signal import (
     extract_intensity_trace,
@@ -9,7 +10,7 @@ from facial_signal import (
 )
 
 
-def _face_sequence(n=180, height=96, width=96, fps=30):
+def face_sequence(n=180, height=96, width=96, fps=30):
     y, x = np.mgrid[:height, :width]
     texture = 0.35 + 0.08 * np.sin(x / 3.0) + 0.06 * np.cos(y / 4.0)
     frames = []
@@ -23,28 +24,30 @@ def _face_sequence(n=180, height=96, width=96, fps=30):
     return frames
 
 
-def test_regions_produce_aligned_rgb_traces_and_fused_signal():
-    readings = extract_region_readings(_face_sequence())
-    assert set(readings) == {"forehead", "left_cheek", "right_cheek"}
-    assert all(item.rgb.shape == (180, 3) for item in readings.values())
-    fused, weights = fuse_region_signals(readings, window=48)
-    assert fused.shape == (180,)
-    assert np.isfinite(fused).all()
-    assert abs(sum(weights.values()) - 1.0) < 1e-6
+class FacialSignalTests(unittest.TestCase):
+    def test_regions_produce_aligned_rgb_traces_and_fused_signal(self):
+        readings = extract_region_readings(face_sequence())
+        self.assertEqual(set(readings), {"forehead", "left_cheek", "right_cheek"})
+        self.assertTrue(all(item.rgb.shape == (180, 3) for item in readings.values()))
+        fused, weights = fuse_region_signals(readings, window=48)
+        self.assertEqual(fused.shape, (180,))
+        self.assertTrue(np.isfinite(fused).all())
+        self.assertAlmostEqual(sum(weights.values()), 1.0, places=6)
+
+    def test_pos_rejects_too_short_input(self):
+        with self.assertRaises(ValueError):
+            pos_signal(np.ones((10, 3)), window=48)
+
+    def test_intensity_path_accepts_monochrome_frames(self):
+        frames = [np.full((32, 32), 100 + i % 2, dtype=np.uint8) for i in range(30)]
+        trace = extract_intensity_trace(frames)
+        self.assertEqual(trace.shape, (30,))
+        self.assertTrue(np.isfinite(trace).all())
+
+    def test_intensity_path_rejects_rgb_frames(self):
+        with self.assertRaises(ValueError):
+            extract_intensity_trace([np.zeros((32, 32, 3), dtype=np.uint8)] * 3)
 
 
-def test_pos_rejects_too_short_input():
-    with pytest.raises(ValueError):
-        pos_signal(np.ones((10, 3)), window=48)
-
-
-def test_intensity_path_accepts_monochrome_frames():
-    frames = [np.full((32, 32), 100 + i % 2, dtype=np.uint8) for i in range(30)]
-    trace = extract_intensity_trace(frames)
-    assert trace.shape == (30,)
-    assert np.isfinite(trace).all()
-
-
-def test_intensity_path_rejects_rgb_frames():
-    with pytest.raises(ValueError):
-        extract_intensity_trace([np.zeros((32, 32, 3), dtype=np.uint8)] * 3)
+if __name__ == "__main__":
+    unittest.main()
