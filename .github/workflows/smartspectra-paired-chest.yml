@@ -1,6 +1,10 @@
 name: SmartSpectra paired chest test (control vs FlyPPG)
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/smartspectra-paired-chest.yml"
   workflow_dispatch:
 
 permissions:
@@ -9,7 +13,7 @@ permissions:
 jobs:
   paired:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +35,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \( -name 'lvp_icd*.json' -o -name '*lvp*.json' \) | head -n 1)"
+          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \\( -name 'lvp_icd*.json' -o -name '*lvp*.json' \\) | head -n 1)"
           if [ -z "$ICD" ]; then
             echo "Mesa lavapipe ICD was not installed."
             exit 1
@@ -85,7 +89,7 @@ jobs:
           if size < 100_000:
               raise SystemExit(f"Downloaded file is unexpectedly small: {size} bytes")
           pathlib.Path("dataset_source.txt").write_text(
-              f"dataset=justchugh/MPSC-RR\nfile={chosen}\nbytes={size}\nlicense=CC-BY-4.0\n",
+              f"dataset=justchugh/MPSC-RR\\nfile={chosen}\\nbytes={size}\\nlicense=CC-BY-4.0\\n",
               encoding="utf-8",
           )
           print(f"Downloaded {chosen}: {size:,} bytes")
@@ -93,35 +97,244 @@ jobs:
           ffmpeg -y -i chest_source_video -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p chest_test.mp4
           ffprobe -v error -select_streams v:0 -show_entries stream=width,height,avg_frame_rate,duration -of json chest_test.mp4 | tee video_probe.json
 
+      - name: Create deterministic handheld-motion and flicker stress clip
+        run: |
+          python3 - <<'PY'
+          import cv2
+          import json
+          import math
+
+          cap = cv2.VideoCapture("chest_test.mp4")
+          fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+          width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+          height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+          writer = cv2.VideoWriter(
+              "chest_stress.mp4",
+              cv2.VideoWriter_fourcc(*"mp4v"),
+              fps,
+              (width, height),
+          )
+          if not writer.isOpened():
+              raise SystemExit("Could not create stress-test video.")
+
+          index = 0
+          while True:
+              ok, frame = cap.read()
+              if not ok:
+                  break
+              t = index / fps
+              angle = 1.25 * math.sin(2 * math.pi * 0.35 * t)
+              dx = 6.0 * math.sin(2 * math.pi * 0.70 * t) + 2.0 * math.sin(2 * math.pi * 1.30 * t)
+              dy = 4.0 * math.sin(2 * math.pi * 0.53 * t)
+              gain = 1.0 + 0.08 * math.sin(2 * math.pi * 1.10 * t) + 0.03 * math.sin(2 * math.pi * 0.50 * t)
+              matrix = cv2.getRotationMatrix2D((width / 2, height / 2), angle, 1.0)
+              matrix[0, 2] += dx
+              matrix[1, 2] += dy
+              moved = cv2.warpAffine(
+                  frame, matrix, (width, height),
+                  flags=cv2.INTER_LINEAR,
+                  borderMode=cv2.BORDER_REPLICATE,
+              )
+              flickered = (moved.astype("float32") * gain).clip(0, 255).astype("uint8")
+              writer.write(flickered)
+              index += 1
+
+          cap.release()
+          writer.release()
+          with open("out_stress_transform.json", "w") as f:
+              json.dump({
+                  "rotation_degrees_amplitude": 1.25,
+                  "translation_pixels_amplitude": {"x": 8.0, "y": 4.0},
+                  "brightness_gain": "1 + 0.08*sin(2*pi*1.10*t) + 0.03*sin(2*pi*0.50*t)",
+                  "frame_rate_preserved": fps,
+                  "frames": index,
+              }, f, indent=2)
+          print(f"Created deterministic stress clip: {index} frames at {fps:.3f} FPS")
+          PY
+
       - name: Install SDK and FlyPPG dependencies
         run: |
           npm install --no-save @smartspectra/node-sdk
-          python3 -m pip install numpy scipy opencv-python-headless imageio-ffmpeg
+          python3 -m pip install "numpy<2" scipy opencv-python-headless imageio-ffmpeg
 
-      - name: Preprocess identically (control = re-encode only) and run SmartSpectra on each arm
+      - name: Preprocess static and stressed clips identically across arms
+        run: |
+          set -euo pipefail
+          mkdir -p in out/runs
+          cp chest_test.mp4 in/static.mp4
+          cp chest_stress.mp4 in/stress.mp4
+          python3 ss_preprocess.py --in in --out processed --arms control,fly_stab,flyppg
+
+      - name: Run randomized repeated SmartSpectra comparisons
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
         shell: bash
         run: |
-          set +e
-          mkdir -p in out/runs; cp chest_test.mp4 in/chest.mp4
-          python3 ss_preprocess.py --in in --out processed --arms control,flyppg,fly_stab 2>&1 | tail -5
-          # same processed file twice for control and flyppg: the rerun shows SmartSpectra's own run-to-run noise
-          for pair in control:control flyppg:flyppg fly_stab:fly_stab control:control_rerun flyppg:flyppg_rerun; do
-            src=${pair%%:*}; arm=${pair##*:}
-            node experiments/smartspectra_file_run.mjs processed/$src/chest.mp4 out/runs/$arm --metrics=cardio --label=$arm > out/$arm.log 2>&1
-            sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" out/$arm.log
-            echo "$arm exit=$?"
-          done
-          python3 experiments/compare_arms.py out/runs | tee out/COMPARE.md >> "$GITHUB_STEP_SUMMARY"
-          find out -name metrics.json -size +3M -delete
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          import random
+          import subprocess
+          from pathlib import Path
+
+          key = os.environ.get("SMARTSPECTRA_API_KEY", "")
+          if not key:
+              raise SystemExit("SMARTSPECTRA_API_KEY is not configured.")
+
+          tasks = [
+              (condition, arm, repeat)
+              for condition in ("static", "stress")
+              for arm in ("control", "fly_stab", "flyppg")
+              for repeat in range(1, 4)
+          ]
+          random.Random(20261121).shuffle(tasks)
+
+          for condition, arm, repeat in tasks:
+              name = f"{condition}-{arm}-r{repeat:02d}"
+              destination = Path("out/runs") / name
+              log_path = Path("out") / f"{name}.log"
+              command = [
+                  "node",
+                  "experiments/smartspectra_file_run.mjs",
+                  f"processed/{arm}/{condition}.mp4",
+                  str(destination),
+                  "--metrics=breathing+cardio",
+                  f"--label={name}",
+              ]
+              with log_path.open("w", encoding="utf-8") as log:
+                  result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+              if key:
+                  text = log_path.read_text(encoding="utf-8", errors="replace")
+                  log_path.write_text(text.replace(key, "***"), encoding="utf-8")
+              print(f"{name} exit={result.returncode}", flush=True)
+          PY
+
+      - name: Aggregate repeated runs by condition and preprocessing arm
+        if: always()
+        run: |
+          python3 - <<'PY'
+          import json
+          from collections import defaultdict
+          from pathlib import Path
+          import numpy as np
+
+          rows = []
+          for path in sorted(Path("out/runs").glob("*/summary.json")):
+              condition, arm, repeat = path.parent.name.split("-", 2)
+              summary = json.loads(path.read_text())
+              validation = summary.get("validation_summary") or []
+              total = sum(int(item.get("count", 0)) for item in validation) or 1
+              ok = sum(int(item.get("count", 0)) for item in validation if "kOk" in item.get("message", ""))
+              chest_hidden = sum(int(item.get("count", 0)) for item in validation if "kChestNotVisible" in item.get("message", ""))
+
+              def samples(name):
+                  result = []
+                  for item in summary.get(name, []) or []:
+                      value = item.get("value", item.get("rate", item.get("bpm")))
+                      confidence = item.get("confidence", 0) or 0
+                      try:
+                          value = float(value)
+                          confidence = float(confidence)
+                      except (TypeError, ValueError):
+                          continue
+                      if value > 0 and confidence > 0:
+                          result.append((value, confidence))
+                  return result
+
+              pulse = samples("pulse_rate_samples")
+              breathing = samples("breathing_rate_samples")
+
+              def stats(items):
+                  values = np.asarray([item[0] for item in items], dtype=float)
+                  confidence = np.asarray([item[1] for item in items], dtype=float)
+                  return {
+                      "count": int(len(values)),
+                      "rate_mean": float(values.mean()) if len(values) else None,
+                      "rate_std": float(values.std()) if len(values) else None,
+                      "mean_confidence": float(confidence.mean()) if len(confidence) else None,
+                  }
+
+              rows.append({
+                  "condition": condition,
+                  "arm": arm,
+                  "repeat": repeat,
+                  "ok_frames_pct": 100.0 * ok / total,
+                  "chest_not_visible_pct": 100.0 * chest_hidden / total,
+                  "pulse": stats(pulse),
+                  "breathing": stats(breathing),
+                  "error_count": summary.get("error_count", 0),
+                  "status": summary.get("status"),
+              })
+
+          groups = defaultdict(list)
+          for row in rows:
+              groups[(row["condition"], row["arm"])].append(row)
+
+          def median_iqr(values):
+              values = np.asarray([value for value in values if value is not None], dtype=float)
+              if not len(values):
+                  return None
+              return {
+                  "median": float(np.median(values)),
+                  "iqr": float(np.percentile(values, 75) - np.percentile(values, 25)),
+              }
+
+          aggregate = []
+          for (condition, arm), group in sorted(groups.items()):
+              aggregate.append({
+                  "condition": condition,
+                  "arm": arm,
+                  "runs": len(group),
+                  "ok_frames_pct": median_iqr([row["ok_frames_pct"] for row in group]),
+                  "chest_not_visible_pct": median_iqr([row["chest_not_visible_pct"] for row in group]),
+                  "pulse_samples": median_iqr([row["pulse"]["count"] for row in group]),
+                  "pulse_confidence": median_iqr([row["pulse"]["mean_confidence"] for row in group]),
+                  "pulse_rate_std": median_iqr([row["pulse"]["rate_std"] for row in group]),
+                  "breathing_samples": median_iqr([row["breathing"]["count"] for row in group]),
+                  "breathing_confidence": median_iqr([row["breathing"]["mean_confidence"] for row in group]),
+                  "breathing_rate_std": median_iqr([row["breathing"]["rate_std"] for row in group]),
+              })
+
+          Path("out/replicate_runs.json").write_text(json.dumps(rows, indent=2))
+          Path("out/aggregate.json").write_text(json.dumps(aggregate, indent=2))
+          lines = [
+              "| condition | arm | runs | median kOk % (IQR) | median chest-not-visible % (IQR) | pulse samples (IQR) | pulse confidence (IQR) | pulse rate SD (IQR) | breathing samples (IQR) | breathing confidence (IQR) | breathing rate SD (IQR) |",
+              "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+          ]
+          def fmt(item):
+              if item is None:
+                  return "n/a"
+              return f'{item["median"]:.2f} ({item["iqr"]:.2f})'
+          for item in aggregate:
+              lines.append(
+                  f'| {item["condition"]} | {item["arm"]} | {item["runs"]} | '
+                  f'{fmt(item["ok_frames_pct"])} | {fmt(item["chest_not_visible_pct"])} | '
+                  f'{fmt(item["pulse_samples"])} | {fmt(item["pulse_confidence"])} | '
+                  f'{fmt(item["pulse_rate_std"])} | {fmt(item["breathing_samples"])} | '
+                  f'{fmt(item["breathing_confidence"])} | {fmt(item["breathing_rate_std"])} |'
+              )
+          lines.extend([
+              "",
+              "Three independent SDK invocations per arm and condition; execution order was shuffled with a fixed seed.",
+              "Control is decode/re-encode only. fly_stab applies FlyPPG motion compensation. flyppg applies illumination normalization plus FlyPPG motion compensation.",
+              "The stress clip adds deterministic mild camera translation/rotation and brightness flicker before preprocessing.",
+              "These are SDK output/validation and repeatability measures only. This dataset run has no pulse ground-truth reference, so the table does not establish BPM accuracy.",
+          ])
+          Path("out/COMPARE.md").write_text("\n".join(lines) + "\n")
+          print(Path("out/COMPARE.md").read_text())
+          PY
+          cp out/COMPARE.md "$GITHUB_STEP_SUMMARY" || true
 
       - name: Upload
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: paired-chest
-          path: out/
+          name: paired-chest-replicates
+          path: |
+            out/
+            out_stress_transform.json
+            dataset_source.txt
+            video_probe.json
           retention-days: 30
 
       - name: Publish to ci-diagnostics (readable without artifact access)
@@ -133,6 +346,6 @@ jobs:
           git config user.name github-actions; git config user.email actions@users.noreply.github.com
           git fetch origin ci-diagnostics:ci-diagnostics 2>/dev/null; git checkout -f ci-diagnostics 2>/dev/null || git checkout --orphan ci-diagnostics
           mkdir -p paired && rm -rf "paired/run-${GITHUB_RUN_ID}" && cp -r out "paired/run-${GITHUB_RUN_ID}"
-          git add paired && git commit -q -m "paired chest test ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
+          git add paired && git commit -q -m "paired chest replicate test ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
