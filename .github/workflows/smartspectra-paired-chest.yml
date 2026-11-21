@@ -106,8 +106,10 @@ jobs:
           set +e
           mkdir -p in out/runs; cp chest_test.mp4 in/chest.mp4
           python3 ss_preprocess.py --in in --out processed --arms control,flyppg,fly_stab 2>&1 | tail -5
-          for arm in control flyppg fly_stab; do
-            node experiments/smartspectra_file_run.mjs processed/$arm/chest.mp4 out/runs/$arm --metrics=cardio --label=$arm > out/$arm.log 2>&1
+          # same processed file twice for control and flyppg: the rerun shows SmartSpectra's own run-to-run noise
+          for pair in control:control flyppg:flyppg fly_stab:fly_stab control:control_rerun flyppg:flyppg_rerun; do
+            src=${pair%%:*}; arm=${pair##*:}
+            node experiments/smartspectra_file_run.mjs processed/$src/chest.mp4 out/runs/$arm --metrics=cardio --label=$arm > out/$arm.log 2>&1
             sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" out/$arm.log
             echo "$arm exit=$?"
           done
