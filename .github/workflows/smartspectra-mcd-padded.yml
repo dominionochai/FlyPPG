@@ -1,0 +1,100 @@
+name: SmartSpectra MCD padded benchmark (reference-scored)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  paired:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install video and Vulkan tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3 libvulkan1 mesa-vulkan-drivers vulkan-tools
+          ffmpeg -version | head -n 1
+          echo "Installed Vulkan ICDs:"
+          ls -la /usr/share/vulkan/icd.d/ || true
+          echo "Vulkan loader summary:"
+          vulkaninfo --summary || true
+
+      - name: Configure software Vulkan (Mesa lavapipe)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \( -name 'lvp_icd*.json' -o -name '*lvp*.json' \) | head -n 1)"
+          if [ -z "$ICD" ]; then
+            echo "Mesa lavapipe ICD was not installed."
+            exit 1
+          fi
+          echo "Using Vulkan ICD: $ICD"
+          echo "VK_ICD_FILENAMES=$ICD" >> "$GITHUB_ENV"
+          echo "VK_DRIVER_FILES=$ICD" >> "$GITHUB_ENV"
+          VK_ICD_FILENAMES="$ICD" VK_DRIVER_FILES="$ICD" vulkaninfo --summary
+
+      - name: Download MCD video and synchronized reference pulse
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 2 --max-time 180 "$base/video/1020_USBVideo_before.avi" -o video.avi
+          curl -fL --retry 2 --max-time 60 "$base/ppg_sync/1020_USBVideo_before.txt" -o ppg_sync.txt
+          mkdir -p in out/runs
+          ffmpeg -y -i video.avi -an -c:v libx264 -preset veryfast -pix_fmt yuv420p in/mcd.mp4
+
+      - name: Install SDK and FlyPPG dependencies
+        run: |
+          npm install --no-save @smartspectra/node-sdk
+          python3 -m pip install numpy scipy opencv-python-headless imageio-ffmpeg
+
+      - name: Padded benchmark (canvas extended below the frame so SmartSpectra's chest gate admits the clip)
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        shell: bash
+        run: |
+          set +e
+          python3 ss_preprocess.py --in in --out processed --arms control,flyppg 2>&1 | tail -3
+          H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 in/mcd.mp4)
+          for arm in control flyppg; do for pad in 40 80; do
+            ph=$(( H * pad / 100 / 2 * 2 ))
+            # extra canvas = vertically flipped copy of the bottom strip; face pixels are untouched
+            ffmpeg -y -v error -i processed/$arm/mcd.mp4 -filter_complex "[0:v]split[a][b];[b]crop=iw:${ph}:0:ih-${ph},vflip[r];[a][r]vstack,scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p padded_${arm}_${pad}.mp4
+            for rep in 1 2 3; do
+              n=${arm}_pad${pad}_r${rep}
+              node experiments/smartspectra_file_run.mjs padded_${arm}_${pad}.mp4 out/runs/$n --metrics=cardio --label=$n > out/$n.log 2>&1
+              sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" out/$n.log
+              echo "$n exit=$? $(python3 -c "import json;s=json.load(open('out/runs/$n/summary.json'));print(s['status'],s['pulse_samples_nonzero_confidence'])" 2>/dev/null)"
+            done
+          done; done
+          python3 experiments/score_ss.py out/runs ppg_sync.txt processed/control/mcd.mp4 | tee out/SCORES.md >> "$GITHUB_STEP_SUMMARY"
+          find out -name metrics.json -size +3M -delete
+
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcd-padded
+          path: out/
+          retention-days: 30
+
+      - name: Publish to ci-diagnostics (readable without artifact access)
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          grep -rIl -F "${SMARTSPECTRA_API_KEY}" out && exit 1
+          git config user.name github-actions; git config user.email actions@users.noreply.github.com
+          git fetch origin ci-diagnostics:ci-diagnostics 2>/dev/null; git checkout -f ci-diagnostics 2>/dev/null || git checkout --orphan ci-diagnostics
+          mkdir -p padded && rm -rf "padded/run-${GITHUB_RUN_ID}" && cp -r out "padded/run-${GITHUB_RUN_ID}"
+          git add padded && git commit -q -m "mcd padded benchmark ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
