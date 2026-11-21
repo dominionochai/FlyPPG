@@ -21,7 +21,7 @@ def surround_gain(v):
 
     background = v[:, G.BG, :].mean((1, 2))
     foreground = v[:, 24:72, 24:72, :].mean((1, 2, 3))
-    background_signal = bp(lg(background.mean(1)))
+    background_signal = bp(lg(background))
     foreground_signal = bp(lg(foreground))
 
     # A constant or near-constant background has undefined correlation. Treat
@@ -33,8 +33,8 @@ def surround_gain(v):
     if not np.isfinite(correlation) or correlation <= .5:
         return np.ones(len(v), np.float32)
 
-    reference = np.median(background, axis=0)
-    if np.any(~np.isfinite(reference)) or np.any(reference <= 1e-6):
+    reference = np.median(background)
+    if not np.isfinite(reference) or reference <= 1e-6:
         return np.ones(len(v), np.float32)
 
     gain = background / reference
