@@ -13,7 +13,8 @@ rPPG depends on subtle colour variation in video. Illumination changes, camera m
 FlyPPG investigates two mechanisms inspired by insect vision:
 
 1. **Gated surround normalisation.** A background reference is used only when its temporal illumination signal is sufficiently strong and correlated with the foreground. The correction is deliberately conservative.
-2. **Adaptive spatial illumination compensation (experimental).** A bounded, achromatic local gain map targets uneven face illumination while limiting shadow amplification. It is implemented as separate `spatial` and `combined_lighting` preprocessing arms; its rPPG benefit has not yet been benchmarked.\n3. **T4/T5-inspired local motion estimation.** A compact spatiotemporal feature bank, derived from published fly visual-circuit connectivity as an engineering approximation, estimates local motion fields.
+2. **Adaptive spatial illumination compensation (experimental).** A bounded, achromatic local gain map targets uneven face illumination while limiting shadow amplification. It is implemented as separate `spatial` and `combined_lighting` preprocessing arms; its rPPG benefit has not yet been benchmarked.
+3. **T4/T5-inspired local motion estimation.** A compact spatiotemporal feature bank, derived from published fly visual-circuit connectivity as an engineering approximation, estimates local motion fields.
 
 The project includes matched preprocessing arms, SmartSpectra file/custom-input experiment runners, output parsing, scoring utilities, regression tests and an interactive visualization. The new adaptive spatial arm is documented in [ADAPTIVE_ILLUMINATION.md](experiments/ADAPTIVE_ILLUMINATION.md).
 
