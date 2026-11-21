@@ -10,7 +10,8 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from landmark_regions import (NAMES, dominant_bpm, fuse, region_pos, track_video,\n                              window_local_quality_vote)
+from landmark_regions import (NAMES, dominant_bpm, fuse, region_pos, track_video,
+                              window_local_quality_vote)
 
 
 def occlude(rgb, vis, fps, span_s=10, seed=0):
