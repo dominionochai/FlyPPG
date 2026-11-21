@@ -15,11 +15,32 @@ def read_small(path):
     cap.release(); return np.array(sm, np.float32) / 255, fps, (w, h)
 
 def surround_gain(v):
-    """Per-frame gain from the background ring; only used when background and face lighting are coupled (else identity)."""
-    lg = lambda x: np.log(x + 1e-6); bp = lambda x: ndi.gaussian_filter1d(x, 3) - ndi.gaussian_filter1d(x, 30)
-    g = v[:, G.BG, :].mean((1, 2)); f = v[:, 24:72, 24:72, :].mean((1, 2, 3))
-    if np.corrcoef(bp(lg(g)), bp(lg(f)))[0, 1] <= .5: return np.ones(len(v), np.float32)
-    return (g / np.median(g)).astype(np.float32)
+    """Estimate shared illumination gain from the background ring; otherwise return identity."""
+    lg = lambda x: np.log(np.maximum(x, 1e-6))
+    bp = lambda x: ndi.gaussian_filter1d(x, 3) - ndi.gaussian_filter1d(x, 30)
+
+    background = v[:, G.BG, :].mean((1, 2))
+    foreground = v[:, 24:72, 24:72, :].mean((1, 2, 3))
+    background_signal = bp(lg(background.mean(1)))
+    foreground_signal = bp(lg(foreground))
+
+    # A constant or near-constant background has undefined correlation. Treat
+    # that as insufficient evidence, not permission to normalize the video.
+    if np.std(background_signal) < 1e-5 or np.std(foreground_signal) < 1e-5:
+        return np.ones(len(v), np.float32)
+
+    correlation = np.corrcoef(background_signal, foreground_signal)[0, 1]
+    if not np.isfinite(correlation) or correlation <= .5:
+        return np.ones(len(v), np.float32)
+
+    reference = np.median(background, axis=0)
+    if np.any(~np.isfinite(reference)) or np.any(reference <= 1e-6):
+        return np.ones(len(v), np.float32)
+
+    gain = background / reference
+    if not np.all(np.isfinite(gain)):
+        return np.ones(len(v), np.float32)
+    return gain.astype(np.float32)
 
 def fly_disp(v, Wr, g):
     vn = v / g[:, None, None, None]; vel = (np.c_[G.taps(G.feats_local(vn)), np.ones(len(v))] @ Wr).reshape(len(v), 9, 2)
