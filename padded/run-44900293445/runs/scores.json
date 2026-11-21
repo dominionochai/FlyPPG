@@ -1,0 +1,74 @@
+{
+ "control_pad40_r1": {
+  "samples": 193,
+  "scored": 31,
+  "mae": 5.3384443713772685,
+  "within5": 48.38709677419355
+ },
+ "control_pad40_r2": {
+  "samples": 192,
+  "scored": 32,
+  "mae": 4.894299626350403,
+  "within5": 59.375
+ },
+ "control_pad40_r3": {
+  "samples": 199,
+  "scored": 32,
+  "mae": 4.613564372062683,
+  "within5": 59.375
+ },
+ "control_pad80_r1": {
+  "samples": 196,
+  "scored": 33,
+  "mae": 3.7987710201379024,
+  "within5": 63.63636363636363
+ },
+ "control_pad80_r2": {
+  "samples": 200,
+  "scored": 33,
+  "mae": 3.7451800722064394,
+  "within5": 75.75757575757575
+ },
+ "control_pad80_r3": {
+  "samples": 195,
+  "scored": 33,
+  "mae": 3.432145205411044,
+  "within5": 72.72727272727273
+ },
+ "flyppg_pad40_r1": {
+  "samples": 196,
+  "scored": 33,
+  "mae": 7.227567614931049,
+  "within5": 36.36363636363637
+ },
+ "flyppg_pad40_r2": {
+  "samples": 194,
+  "scored": 32,
+  "mae": 6.529463231563568,
+  "within5": 50.0
+ },
+ "flyppg_pad40_r3": {
+  "samples": 193,
+  "scored": 32,
+  "mae": 6.546909272670746,
+  "within5": 46.875
+ },
+ "flyppg_pad80_r1": {
+  "samples": 188,
+  "scored": 32,
+  "mae": 8.187277495861053,
+  "within5": 34.375
+ },
+ "flyppg_pad80_r2": {
+  "samples": 193,
+  "scored": 33,
+  "mae": 8.052807027643377,
+  "within5": 36.36363636363637
+ },
+ "flyppg_pad80_r3": {
+  "samples": 192,
+  "scored": 32,
+  "mae": 7.538855671882629,
+  "within5": 43.75
+ }
+}
