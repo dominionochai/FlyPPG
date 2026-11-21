@@ -1,0 +1,56 @@
+{
+  "label": "static-flyppg-r02",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 0,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3736,
+  "validation_summary": [
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 2538
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 1197
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 1
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 575
+    },
+    {
+      "status": 2,
+      "wall_ms": 677
+    },
+    {
+      "status": 3,
+      "wall_ms": 693
+    },
+    {
+      "status": 4,
+      "wall_ms": 14057
+    },
+    {
+      "status": 1,
+      "wall_ms": 14078
+    }
+  ],
+  "wall_seconds": 14.084,
+  "pulse_rate_samples": [],
+  "breathing_rate_samples": []
+}

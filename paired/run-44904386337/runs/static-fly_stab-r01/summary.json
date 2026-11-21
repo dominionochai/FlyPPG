@@ -1,0 +1,60 @@
+{
+  "label": "static-fly_stab-r01",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 52,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3184,
+  "validation_summary": [
+    {
+      "message": "3 kFaceNotCentered: Center face in view.",
+      "count": 1706
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 1089
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 250
+    },
+    {
+      "message": "15 kFaceTooHigh: Move down, or tilt the camera up.",
+      "count": 139
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 583
+    },
+    {
+      "status": 2,
+      "wall_ms": 685
+    },
+    {
+      "status": 3,
+      "wall_ms": 711
+    },
+    {
+      "status": 4,
+      "wall_ms": 13808
+    },
+    {
+      "status": 1,
+      "wall_ms": 13855
+    }
+  ],
+  "wall_seconds": 13.861,
+  "pulse_rate_samples": [],
+  "breathing_rate_samples": []
+}

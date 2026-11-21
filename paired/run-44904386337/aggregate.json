@@ -1,0 +1,268 @@
+[
+  {
+    "condition": "static",
+    "arm": "control",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 98.1277790779312,
+      "iqr": 26.082650118034493
+    },
+    "chest_not_visible_pct": {
+      "median": 0.5382635150947812,
+      "iqr": 11.93784850471597
+    },
+    "pulse_samples": {
+      "median": 135.0,
+      "iqr": 59.0
+    },
+    "pulse_confidence": {
+      "median": 59.40435752090143,
+      "iqr": 6.671208454000542
+    },
+    "pulse_rate_std": {
+      "median": 11.35584055047444,
+      "iqr": 1.6561383816130757
+    },
+    "breathing_samples": {
+      "median": 37.0,
+      "iqr": 41.5
+    },
+    "breathing_confidence": {
+      "median": 73.03840637207031,
+      "iqr": 4.122590840050137
+    },
+    "breathing_rate_std": {
+      "median": 2.6878288220906743,
+      "iqr": 1.6653427801238059
+    }
+  },
+  {
+    "condition": "static",
+    "arm": "fly_stab",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 7.851758793969849,
+      "iqr": 1.7898925543123525
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 26.9267364414843
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 11.5
+    },
+    "pulse_confidence": {
+      "median": 40.95758811287258,
+      "iqr": 0.0
+    },
+    "pulse_rate_std": {
+      "median": 6.96832546846012,
+      "iqr": 0.0
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "static",
+    "arm": "flyppg",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.02706359945872801,
+      "iqr": 3.948823346671218
+    },
+    "chest_not_visible_pct": {
+      "median": 55.044193843340445,
+      "iqr": 33.96680942184153
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_confidence": null,
+    "pulse_rate_std": null,
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "static",
+    "arm": "surround",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 40.04546930821695,
+      "iqr": 38.04397024609989
+    },
+    "chest_not_visible_pct": {
+      "median": 57.16141604417019,
+      "iqr": 38.263106389733345
+    },
+    "pulse_samples": {
+      "median": 51.0,
+      "iqr": 56.0
+    },
+    "pulse_confidence": {
+      "median": 56.23619871428519,
+      "iqr": 16.35879127091053
+    },
+    "pulse_rate_std": {
+      "median": 11.58070919128125,
+      "iqr": 1.3483154479281705
+    },
+    "breathing_samples": {
+      "median": 3.0,
+      "iqr": 21.0
+    },
+    "breathing_confidence": {
+      "median": 78.3681124732608,
+      "iqr": 0.473220098586296
+    },
+    "breathing_rate_std": {
+      "median": 3.3945423632314355,
+      "iqr": 1.9245345441972326
+    }
+  },
+  {
+    "condition": "stress",
+    "arm": "control",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 63.96028037383178,
+      "iqr": 7.4211761088047865
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.030309153364316024
+    },
+    "pulse_samples": {
+      "median": 177.0,
+      "iqr": 7.0
+    },
+    "pulse_confidence": {
+      "median": 88.04172905498648,
+      "iqr": 1.637084277503618
+    },
+    "pulse_rate_std": {
+      "median": 1.5450381927204089,
+      "iqr": 0.31925518890605575
+    },
+    "breathing_samples": {
+      "median": 99.0,
+      "iqr": 13.0
+    },
+    "breathing_confidence": {
+      "median": 66.56115911093103,
+      "iqr": 0.3601409163380822
+    },
+    "breathing_rate_std": {
+      "median": 2.819575950878434,
+      "iqr": 0.1494148370031385
+    }
+  },
+  {
+    "condition": "stress",
+    "arm": "fly_stab",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 26.202860858257477,
+      "iqr": 1.249659812885863
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.016561775422325273
+    },
+    "pulse_samples": {
+      "median": 56.0,
+      "iqr": 1.0
+    },
+    "pulse_confidence": {
+      "median": 53.84125338281904,
+      "iqr": 2.9035073876968127
+    },
+    "pulse_rate_std": {
+      "median": 9.445489826358187,
+      "iqr": 0.8181297194723616
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "stress",
+    "arm": "flyppg",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.027631942525559547,
+      "iqr": 3.059268563601521
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 4.5
+    },
+    "pulse_confidence": {
+      "median": 47.724596447414825,
+      "iqr": 0.0
+    },
+    "pulse_rate_std": {
+      "median": 3.832482298954835,
+      "iqr": 0.0
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "stress",
+    "arm": "surround",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 70.97230644835254,
+      "iqr": 5.09208268491966
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 10.261421939897385
+    },
+    "pulse_samples": {
+      "median": 169.0,
+      "iqr": 36.5
+    },
+    "pulse_confidence": {
+      "median": 76.92545610913159,
+      "iqr": 1.644261604811291
+    },
+    "pulse_rate_std": {
+      "median": 6.032273145093602,
+      "iqr": 0.5522642229867127
+    },
+    "breathing_samples": {
+      "median": 82.0,
+      "iqr": 19.5
+    },
+    "breathing_confidence": {
+      "median": 64.84016086353975,
+      "iqr": 0.958161866803934
+    },
+    "breathing_rate_std": {
+      "median": 2.8039415632291735,
+      "iqr": 0.8655880599270431
+    }
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "label": "stress-flyppg-r01",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 0,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3619,
+  "validation_summary": [
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 2188
+    },
+    {
+      "message": "16 kFaceTooLow: Move up, or tilt the camera down.",
+      "count": 1430
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 1
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 795
+    },
+    {
+      "status": 2,
+      "wall_ms": 901
+    },
+    {
+      "status": 3,
+      "wall_ms": 922
+    },
+    {
+      "status": 4,
+      "wall_ms": 13393
+    },
+    {
+      "status": 1,
+      "wall_ms": 13426
+    }
+  ],
+  "wall_seconds": 13.431,
+  "pulse_rate_samples": [],
+  "breathing_rate_samples": []
+}

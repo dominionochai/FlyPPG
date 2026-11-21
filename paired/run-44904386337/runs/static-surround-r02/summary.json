@@ -1,0 +1,264 @@
+{
+  "label": "static-surround-r02",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 130,
+  "packets_with_cardio_object": 37,
+  "pulse_packet_count": 25,
+  "pulse_samples_total": 25,
+  "pulse_samples_nonzero_confidence": 20,
+  "breathing_packet_count": 13,
+  "validation_event_count": 2859,
+  "validation_summary": [
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 2220
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 603
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 31
+    },
+    {
+      "message": "17 kFaceNotForward: Face the camera.",
+      "count": 5
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 654
+    },
+    {
+      "status": 2,
+      "wall_ms": 752
+    },
+    {
+      "status": 3,
+      "wall_ms": 780
+    },
+    {
+      "status": 4,
+      "wall_ms": 12481
+    },
+    {
+      "status": 1,
+      "wall_ms": 13320
+    }
+  ],
+  "wall_seconds": 13.343,
+  "pulse_rate_samples": [
+    {
+      "value": 63.79585266113281,
+      "timestamp": "71270333"
+    },
+    {
+      "value": 53.873783111572266,
+      "confidence": 3.2921791076660156,
+      "timestamp": "71827333"
+    },
+    {
+      "value": 63.92499542236328,
+      "timestamp": "73306333"
+    },
+    {
+      "value": 54.40531921386719,
+      "timestamp": "74824333"
+    },
+    {
+      "value": 67.0203857421875,
+      "confidence": 4.38380241394043,
+      "timestamp": "75705333"
+    },
+    {
+      "value": 66.23430633544922,
+      "timestamp": "76577333"
+    },
+    {
+      "value": 58.35765075683594,
+      "confidence": 3.838825225830078,
+      "timestamp": "77892333"
+    },
+    {
+      "value": 62.02924346923828,
+      "confidence": 37.085819244384766,
+      "timestamp": "78909333"
+    },
+    {
+      "value": 67.59294128417969,
+      "timestamp": "80222333"
+    },
+    {
+      "value": 63.22444534301758,
+      "stable": true,
+      "confidence": 51.20344161987305,
+      "timestamp": "81300333"
+    },
+    {
+      "value": 66.7408218383789,
+      "stable": true,
+      "confidence": 56.948089599609375,
+      "timestamp": "82192333"
+    },
+    {
+      "value": 84.24337005615234,
+      "stable": true,
+      "confidence": 51.530982971191406,
+      "timestamp": "118219000"
+    },
+    {
+      "value": 77.64198303222656,
+      "confidence": 8.712244033813477,
+      "timestamp": "118920000"
+    },
+    {
+      "value": 90.6040267944336,
+      "stable": true,
+      "confidence": 44.524288177490234,
+      "timestamp": "120119000"
+    },
+    {
+      "value": 90.0360107421875,
+      "confidence": 38.13629150390625,
+      "timestamp": "120892000"
+    },
+    {
+      "value": 89.04719543457031,
+      "stable": true,
+      "confidence": 47.455501556396484,
+      "timestamp": "121733000"
+    },
+    {
+      "value": 90.63443756103516,
+      "confidence": 17.03653335571289,
+      "timestamp": "122764000"
+    },
+    {
+      "value": 78.07981872558594,
+      "confidence": 24.467134475708008,
+      "timestamp": "124001999"
+    },
+    {
+      "value": 83.6120376586914,
+      "stable": true,
+      "confidence": 44.110965728759766,
+      "timestamp": "124845000"
+    },
+    {
+      "value": 86.43976593017578,
+      "confidence": 14.56613540649414,
+      "timestamp": "125569000"
+    },
+    {
+      "value": 83.16648864746094,
+      "stable": true,
+      "confidence": 43.22957992553711,
+      "timestamp": "126394000"
+    },
+    {
+      "value": 83.1792984008789,
+      "confidence": 28.966665267944336,
+      "timestamp": "127135000"
+    },
+    {
+      "value": 82.78399658203125,
+      "stable": true,
+      "confidence": 43.09682846069336,
+      "timestamp": "127765000"
+    },
+    {
+      "value": 79.81907653808594,
+      "stable": true,
+      "confidence": 58.816192626953125,
+      "timestamp": "128792999"
+    },
+    {
+      "value": 91.67303466796875,
+      "stable": true,
+      "confidence": 58.923484802246094,
+      "timestamp": "129274000"
+    }
+  ],
+  "breathing_rate_samples": [
+    {
+      "value": 19.618528366088867,
+      "timestamp": "123700000"
+    },
+    {
+      "value": 25.837318420410156,
+      "timestamp": "135033333"
+    },
+    {
+      "value": 25.837318420410156,
+      "timestamp": "136366666"
+    },
+    {
+      "value": 25.837318420410156,
+      "timestamp": "137166666"
+    },
+    {
+      "value": 26.557376861572266,
+      "timestamp": "138366666"
+    },
+    {
+      "value": 26.354318618774414,
+      "timestamp": "139600000"
+    },
+    {
+      "value": 26.129032135009766,
+      "timestamp": "140833333"
+    },
+    {
+      "value": 25.837318420410156,
+      "timestamp": "141866666"
+    },
+    {
+      "value": 26.86566925048828,
+      "timestamp": "142733333"
+    },
+    {
+      "value": 27.038623809814453,
+      "timestamp": "144000000"
+    },
+    {
+      "value": 27.016883850097656,
+      "timestamp": "144966666"
+    },
+    {
+      "value": 26.27737045288086,
+      "timestamp": "146433333"
+    },
+    {
+      "value": 25.961536407470703,
+      "timestamp": "147500000"
+    },
+    {
+      "value": 26.190473556518555,
+      "timestamp": "148900000"
+    },
+    {
+      "value": 26.02409553527832,
+      "timestamp": "149966666"
+    },
+    {
+      "value": 26.32170867919922,
+      "timestamp": "150866666"
+    },
+    {
+      "value": 26.52631378173828,
+      "timestamp": "152000000"
+    },
+    {
+      "value": 26.65350341796875,
+      "timestamp": "152966666"
+    }
+  ]
+}

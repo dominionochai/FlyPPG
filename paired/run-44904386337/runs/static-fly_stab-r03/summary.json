@@ -1,0 +1,186 @@
+{
+  "label": "static-fly_stab-r03",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 56,
+  "packets_with_cardio_object": 36,
+  "pulse_packet_count": 23,
+  "pulse_samples_total": 24,
+  "pulse_samples_nonzero_confidence": 23,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3571,
+  "validation_summary": [
+    {
+      "message": "3 kFaceNotCentered: Center face in view.",
+      "count": 1837
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 1357
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 377
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 660
+    },
+    {
+      "status": 2,
+      "wall_ms": 806
+    },
+    {
+      "status": 3,
+      "wall_ms": 826
+    },
+    {
+      "status": 4,
+      "wall_ms": 15524
+    },
+    {
+      "status": 1,
+      "wall_ms": 15944
+    }
+  ],
+  "wall_seconds": 15.962,
+  "pulse_rate_samples": [
+    {
+      "value": 53.66126251220703,
+      "confidence": 26.553630828857422,
+      "timestamp": "155698000"
+    },
+    {
+      "value": 58.01906204223633,
+      "confidence": 36.465789794921875,
+      "timestamp": "159436000"
+    },
+    {
+      "value": 57.3408203125,
+      "confidence": 36.934898376464844,
+      "timestamp": "161573000"
+    },
+    {
+      "value": 75.1461181640625,
+      "stable": true,
+      "confidence": 57.306053161621094,
+      "timestamp": "163324000"
+    },
+    {
+      "value": 73.85751342773438,
+      "stable": true,
+      "confidence": 61.72657012939453,
+      "timestamp": "164199000"
+    },
+    {
+      "value": 80.93888854980469,
+      "stable": true,
+      "confidence": 72.998046875,
+      "timestamp": "165382000"
+    },
+    {
+      "value": 67.31488037109375,
+      "confidence": 18.202543258666992,
+      "timestamp": "167338000"
+    },
+    {
+      "value": 62.97376251220703,
+      "confidence": 36.572601318359375,
+      "timestamp": "168488000"
+    },
+    {
+      "value": 78.04878234863281,
+      "confidence": 28.902912139892578,
+      "timestamp": "169303000"
+    },
+    {
+      "value": 68.25938415527344,
+      "confidence": 15.283966064453125,
+      "timestamp": "170271000"
+    },
+    {
+      "value": 63.18006134033203,
+      "confidence": 14.052200317382812,
+      "timestamp": "171407000"
+    },
+    {
+      "value": 63.00039291381836,
+      "confidence": 5.568790435791016,
+      "timestamp": "172641000"
+    },
+    {
+      "value": 62.622310638427734,
+      "confidence": 17.862415313720703,
+      "timestamp": "173492000"
+    },
+    {
+      "value": 65.52006530761719,
+      "confidence": 19.520139694213867,
+      "timestamp": "174320000"
+    },
+    {
+      "value": 67.14747619628906,
+      "timestamp": "175277000"
+    },
+    {
+      "value": 66.39616394042969,
+      "confidence": 25.130033493041992,
+      "timestamp": "176997000"
+    },
+    {
+      "value": 69.88481903076172,
+      "stable": true,
+      "confidence": 67.00305938720703,
+      "timestamp": "177863000"
+    },
+    {
+      "value": 69.53223419189453,
+      "stable": true,
+      "confidence": 69.30270385742188,
+      "timestamp": "178788000"
+    },
+    {
+      "value": 69.71880340576172,
+      "stable": true,
+      "confidence": 55.46064376831055,
+      "timestamp": "179522000"
+    },
+    {
+      "value": 70.74544525146484,
+      "stable": true,
+      "confidence": 44.446990966796875,
+      "timestamp": "181501000"
+    },
+    {
+      "value": 72.43991088867188,
+      "stable": true,
+      "confidence": 88.03472900390625,
+      "timestamp": "182578000"
+    },
+    {
+      "value": 72.21006774902344,
+      "stable": true,
+      "confidence": 49.83510971069336,
+      "timestamp": "183443000"
+    },
+    {
+      "value": 77.6836166381836,
+      "stable": true,
+      "confidence": 65.95931243896484,
+      "timestamp": "184587000"
+    },
+    {
+      "value": 77.55278015136719,
+      "confidence": 28.901386260986328,
+      "timestamp": "185377000"
+    }
+  ],
+  "breathing_rate_samples": []
+}

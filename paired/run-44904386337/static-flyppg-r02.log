@@ -1,0 +1,70 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795265497.691095    8707 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795265497.696287    8707 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795265497.708195    8707 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 12:51:37.708739  8707 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795265497.746825    8708 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795265497.769375    8708 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795265497.893830    8705 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "static-flyppg-r02",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 0,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3736,
+  "validation_summary": [
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 2538
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 1197
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 1
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 575
+    },
+    {
+      "status": 2,
+      "wall_ms": 677
+    },
+    {
+      "status": 3,
+      "wall_ms": 693
+    },
+    {
+      "status": 4,
+      "wall_ms": 14057
+    },
+    {
+      "status": 1,
+      "wall_ms": 14078
+    }
+  ],
+  "wall_seconds": 14.084,
+  "pulse_rate_samples": "(0 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
+No pulse-rate packets were produced. Status: INVALID_NO_OUTPUT
