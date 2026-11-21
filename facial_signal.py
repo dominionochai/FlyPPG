@@ -14,8 +14,6 @@ from scipy import signal
 
 
 REGIONS = {
-    # Normalized coordinates inside a square face crop. Eye and mouth areas
-    # are deliberately excluded; the regions are conservative starting ROIs.
     "forehead": (0.22, 0.12, 0.78, 0.34),
     "left_cheek": (0.12, 0.43, 0.43, 0.72),
     "right_cheek": (0.57, 0.43, 0.88, 0.72),
@@ -65,8 +63,6 @@ def _quality(pixels: np.ndarray, motion: float) -> Tuple[float, str]:
         return 0.0, "underexposed"
     if brightness > 0.94 or clipped > 0.20:
         return 0.0, "overexposed_or_clipped"
-
-    # Soft penalties: avoid rejecting valid but naturally smooth skin.
     exposure_score = np.clip(1.0 - abs(brightness - 0.48) / 0.55, 0.0, 1.0)
     clipping_score = np.clip(1.0 - clipped / 0.25, 0.0, 1.0)
     texture_score = np.clip(texture / 0.035, 0.25, 1.0)
@@ -80,11 +76,7 @@ def extract_region_readings(
     frames: Iterable[np.ndarray],
     motion_limit: float = 3.0,
 ) -> Dict[str, RegionReading]:
-    """Extract per-region RGB traces and a frame-averaged quality score.
-
-    Frames must be aligned RGB face crops of equal dimensions. Motion is
-    estimated within each region using Farneback flow magnitude.
-    """
+    """Extract per-region RGB traces and a frame-averaged quality score."""
     seq = [_as_rgb(f) for f in frames]
     if len(seq) < 2:
         raise ValueError("At least two face frames are required.")
@@ -167,11 +159,7 @@ def fuse_region_signals(
 
 
 def extract_intensity_trace(frames: Iterable[np.ndarray]) -> np.ndarray:
-    """Intensity trace for a real monochrome/IR camera stream.
-
-    This is not POS: monochrome data has no RGB chrominance. The caller must
-    supply frames captured by an actual monochrome/IR-sensitive camera.
-    """
+    """Intensity trace for a real monochrome/IR camera stream."""
     values = []
     for frame in frames:
         arr = np.asarray(frame)
@@ -184,7 +172,7 @@ def extract_intensity_trace(frames: Iterable[np.ndarray]) -> np.ndarray:
 
 
 def bandpass_pulse(trace: np.ndarray, fps: float, low_hz: float = 0.7, high_hz: float = 3.0) -> np.ndarray:
-    """Filter a trace in a broad pulse-frequency band; not a medical reading."""
+    """Filter a trace into a broad pulse-frequency band; not a medical reading."""
     x = np.asarray(trace, dtype=np.float64)
     if fps <= 2 * high_hz or len(x) < 16:
         raise ValueError("FPS or signal length is insufficient for this filter.")
@@ -193,43 +181,93 @@ def bandpass_pulse(trace: np.ndarray, fps: float, low_hz: float = 0.7, high_hz: 
 
 
 class FaceCropper:
-    """OpenCV Haar face detector with short-term box smoothing.
+    """MediaPipe face detector with Haar fallback and temporally stable crops.
 
-    No centered-crop fallback: a missing face is reported, not silently
-    converted into an unrelated image region.
+    Detection runs on every frame. A short five-frame hold bridges detector
+    dropouts without silently shifting or deleting frames from the reference.
     """
-    def __init__(self, min_size: int = 80, detect_every: int = 5):
-        cascade_path = cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
-        self.detector = cv2.CascadeClassifier(cascade_path)
-        if self.detector.empty():
-            raise RuntimeError("OpenCV frontal-face Haar cascade is unavailable.")
+    def __init__(self, min_size: int = 48, detect_every: int = 1):
         self.min_size = int(min_size)
         self.detect_every = int(detect_every)
         self.box: Optional[Tuple[int, int, int, int]] = None
         self.frame_index = 0
+        self.missed = 0
+        self.mp_detector = None
+        try:
+            import mediapipe as mp
+            self.mp_detector = mp.solutions.face_detection.FaceDetection(
+                model_selection=1,
+                min_detection_confidence=0.35,
+            )
+        except (ImportError, AttributeError):
+            self.mp_detector = None
+
+        cascade_dir = cv2.data.haarcascades
+        self.cascades = [
+            cv2.CascadeClassifier(cascade_dir + "haarcascade_frontalface_default.xml"),
+            cv2.CascadeClassifier(cascade_dir + "haarcascade_frontalface_alt2.xml"),
+            cv2.CascadeClassifier(cascade_dir + "haarcascade_profileface.xml"),
+        ]
+        self.cascades = [c for c in self.cascades if not c.empty()]
+
+    def _detect(self, frame: np.ndarray) -> Optional[Tuple[int, int, int, int]]:
+        height, width = frame.shape[:2]
+        if self.mp_detector is not None:
+            rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            result = self.mp_detector.process(rgb)
+            if result.detections:
+                detection = max(
+                    result.detections,
+                    key=lambda item: item.location_data.relative_bounding_box.width
+                    * item.location_data.relative_bounding_box.height,
+                )
+                box = detection.location_data.relative_bounding_box
+                x = max(0, int(box.xmin * width))
+                y = max(0, int(box.ymin * height))
+                w = min(width - x, int(box.width * width))
+                h = min(height - y, int(box.height * height))
+                if w >= self.min_size and h >= self.min_size:
+                    return x, y, w, h
+
+        gray = cv2.equalizeHist(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
+        candidates = []
+        for detector in self.cascades:
+            faces = detector.detectMultiScale(
+                gray, scaleFactor=1.08, minNeighbors=4,
+                minSize=(self.min_size, self.min_size),
+            )
+            candidates.extend(tuple(map(int, face)) for face in faces)
+            if detector is self.cascades[-1]:
+                flipped = cv2.flip(gray, 1)
+                profiles = detector.detectMultiScale(
+                    flipped, scaleFactor=1.08, minNeighbors=4,
+                    minSize=(self.min_size, self.min_size),
+                )
+                candidates.extend(
+                    (width - x - w, y, w, h) for x, y, w, h in profiles
+                )
+        return max(candidates, key=lambda b: b[2] * b[3]) if candidates else None
 
     def crop(self, bgr_frame: np.ndarray, output_size: int = 96) -> Optional[np.ndarray]:
         frame = np.asarray(bgr_frame)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        if self.frame_index % self.detect_every == 0 or self.box is None:
-            faces = self.detector.detectMultiScale(
-                gray, scaleFactor=1.1, minNeighbors=5,
-                minSize=(self.min_size, self.min_size),
-            )
-            if len(faces):
-                candidate = max(faces, key=lambda b: b[2] * b[3])
-                if self.box is None:
-                    self.box = tuple(map(int, candidate))
-                else:
-                    self.box = tuple(
-                        int(0.65 * old + 0.35 * new)
-                        for old, new in zip(self.box, candidate)
-                    )
+        detected = self._detect(frame) if self.frame_index % self.detect_every == 0 else None
+        if detected is not None:
+            if self.box is None:
+                self.box = detected
             else:
+                self.box = tuple(
+                    int(0.65 * old + 0.35 * new)
+                    for old, new in zip(self.box, detected)
+                )
+            self.missed = 0
+        else:
+            self.missed += 1
+            if self.missed > 5:
                 self.box = None
         self.frame_index += 1
         if self.box is None:
             return None
+
         x, y, w, h = self.box
         side = int(max(w, h) * 1.35)
         cx, cy = x + w // 2, y + h // 2
