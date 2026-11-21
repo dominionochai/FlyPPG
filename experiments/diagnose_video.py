@@ -82,6 +82,40 @@ def make_detector():
         return f, f"haar_cascade (mediapipe unavailable: {type(e).__name__})"
 
 
+def scorer_haar_check(video, geometry, W, H):
+    """Replicates experiments/mcd_head_to_head.py:load_frames crop logic (Haar box persisted, centered fallback, 1.8x crop) and checks
+    whether its POS region (centre of the crop) actually lies on the face found by MediaPipe."""
+    det = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    empty = det.empty()
+    mp_by_frame = {g["frame"]: g["box"] for g in geometry if g.get("box")}
+    cap = cv2.VideoCapture(video); box = None; idx = 0; n_det = 0; n_fallback = 0; stats = []
+    while True:
+        ok, frame = cap.read()
+        if not ok:
+            break
+        faces = [] if empty else det.detectMultiScale(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), 1.1, 5, minSize=(80, 80))
+        if len(faces):
+            box = tuple(int(v) for v in max(faces, key=lambda b: b[2] * b[3])); n_det += 1
+        if box is None:
+            side = int(min(H, W) * 0.72); x = (W - side) // 2; y = (H - side) // 2; bw = bh = side; n_fallback += 1
+        else:
+            x, y, bw, bh = box
+        if idx in mp_by_frame:
+            mx, my, mw, mh = mp_by_frame[idx]; cx, cy = x + bw / 2, y + bh / 2   # POS ROI is the central region of the crop around this box
+            ix = max(0, min(x + bw, mx + mw) - max(x, mx)); iy = max(0, min(y + bh, my + mh) - max(y, my)); inter = ix * iy
+            iou = inter / (bw * bh + mw * mh - inter + 1e-9)
+            stats.append({"frame": idx, "haar_detected_this_frame": bool(len(faces)), "iou_vs_mediapipe": iou,
+                          "roi_centre_inside_mp_face": bool(mx <= cx <= mx + mw and my <= cy <= my + mh), "dist_px": float(np.hypot(cx - (mx + mw / 2), cy - (my + mh / 2)))})
+        idx += 1
+    cap.release()
+    ok_frac = float(np.mean([s["roi_centre_inside_mp_face"] for s in stats])) if stats else None
+    return {"cascade_loaded": not empty, "frames": idx, "frames_with_haar_detection": n_det, "frames_using_centered_fallback": n_fallback,
+            "compared_frames": len(stats), "roi_centre_on_mediapipe_face_fraction": ok_frac,
+            "median_iou_vs_mediapipe": float(np.median([s["iou_vs_mediapipe"] for s in stats])) if stats else None,
+            "median_centre_distance_px": float(np.median([s["dist_px"] for s in stats])) if stats else None,
+            "haar_detected_on_compared_frames_fraction": float(np.mean([s["haar_detected_this_frame"] for s in stats])) if stats else None}
+
+
 def pct(a, q):
     return float(np.percentile(a, q)) if len(a) else None
 
@@ -169,6 +203,8 @@ def main():
               "frame_diff": {"median": med, "mad": mad, "max": float(d.max())}, "flagged_discontinuity_frames": flagged[:50],
               "saved_frames": saved, "detector": detector_name, "sampled_frames": len(geometry), "faces_detected": len(det),
               "face_detection_rate": len(det) / max(1, len(geometry)), "framing_summary": summ}
+    if "mediapipe" in detector_name:
+        report["scorer_haar_check"] = scorer_haar_check(a.video, geometry, W, H)
     if a.reference_video:
         ref = cv2.VideoCapture(a.reference_video); rn = int(ref.get(cv2.CAP_PROP_FRAME_COUNT)); rw, rh = int(ref.get(3)), int(ref.get(4))
         ok1, rf = ref.read(); cap = cv2.VideoCapture(a.video); ok2, cf = cap.read(); mae = None

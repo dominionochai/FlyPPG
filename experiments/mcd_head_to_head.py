@@ -21,18 +21,30 @@ def pulse_bpm(x, fps):
     band = (f >= 0.7) & (f <= 3.0)
     return float(f[band][np.argmax(p[band])] * 60)
 
-def load_frames(video):
+def _mediapipe_box_fn():
+    import mediapipe as mp
+    det = mp.solutions.face_detection.FaceDetection(model_selection=1, min_detection_confidence=0.4)
+    def f(frame):
+        h, w = frame.shape[:2]; r = det.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        if not r.detections: return []
+        b = max(r.detections, key=lambda d: d.location_data.relative_bounding_box.width * d.location_data.relative_bounding_box.height).location_data.relative_bounding_box
+        return [(int(b.xmin * w), int(b.ymin * h), int(b.width * w), int(b.height * h))]
+    return f
+
+def load_frames(video, face_detector="haar"):
     cap = cv2.VideoCapture(str(video))
     fps = cap.get(cv2.CAP_PROP_FPS)
     if not fps or fps < 1: raise RuntimeError(f"Invalid video FPS: {fps}")
-    detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") if hasattr(cv2, "CascadeClassifier") else None
+    if face_detector == "mediapipe": mp_fn = _mediapipe_box_fn(); detector = None
+    else: mp_fn = None; detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml") if hasattr(cv2, "CascadeClassifier") else None
     frames, box = [], None
     while True:
         ok, frame = cap.read()
         if not ok: break
         h, w = frame.shape[:2]
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        faces = detector.detectMultiScale(gray, 1.1, 5, minSize=(80,80)) if detector is not None else []
+        if mp_fn is not None: faces = mp_fn(frame)
+        else: faces = detector.detectMultiScale(gray, 1.1, 5, minSize=(80,80)) if detector is not None else []
         if len(faces):
             x,y,bw,bh = max(faces, key=lambda b:b[2]*b[3]); box=(x,y,bw,bh)
         if box is None:
@@ -75,8 +87,9 @@ def main():
     ap.add_argument("--video",required=True); ap.add_argument("--reference",required=True)
     ap.add_argument("--smartspectra"); ap.add_argument("--smartspectra-summary"); ap.add_argument("--out",required=True)
     ap.add_argument("--weights",default="readout_W3.npy")
+    ap.add_argument("--face-detector",choices=["haar","mediapipe"],default="haar",help="face box used for the 96x96 crop; default haar = original behaviour")
     a=ap.parse_args()
-    frames,fps=load_frames(a.video)
+    frames,fps=load_frames(a.video,a.face_detector)
     ref=np.loadtxt(a.reference)[:,0]
     if len(frames) != len(ref):
         raise RuntimeError(f"Frame/reference alignment mismatch: {len(frames)} video frames vs {len(ref)} reference samples")
@@ -126,6 +139,7 @@ def main():
     report["arms"]["SmartSpectra"]=status.smartspectra_arm(rows,len(ss),discarded)
     report["smartspectra_status"]=report["arms"]["SmartSpectra"]["status"]
     report["baseline_valid"]=report["smartspectra_status"]==status.VALID
+    report["face_detector"]=a.face_detector
     if a.smartspectra_summary and Path(a.smartspectra_summary).exists():
         sm=json.loads(Path(a.smartspectra_summary).read_text())
         report["smartspectra_sdk_summary"]={k:sm.get(k) for k in ("packet_count","pulse_packet_count","pulse_samples_nonzero_confidence","validation_event_count","validation_summary","error_count","requested_metrics")}

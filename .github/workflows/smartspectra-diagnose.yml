@@ -46,6 +46,7 @@ jobs:
           set -euo pipefail
           base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
           curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_USBVideo_before.avi" -o video.avi
+          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_USBVideo_before.txt" -o ppg_sync.txt
           # Control: openly licensed (MIT repo) sample face video; used only as an environment control, never redistributed.
           curl -fL --retry 2 --connect-timeout 20 --max-time 120 "https://raw.githubusercontent.com/Rouast-Labs/vitallens.js/main/examples/sample_video_2.mp4" -o control.mp4
           ls -l video.avi control.mp4
@@ -65,6 +66,22 @@ jobs:
           set -euo pipefail
           python experiments/diagnose_video.py video.mp4 --out diagnostics_out/diag/mcd --label mcd_converted --reference-video video.avi
           python experiments/diagnose_video.py control.mp4 --out diagnostics_out/diag/control --label control
+
+      - name: Score Raw POS and FlyPPG with the original Haar crop vs a MediaPipe crop (no SmartSpectra involved)
+        continue-on-error: true
+        run: |
+          set -uo pipefail
+          for d in haar mediapipe; do
+            python experiments/mcd_head_to_head.py --video video.mp4 --reference ppg_sync.txt --face-detector "$d" --out "diagnostics_out/h2h_${d}.json" 2>&1 | tail -n 5 | tee "diagnostics_out/logs/h2h_${d}.log"
+          done
+          python - <<'PY'
+          import json
+          for d in ("haar", "mediapipe"):
+              try: r = json.load(open(f"diagnostics_out/h2h_{d}.json"))
+              except Exception as e: print(f"::notice title=h2h {d}::not produced ({e})"); continue
+              arms = {k: (v.get("windows_scored"), None if v.get("mae_bpm") is None else round(v["mae_bpm"], 2)) for k, v in r["arms"].items()}
+              print(f"::notice title=h2h {d}::" + json.dumps(arms))
+          PY
 
       - name: SmartSpectra on control clip (documented breathing+cardio request)
         continue-on-error: true
