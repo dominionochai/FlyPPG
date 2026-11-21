@@ -4,7 +4,7 @@ import os, sys, argparse, subprocess, collections, numpy as np, cv2
 from scipy import ndimage as ndi
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 import flyppg3 as G
-A = 96; ARMS = ['control', 'conventional', 'classical', 'surround', 'fly_stab', 'flyppg']
+A = 96; ARMS = ['control', 'conventional', 'classical', 'surround', 'spatial', 'combined_lighting', 'fly_stab', 'flyppg']
 
 def read_small(path):
     cap = cv2.VideoCapture(path); fps = cap.get(cv2.CAP_PROP_FPS) or 30; w, h = int(cap.get(3)), int(cap.get(4)); sm = []
@@ -41,6 +41,26 @@ def surround_gain(v):
         return np.ones(len(v), np.float32)
     return gain.astype(np.float32)
 
+def spatial_illumination_gain(v):
+    """Bounded, achromatic local illumination correction at analysis resolution.
+
+    Estimates slowly varying illumination with a Gaussian luminance field,
+    targets the median face-region illumination, and limits gain to avoid
+    aggressive shadow lifting. This is an experimental preprocessing arm:
+    it cannot recover clipped or uncaptured signal and may amplify sensor noise.
+    """
+    # RGB luminance; use a broad spatial scale so pulse texture is not the map.
+    y = np.maximum(0.2126 * v[..., 0] + 0.7152 * v[..., 1] + 0.0722 * v[..., 2], 1e-3)
+    local = ndi.gaussian_filter(y, sigma=(0, 10, 10), mode='reflect')
+    target = np.median(local[:, 24:72, 24:72], axis=(1, 2), keepdims=True)
+    gain = target / np.maximum(local, 1e-3)
+    # Conservative limits: do not aggressively lift deep shadows or crush highlights.
+    gain = np.clip(gain, 0.80, 1.25)
+    # Remove tiny spatial speckle from the gain field itself.
+    gain = ndi.gaussian_filter(gain, sigma=(0, 2, 2), mode='reflect')
+    return gain.astype(np.float32)
+
+
 def fly_disp(v, Wr, g):
     vn = v / g[:, None, None, None]; vel = (np.c_[G.taps(G.feats_local(vn)), np.ones(len(v))] @ Wr).reshape(len(v), 9, 2)
     pos = np.cumsum(vel, 0); return pos - ndi.gaussian_filter1d(pos, 30, axis=0, mode='nearest')
@@ -51,8 +71,8 @@ def farneback_flows(v):
 
 def process(src, dst, arm, Wr):
     import imageio_ffmpeg
-    small, fps, (w, h) = read_small(src); T = len(small); gain = np.ones(T, np.float32); field = None
-    if arm in ('surround', 'flyppg'): gain = surround_gain(small)
+    small, fps, (w, h) = read_small(src); T = len(small); gain = np.ones(T, np.float32); spatial = None; field = None
+    if arm in ('surround', 'flyppg', 'combined_lighting'): gain = surround_gain(small)\n    if arm in ('spatial', 'combined_lighting'): spatial = spatial_illumination_gain(small)
     if arm in ('fly_stab', 'flyppg'): field = ('fly', fly_disp(small, Wr, gain if arm == 'flyppg' else np.ones(T, np.float32)))
     if arm == 'classical': field = ('flow', farneback_flows(small))
     xx, yy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32)); sx, sy = w / A, h / A
@@ -65,7 +85,7 @@ def process(src, dst, arm, Wr):
         f = f.astype(np.float32)
         if arm == 'conventional':
             buf.append(cv2.GaussianBlur(f, (0, 0), 1.5 * sx)); f = np.mean(buf, 0)
-        if gain[t] != 1: f = f / gain[t]
+        if gain[t] != 1: f = f / gain[t]\n        if spatial is not None:\n            sg = cv2.resize(spatial[t], (w, h), interpolation=cv2.INTER_LINEAR)\n            f *= sg[..., None]
         if field is not None:
             if field[0] == 'fly': uy = cv2.resize(field[1][t, :, 0].reshape(3, 3).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * sy; ux = cv2.resize(field[1][t, :, 1].reshape(3, 3).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * sx
             else: fl = cv2.resize(field[1][t], (w, h), interpolation=cv2.INTER_LINEAR); ux, uy = fl[..., 0] * sx, fl[..., 1] * sy
