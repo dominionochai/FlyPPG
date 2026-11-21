@@ -10,7 +10,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from landmark_regions import NAMES, dominant_bpm, fuse, region_pos, track_video
+from landmark_regions import (NAMES, dominant_bpm, fuse, region_pos, track_video,\n                              window_local_quality_vote)
 
 
 def occlude(rgb, vis, fps, span_s=10, seed=0):
@@ -59,9 +59,38 @@ def main():
         pos = region_pos(r, fps)
         methods = {n: (lambda s, e, i=i: dominant_bpm(pos[i, s:e], fps)) for i, n in enumerate(NAMES)}
         methods["fusion"] = lambda s, e: dominant_bpm(fuse(pos[:, s:e], v.T[:, s:e], fps)[0], fps)
+        win_frames = round(a.window * fps)
+        stride_frames = round(a.stride * fps)
         metrics, rows = score(methods, lambda s, e: dominant_bpm(ref[s:e], fps), fps, len(r),
-                              round(a.window * fps), round(a.stride * fps))
-        report[tag] = {"metrics": metrics, "windows": rows}
+                              win_frames, stride_frames)
+
+        # New candidate: calculate visibility and spectral confidence separately
+        # inside each scoring window, then combine regional HR estimates robustly.
+        local_rows = window_local_quality_vote(pos, v, fps, win_frames, stride_frames)
+        local_errors, best_errors = [], []
+        for item in local_rows:
+            truth = dominant_bpm(ref[item["start_frame"]:item["stop_frame"]], fps)
+            item["reference_bpm"] = truth
+            local_errors.append(abs(item["bpm"] - truth) if np.isfinite(item["bpm"]) else np.nan)
+            best_errors.append(abs(item["best_weight_bpm"] - truth)
+                               if np.isfinite(item["best_weight_bpm"]) else np.nan)
+        local_errors = np.asarray(local_errors, dtype=float)
+        best_errors = np.asarray(best_errors, dtype=float)
+
+        def summarize(errors):
+            valid = errors[np.isfinite(errors)]
+            return {
+                "windows_scored": int(len(valid)),
+                "coverage_pct": float(100 * len(valid) / max(1, len(errors))),
+                "mae_bpm": float(valid.mean()) if len(valid) else None,
+                "rmse_bpm": float(np.sqrt(np.mean(valid ** 2))) if len(valid) else None,
+                "within5_pct": float(np.mean(valid <= 5) * 100) if len(valid) else None,
+            }
+
+        metrics["window_local_quality_vote"] = summarize(local_errors)
+        metrics["window_best_weight_region_diagnostic"] = summarize(best_errors)
+        report[tag] = {"metrics": metrics, "windows": rows,
+                       "window_local_quality_vote": local_rows}
         print(tag, json.dumps(metrics, indent=1))
     report["note"] = ("stress = synthetic region loss; overlapping windows, single recording, "
                       "not independent evidence; research benchmark only.")
