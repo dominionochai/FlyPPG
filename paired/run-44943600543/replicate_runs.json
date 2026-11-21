@@ -1,0 +1,23 @@
+[
+  {
+    "condition": "static",
+    "arm": "control",
+    "repeat": "r02",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  }
+]

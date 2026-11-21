@@ -1,0 +1,27 @@
+[
+  {
+    "condition": "static",
+    "arm": "control",
+    "runs": 1,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_confidence": null,
+    "pulse_rate_std": null,
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  }
+]
