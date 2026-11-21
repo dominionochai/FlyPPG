@@ -1,0 +1,44 @@
+name: Landmark fusion benchmark (reference-checked)
+
+# Fast, independent of SmartSpectra: BPM error vs the synchronized reference PPG on the MCD clip.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fusion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Install
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          python -m pip install "mediapipe==0.10.14" "numpy<2" scipy opencv-python-headless
+      - name: Download MCD video and synchronized reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 2 --connect-timeout 20 --max-time 180 "$base/video/1020_USBVideo_before.avi" -o video.avi
+          curl -fL --retry 2 --connect-timeout 20 --max-time 60 "$base/ppg_sync/1020_USBVideo_before.txt" -o ppg_sync.txt
+          ffmpeg -y -i video.avi -an -c:v libx264 -preset veryfast -pix_fmt yuv420p video.mp4
+      - name: Benchmark
+        run: python experiments/mcd_landmark_fusion.py --video video.mp4 --reference ppg_sync.txt --out landmark_fusion.json | tee landmark_summary.txt >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: landmark-fusion, path: "landmark_fusion.json\nlandmark_summary.txt" }
+      - name: Publish to ci-diagnostics
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          mkdir -p /tmp/o && cp landmark_fusion.json landmark_summary.txt /tmp/o/
+          git config user.name github-actions; git config user.email actions@users.noreply.github.com
+          git fetch origin ci-diagnostics:ci-diagnostics 2>/dev/null; git checkout -f ci-diagnostics 2>/dev/null || git checkout --orphan ci-diagnostics
+          mkdir -p fusion && rm -rf "fusion/run-${GITHUB_RUN_ID}" && cp -r /tmp/o "fusion/run-${GITHUB_RUN_ID}"
+          git add fusion && git commit -q -m "landmark fusion ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
