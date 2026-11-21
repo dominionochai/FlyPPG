@@ -1,0 +1,69 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795263401.491393    7746 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263401.494954    7746 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263401.507501    7746 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 12:16:41.508113  7745 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795263401.548552    7747 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263401.570423    7746 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795263401.698098    7748 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "stress-fly_stab-r03",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 117,
+  "packets_with_cardio_object": 78,
+  "pulse_packet_count": 51,
+  "pulse_samples_total": 53,
+  "pulse_samples_nonzero_confidence": 51,
+  "breathing_packet_count": 0,
+  "validation_event_count": 2951,
+  "validation_summary": [
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 2189
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 738
+    },
+    {
+      "message": "12 kExcessiveMotion: Hold still - motion may affect accuracy.",
+      "count": 24
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 558
+    },
+    {
+      "status": 2,
+      "wall_ms": 655
+    },
+    {
+      "status": 3,
+      "wall_ms": 682
+    },
+    {
+      "status": 4,
+      "wall_ms": 18200
+    },
+    {
+      "status": 1,
+      "wall_ms": 18342
+    }
+  ],
+  "wall_seconds": 18.362,
+  "pulse_rate_samples": "(53 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}

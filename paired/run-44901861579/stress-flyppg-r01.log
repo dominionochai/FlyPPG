@@ -1,0 +1,65 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795263219.888696    6990 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263219.889622    6991 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263219.902204    6991 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 12:13:39.902779  6989 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795263219.941920    6992 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263219.964044    6992 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795263220.111660    6991 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "stress-flyppg-r01",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 31,
+  "packets_with_cardio_object": 15,
+  "pulse_packet_count": 9,
+  "pulse_samples_total": 10,
+  "pulse_samples_nonzero_confidence": 9,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3476,
+  "validation_summary": [
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 3234
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 242
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 635
+    },
+    {
+      "status": 2,
+      "wall_ms": 758
+    },
+    {
+      "status": 3,
+      "wall_ms": 776
+    },
+    {
+      "status": 4,
+      "wall_ms": 16170
+    },
+    {
+      "status": 1,
+      "wall_ms": 16960
+    }
+  ],
+  "wall_seconds": 16.973,
+  "pulse_rate_samples": "(10 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}

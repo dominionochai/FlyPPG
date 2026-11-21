@@ -1,0 +1,73 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795263517.857446    8109 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263517.861279    8109 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263517.873662    8109 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 12:18:37.874192  8109 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795263517.913142    8110 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795263517.935247    8110 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795263518.101933    8110 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "stress-control-r01",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 1265,
+  "packets_with_cardio_object": 349,
+  "pulse_packet_count": 176,
+  "pulse_samples_total": 176,
+  "pulse_samples_nonzero_confidence": 176,
+  "breathing_packet_count": 109,
+  "validation_event_count": 4989,
+  "validation_summary": [
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 3560
+    },
+    {
+      "message": "12 kExcessiveMotion: Hold still - motion may affect accuracy.",
+      "count": 1376
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 52
+    },
+    {
+      "message": "2 kMultipleFacesFound: Only one face is allowed.",
+      "count": 1
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 568
+    },
+    {
+      "status": 2,
+      "wall_ms": 673
+    },
+    {
+      "status": 3,
+      "wall_ms": 693
+    },
+    {
+      "status": 4,
+      "wall_ms": 45572
+    },
+    {
+      "status": 1,
+      "wall_ms": 45711
+    }
+  ],
+  "wall_seconds": 45.768,
+  "pulse_rate_samples": "(176 samples)",
+  "breathing_rate_samples": "(111 samples)"
+}

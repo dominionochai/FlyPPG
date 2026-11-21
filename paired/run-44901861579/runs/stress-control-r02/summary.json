@@ -1,0 +1,1772 @@
+{
+  "label": "stress-control-r02",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 1281,
+  "packets_with_cardio_object": 350,
+  "pulse_packet_count": 176,
+  "pulse_samples_total": 176,
+  "pulse_samples_nonzero_confidence": 176,
+  "breathing_packet_count": 112,
+  "validation_event_count": 5009,
+  "validation_summary": [
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 3142
+    },
+    {
+      "message": "12 kExcessiveMotion: Hold still - motion may affect accuracy.",
+      "count": 1731
+    },
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 78
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 53
+    },
+    {
+      "message": "17 kFaceNotForward: Face the camera.",
+      "count": 3
+    },
+    {
+      "message": "2 kMultipleFacesFound: Only one face is allowed.",
+      "count": 2
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 606
+    },
+    {
+      "status": 2,
+      "wall_ms": 722
+    },
+    {
+      "status": 3,
+      "wall_ms": 740
+    },
+    {
+      "status": 4,
+      "wall_ms": 46816
+    },
+    {
+      "status": 1,
+      "wall_ms": 46941
+    }
+  ],
+  "wall_seconds": 46.993,
+  "pulse_rate_samples": [
+    {
+      "value": 65.64551544189453,
+      "stable": true,
+      "confidence": 98.2625503540039,
+      "timestamp": "16007000"
+    },
+    {
+      "value": 65.38084411621094,
+      "stable": true,
+      "confidence": 92.52272033691406,
+      "timestamp": "16949000"
+    },
+    {
+      "value": 66.45989990234375,
+      "stable": true,
+      "confidence": 95.69401550292969,
+      "timestamp": "17802000"
+    },
+    {
+      "value": 65.47359466552734,
+      "stable": true,
+      "confidence": 96.57940673828125,
+      "timestamp": "18802000"
+    },
+    {
+      "value": 66.486083984375,
+      "stable": true,
+      "confidence": 98.89083099365234,
+      "timestamp": "19621000"
+    },
+    {
+      "value": 66.09385681152344,
+      "stable": true,
+      "confidence": 95.1485595703125,
+      "timestamp": "20561000"
+    },
+    {
+      "value": 65.99208068847656,
+      "stable": true,
+      "confidence": 93.41287231445312,
+      "timestamp": "22385000"
+    },
+    {
+      "value": 66.13756561279297,
+      "stable": true,
+      "confidence": 96.40174102783203,
+      "timestamp": "23288000"
+    },
+    {
+      "value": 66.34966278076172,
+      "stable": true,
+      "confidence": 96.16326904296875,
+      "timestamp": "24194000"
+    },
+    {
+      "value": 65.890625,
+      "stable": true,
+      "confidence": 97.8585205078125,
+      "timestamp": "25137000"
+    },
+    {
+      "value": 65.89785766601562,
+      "stable": true,
+      "confidence": 97.33538818359375,
+      "timestamp": "26031000"
+    },
+    {
+      "value": 65.94856262207031,
+      "stable": true,
+      "confidence": 97.47433471679688,
+      "timestamp": "26923000"
+    },
+    {
+      "value": 66.62965393066406,
+      "stable": true,
+      "confidence": 99.2765884399414,
+      "timestamp": "27813000"
+    },
+    {
+      "value": 65.76062774658203,
+      "stable": true,
+      "confidence": 98.5726318359375,
+      "timestamp": "28782000"
+    },
+    {
+      "value": 66.43046569824219,
+      "stable": true,
+      "confidence": 98.90723419189453,
+      "timestamp": "29639000"
+    },
+    {
+      "value": 65.88338470458984,
+      "stable": true,
+      "confidence": 98.32339477539062,
+      "timestamp": "30623000"
+    },
+    {
+      "value": 65.05475616455078,
+      "stable": true,
+      "confidence": 83.26811981201172,
+      "timestamp": "31608000"
+    },
+    {
+      "value": 65.56660461425781,
+      "stable": true,
+      "confidence": 91.13082885742188,
+      "timestamp": "32457000"
+    },
+    {
+      "value": 66.2105484008789,
+      "stable": true,
+      "confidence": 93.24588775634766,
+      "timestamp": "33265000"
+    },
+    {
+      "value": 66.56312561035156,
+      "stable": true,
+      "confidence": 92.55323791503906,
+      "timestamp": "34177000"
+    },
+    {
+      "value": 66.28369140625,
+      "stable": true,
+      "confidence": 91.39122772216797,
+      "timestamp": "35104000"
+    },
+    {
+      "value": 65.45930480957031,
+      "stable": true,
+      "confidence": 90.53764343261719,
+      "timestamp": "36101000"
+    },
+    {
+      "value": 65.40935516357422,
+      "stable": true,
+      "confidence": 70.26190948486328,
+      "timestamp": "37010000"
+    },
+    {
+      "value": 65.91233825683594,
+      "stable": true,
+      "confidence": 70.95956420898438,
+      "timestamp": "37871000"
+    },
+    {
+      "value": 65.89785766601562,
+      "stable": true,
+      "confidence": 83.96572875976562,
+      "timestamp": "38752000"
+    },
+    {
+      "value": 66.3716812133789,
+      "stable": true,
+      "confidence": 79.2775650024414,
+      "timestamp": "39676999"
+    },
+    {
+      "value": 66.75567626953125,
+      "stable": true,
+      "confidence": 77.37922668457031,
+      "timestamp": "40585000"
+    },
+    {
+      "value": 67.33251190185547,
+      "stable": true,
+      "confidence": 84.98778533935547,
+      "timestamp": "41412000"
+    },
+    {
+      "value": 66.02838897705078,
+      "stable": true,
+      "confidence": 65.76905059814453,
+      "timestamp": "42358000"
+    },
+    {
+      "value": 66.674072265625,
+      "stable": true,
+      "confidence": 76.28760528564453,
+      "timestamp": "43211000"
+    },
+    {
+      "value": 66.24710083007812,
+      "stable": true,
+      "confidence": 65.65361022949219,
+      "timestamp": "44203000"
+    },
+    {
+      "value": 68.42923736572266,
+      "stable": true,
+      "confidence": 54.3757438659668,
+      "timestamp": "45112000"
+    },
+    {
+      "value": 67.15916442871094,
+      "stable": true,
+      "confidence": 96.81916046142578,
+      "timestamp": "45968000"
+    },
+    {
+      "value": 66.61485290527344,
+      "stable": true,
+      "confidence": 95.35255432128906,
+      "timestamp": "46912000"
+    },
+    {
+      "value": 66.45254516601562,
+      "stable": true,
+      "confidence": 96.71182250976562,
+      "timestamp": "47796000"
+    },
+    {
+      "value": 68.14309692382812,
+      "stable": true,
+      "confidence": 81.9917221069336,
+      "timestamp": "48725000"
+    },
+    {
+      "value": 66.48936462402344,
+      "stable": true,
+      "confidence": 89.62478637695312,
+      "timestamp": "49644000"
+    },
+    {
+      "value": 65.57376861572266,
+      "stable": true,
+      "confidence": 89.40090942382812,
+      "timestamp": "50578000"
+    },
+    {
+      "value": 68.28057098388672,
+      "stable": true,
+      "confidence": 83.3139419555664,
+      "timestamp": "51483000"
+    },
+    {
+      "value": 65.79669189453125,
+      "stable": true,
+      "confidence": 97.30315399169922,
+      "timestamp": "52377000"
+    },
+    {
+      "value": 66.1084213256836,
+      "stable": true,
+      "confidence": 96.62127685546875,
+      "timestamp": "53277000"
+    },
+    {
+      "value": 66.28369140625,
+      "stable": true,
+      "confidence": 96.4894790649414,
+      "timestamp": "54222000"
+    },
+    {
+      "value": 65.60244750976562,
+      "stable": true,
+      "confidence": 95.40991973876953,
+      "timestamp": "55142000"
+    },
+    {
+      "value": 66.13027954101562,
+      "stable": true,
+      "confidence": 97.70469665527344,
+      "timestamp": "56029000"
+    },
+    {
+      "value": 65.86168670654297,
+      "stable": true,
+      "confidence": 95.969482421875,
+      "timestamp": "56940000"
+    },
+    {
+      "value": 66.02112579345703,
+      "stable": true,
+      "confidence": 96.67839813232422,
+      "timestamp": "57842000"
+    },
+    {
+      "value": 66.05020141601562,
+      "stable": true,
+      "confidence": 98.90594482421875,
+      "timestamp": "58734000"
+    },
+    {
+      "value": 66.80770874023438,
+      "stable": true,
+      "confidence": 98.36659240722656,
+      "timestamp": "59595000"
+    },
+    {
+      "value": 66.5262222290039,
+      "stable": true,
+      "confidence": 98.40522003173828,
+      "timestamp": "60526000"
+    },
+    {
+      "value": 66.09385681152344,
+      "stable": true,
+      "confidence": 99.01152038574219,
+      "timestamp": "61463000"
+    },
+    {
+      "value": 65.89785766601562,
+      "stable": true,
+      "confidence": 98.61441040039062,
+      "timestamp": "62369000"
+    },
+    {
+      "value": 66.58528137207031,
+      "stable": true,
+      "confidence": 99.6287841796875,
+      "timestamp": "63236000"
+    },
+    {
+      "value": 66.56312561035156,
+      "stable": true,
+      "confidence": 99.58505249023438,
+      "timestamp": "64163000"
+    },
+    {
+      "value": 66.54097747802734,
+      "stable": true,
+      "confidence": 99.32799530029297,
+      "timestamp": "65068000"
+    },
+    {
+      "value": 66.53359985351562,
+      "stable": true,
+      "confidence": 99.97730255126953,
+      "timestamp": "65982999"
+    },
+    {
+      "value": 66.19593811035156,
+      "stable": true,
+      "confidence": 99.31121063232422,
+      "timestamp": "66900000"
+    },
+    {
+      "value": 66.39371490478516,
+      "stable": true,
+      "confidence": 99.65052795410156,
+      "timestamp": "67792000"
+    },
+    {
+      "value": 66.1156997680664,
+      "stable": true,
+      "confidence": 99.72386169433594,
+      "timestamp": "68700000"
+    },
+    {
+      "value": 66.30567169189453,
+      "stable": true,
+      "confidence": 99.08795166015625,
+      "timestamp": "69608000"
+    },
+    {
+      "value": 66.71114349365234,
+      "stable": true,
+      "confidence": 99.88169860839844,
+      "timestamp": "70505999"
+    },
+    {
+      "value": 66.39371490478516,
+      "stable": true,
+      "confidence": 98.587890625,
+      "timestamp": "71441000"
+    },
+    {
+      "value": 66.23247528076172,
+      "stable": true,
+      "confidence": 99.07050323486328,
+      "timestamp": "72309000"
+    },
+    {
+      "value": 66.51884460449219,
+      "stable": true,
+      "confidence": 98.7509765625,
+      "timestamp": "73204000"
+    },
+    {
+      "value": 66.41576385498047,
+      "stable": true,
+      "confidence": 99.51104736328125,
+      "timestamp": "74162999"
+    },
+    {
+      "value": 66.2032470703125,
+      "stable": true,
+      "confidence": 99.27644348144531,
+      "timestamp": "75061000"
+    },
+    {
+      "value": 65.84001159667969,
+      "stable": true,
+      "confidence": 97.822998046875,
+      "timestamp": "76000000"
+    },
+    {
+      "value": 66.06474304199219,
+      "stable": true,
+      "confidence": 98.14881896972656,
+      "timestamp": "76886000"
+    },
+    {
+      "value": 66.02838897705078,
+      "stable": true,
+      "confidence": 97.72024536132812,
+      "timestamp": "77808000"
+    },
+    {
+      "value": 65.65988159179688,
+      "stable": true,
+      "confidence": 96.93861389160156,
+      "timestamp": "78755000"
+    },
+    {
+      "value": 66.10113525390625,
+      "stable": true,
+      "confidence": 95.66612243652344,
+      "timestamp": "79613000"
+    },
+    {
+      "value": 65.39509582519531,
+      "stable": true,
+      "confidence": 95.03927612304688,
+      "timestamp": "80565000"
+    },
+    {
+      "value": 66.9418716430664,
+      "stable": true,
+      "confidence": 92.55671691894531,
+      "timestamp": "81339000"
+    },
+    {
+      "value": 65.739013671875,
+      "stable": true,
+      "confidence": 95.92156219482422,
+      "timestamp": "82360000"
+    },
+    {
+      "value": 66.18863677978516,
+      "stable": true,
+      "confidence": 92.093994140625,
+      "timestamp": "83241000"
+    },
+    {
+      "value": 65.81111907958984,
+      "stable": true,
+      "confidence": 98.36444854736328,
+      "timestamp": "95135333"
+    },
+    {
+      "value": 66.07929229736328,
+      "stable": true,
+      "confidence": 98.67558288574219,
+      "timestamp": "96007333"
+    },
+    {
+      "value": 66.17403411865234,
+      "stable": true,
+      "confidence": 98.47140502929688,
+      "timestamp": "96911333"
+    },
+    {
+      "value": 66.1594467163086,
+      "stable": true,
+      "confidence": 98.81777954101562,
+      "timestamp": "97813333"
+    },
+    {
+      "value": 66.15215301513672,
+      "stable": true,
+      "confidence": 98.30374908447266,
+      "timestamp": "98717333"
+    },
+    {
+      "value": 66.29833984375,
+      "stable": true,
+      "confidence": 99.14107513427734,
+      "timestamp": "99624333"
+    },
+    {
+      "value": 66.02838897705078,
+      "stable": true,
+      "confidence": 96.3357925415039,
+      "timestamp": "100544333"
+    },
+    {
+      "value": 66.30567169189453,
+      "stable": true,
+      "confidence": 96.39973449707031,
+      "timestamp": "101428333"
+    },
+    {
+      "value": 66.15215301513672,
+      "stable": true,
+      "confidence": 94.48976135253906,
+      "timestamp": "102346333"
+    },
+    {
+      "value": 66.45989990234375,
+      "stable": true,
+      "confidence": 97.96456909179688,
+      "timestamp": "103249333"
+    },
+    {
+      "value": 66.33499145507812,
+      "stable": true,
+      "confidence": 97.84541320800781,
+      "timestamp": "104188333"
+    },
+    {
+      "value": 66.23247528076172,
+      "stable": true,
+      "confidence": 98.02503967285156,
+      "timestamp": "105089333"
+    },
+    {
+      "value": 66.17403411865234,
+      "stable": true,
+      "confidence": 98.38676452636719,
+      "timestamp": "106004333"
+    },
+    {
+      "value": 66.09385681152344,
+      "stable": true,
+      "confidence": 97.90310668945312,
+      "timestamp": "106898333"
+    },
+    {
+      "value": 66.1594467163086,
+      "stable": true,
+      "confidence": 99.17335510253906,
+      "timestamp": "107803333"
+    },
+    {
+      "value": 66.1156997680664,
+      "stable": true,
+      "confidence": 98.61388397216797,
+      "timestamp": "108712333"
+    },
+    {
+      "value": 66.7259750366211,
+      "stable": true,
+      "confidence": 99.52769470214844,
+      "timestamp": "109597333"
+    },
+    {
+      "value": 66.072021484375,
+      "stable": true,
+      "confidence": 99.37486267089844,
+      "timestamp": "110561333"
+    },
+    {
+      "value": 66.23978424072266,
+      "stable": true,
+      "confidence": 98.82073211669922,
+      "timestamp": "111432333"
+    },
+    {
+      "value": 65.78225708007812,
+      "stable": true,
+      "confidence": 98.22306823730469,
+      "timestamp": "112381333"
+    },
+    {
+      "value": 66.29833984375,
+      "stable": true,
+      "confidence": 97.32279968261719,
+      "timestamp": "113255333"
+    },
+    {
+      "value": 66.22516632080078,
+      "stable": true,
+      "confidence": 98.72985076904297,
+      "timestamp": "114169333"
+    },
+    {
+      "value": 65.98482513427734,
+      "stable": true,
+      "confidence": 98.68511962890625,
+      "timestamp": "115091333"
+    },
+    {
+      "value": 66.02112579345703,
+      "stable": true,
+      "confidence": 98.61378479003906,
+      "timestamp": "115986333"
+    },
+    {
+      "value": 65.81834411621094,
+      "stable": true,
+      "confidence": 97.45650482177734,
+      "timestamp": "116930333"
+    },
+    {
+      "value": 65.9195785522461,
+      "stable": true,
+      "confidence": 98.09388732910156,
+      "timestamp": "117816333"
+    },
+    {
+      "value": 65.65988159179688,
+      "stable": true,
+      "confidence": 97.35379028320312,
+      "timestamp": "118730333"
+    },
+    {
+      "value": 66.34232330322266,
+      "stable": true,
+      "confidence": 94.77386474609375,
+      "timestamp": "119645333"
+    },
+    {
+      "value": 65.87615203857422,
+      "stable": true,
+      "confidence": 96.28472137451172,
+      "timestamp": "120553333"
+    },
+    {
+      "value": 67.27965545654297,
+      "stable": true,
+      "confidence": 97.46451568603516,
+      "timestamp": "121401333"
+    },
+    {
+      "value": 65.52364349365234,
+      "stable": true,
+      "confidence": 67.20381164550781,
+      "timestamp": "122414333"
+    },
+    {
+      "value": 66.27637481689453,
+      "stable": true,
+      "confidence": 85.81280517578125,
+      "timestamp": "123246333"
+    },
+    {
+      "value": 66.56312561035156,
+      "stable": true,
+      "confidence": 85.97564697265625,
+      "timestamp": "124161333"
+    },
+    {
+      "value": 66.31299591064453,
+      "stable": true,
+      "confidence": 88.18726348876953,
+      "timestamp": "125075333"
+    },
+    {
+      "value": 65.69583129882812,
+      "stable": true,
+      "confidence": 88.29579162597656,
+      "timestamp": "126089333"
+    },
+    {
+      "value": 65.99933624267578,
+      "stable": true,
+      "confidence": 85.66017150878906,
+      "timestamp": "126929333"
+    },
+    {
+      "value": 66.29833984375,
+      "stable": true,
+      "confidence": 85.84375,
+      "timestamp": "127798333"
+    },
+    {
+      "value": 65.97756958007812,
+      "stable": true,
+      "confidence": 90.46092224121094,
+      "timestamp": "128761333"
+    },
+    {
+      "value": 66.68889617919922,
+      "stable": true,
+      "confidence": 90.1619873046875,
+      "timestamp": "129630333"
+    },
+    {
+      "value": 66.68889617919922,
+      "stable": true,
+      "confidence": 93.53213500976562,
+      "timestamp": "130565333"
+    },
+    {
+      "value": 66.45989990234375,
+      "stable": true,
+      "confidence": 94.81344604492188,
+      "timestamp": "131451333"
+    },
+    {
+      "value": 65.890625,
+      "stable": true,
+      "confidence": 93.72334289550781,
+      "timestamp": "132371333"
+    },
+    {
+      "value": 66.05020141601562,
+      "stable": true,
+      "confidence": 97.63226318359375,
+      "timestamp": "133266333"
+    },
+    {
+      "value": 65.97756958007812,
+      "stable": true,
+      "confidence": 98.779296875,
+      "timestamp": "134195333"
+    },
+    {
+      "value": 66.61485290527344,
+      "stable": true,
+      "confidence": 99.59435272216797,
+      "timestamp": "135114333"
+    },
+    {
+      "value": 66.2032470703125,
+      "stable": true,
+      "confidence": 100,
+      "timestamp": "136034333"
+    },
+    {
+      "value": 66.18863677978516,
+      "stable": true,
+      "confidence": 100,
+      "timestamp": "136906333"
+    },
+    {
+      "value": 66.62965393066406,
+      "stable": true,
+      "confidence": 99.27987670898438,
+      "timestamp": "137787333"
+    },
+    {
+      "value": 65.8255615234375,
+      "stable": true,
+      "confidence": 98.76132202148438,
+      "timestamp": "138754333"
+    },
+    {
+      "value": 66.4672622680664,
+      "stable": true,
+      "confidence": 99.23529815673828,
+      "timestamp": "139633333"
+    },
+    {
+      "value": 65.81111907958984,
+      "stable": true,
+      "confidence": 96.39373016357422,
+      "timestamp": "140583333"
+    },
+    {
+      "value": 67.08407592773438,
+      "stable": true,
+      "confidence": 95.14627075195312,
+      "timestamp": "141363333"
+    },
+    {
+      "value": 65.71741485595703,
+      "stable": true,
+      "confidence": 86.10801696777344,
+      "timestamp": "142399333"
+    },
+    {
+      "value": 69.3641586303711,
+      "stable": true,
+      "confidence": 67.41452026367188,
+      "timestamp": "143235333"
+    },
+    {
+      "value": 69.27606201171875,
+      "stable": true,
+      "confidence": 69.28147888183594,
+      "timestamp": "144184333"
+    },
+    {
+      "value": 66.0146713256836,
+      "stable": true,
+      "confidence": 82.01704406738281,
+      "timestamp": "145102333"
+    },
+    {
+      "value": 66.32032775878906,
+      "stable": true,
+      "confidence": 84.51962280273438,
+      "timestamp": "145996333"
+    },
+    {
+      "value": 65.7462158203125,
+      "stable": true,
+      "confidence": 86.94329071044922,
+      "timestamp": "146901333"
+    },
+    {
+      "value": 69.14832305908203,
+      "stable": true,
+      "confidence": 78.35154724121094,
+      "timestamp": "147761333"
+    },
+    {
+      "value": 67.88866424560547,
+      "stable": true,
+      "confidence": 87.17303466796875,
+      "timestamp": "148742333"
+    },
+    {
+      "value": 66.66666412353516,
+      "stable": true,
+      "confidence": 85.50028991699219,
+      "timestamp": "149611333"
+    },
+    {
+      "value": 67.5827865600586,
+      "stable": true,
+      "confidence": 87.32380676269531,
+      "timestamp": "150543333"
+    },
+    {
+      "value": 66.1084213256836,
+      "stable": true,
+      "confidence": 91.6298828125,
+      "timestamp": "151464333"
+    },
+    {
+      "value": 65.84001159667969,
+      "stable": true,
+      "confidence": 91.48130798339844,
+      "timestamp": "152359333"
+    },
+    {
+      "value": 65.89785766601562,
+      "stable": true,
+      "confidence": 96.72613525390625,
+      "timestamp": "153289333"
+    },
+    {
+      "value": 66.21785736083984,
+      "stable": true,
+      "confidence": 95.2750244140625,
+      "timestamp": "154184333"
+    },
+    {
+      "value": 67.62849426269531,
+      "stable": true,
+      "confidence": 85.04228210449219,
+      "timestamp": "154877333"
+    },
+    {
+      "value": 69.57621765136719,
+      "stable": true,
+      "confidence": 86.85669708251953,
+      "timestamp": "155505333"
+    },
+    {
+      "value": 65.65988159179688,
+      "stable": true,
+      "confidence": 69.74783325195312,
+      "timestamp": "156064333"
+    },
+    {
+      "value": 70.65625,
+      "stable": true,
+      "confidence": 54.62727355957031,
+      "timestamp": "157139333"
+    },
+    {
+      "value": 66.0574722290039,
+      "stable": true,
+      "confidence": 54.732418060302734,
+      "timestamp": "157845333"
+    },
+    {
+      "value": 72.57532501220703,
+      "stable": true,
+      "confidence": 58.986427307128906,
+      "timestamp": "158724333"
+    },
+    {
+      "value": 73.78258514404297,
+      "stable": true,
+      "confidence": 59.83743667602539,
+      "timestamp": "159613333"
+    },
+    {
+      "value": 73.00885009765625,
+      "stable": true,
+      "confidence": 59.8358154296875,
+      "timestamp": "160519333"
+    },
+    {
+      "value": 73.58679962158203,
+      "stable": true,
+      "confidence": 55.49793243408203,
+      "timestamp": "161361333"
+    },
+    {
+      "value": 73.87342834472656,
+      "stable": true,
+      "confidence": 59.78092956542969,
+      "timestamp": "161806333"
+    },
+    {
+      "value": 76.41365051269531,
+      "stable": true,
+      "confidence": 71.52490234375,
+      "timestamp": "162472333"
+    },
+    {
+      "value": 76.3535385131836,
+      "stable": true,
+      "confidence": 71.93260192871094,
+      "timestamp": "163224333"
+    },
+    {
+      "value": 73.99932861328125,
+      "stable": true,
+      "confidence": 70.31741333007812,
+      "timestamp": "164132333"
+    },
+    {
+      "value": 67.46879577636719,
+      "stable": true,
+      "confidence": 60.253047943115234,
+      "timestamp": "165081333"
+    },
+    {
+      "value": 67.28720092773438,
+      "stable": true,
+      "confidence": 85.60057067871094,
+      "timestamp": "165997333"
+    },
+    {
+      "value": 68.4072494506836,
+      "stable": true,
+      "confidence": 65.36894226074219,
+      "timestamp": "167005333"
+    },
+    {
+      "value": 68.89424896240234,
+      "stable": true,
+      "confidence": 43.210838317871094,
+      "timestamp": "167795333"
+    },
+    {
+      "value": 65.97756958007812,
+      "stable": true,
+      "confidence": 56.700801849365234,
+      "timestamp": "168701333"
+    },
+    {
+      "value": 69.02104949951172,
+      "stable": true,
+      "confidence": 45.942020416259766,
+      "timestamp": "169587333"
+    },
+    {
+      "value": 68.24385833740234,
+      "stable": true,
+      "confidence": 66.58430480957031,
+      "timestamp": "170524333"
+    },
+    {
+      "value": 66.7259750366211,
+      "stable": true,
+      "confidence": 66.37358856201172,
+      "timestamp": "171409333"
+    },
+    {
+      "value": 68.0657958984375,
+      "stable": true,
+      "confidence": 52.701904296875,
+      "timestamp": "172519333"
+    },
+    {
+      "value": 66.1156997680664,
+      "stable": true,
+      "confidence": 54.707000732421875,
+      "timestamp": "173236333"
+    },
+    {
+      "value": 63.85696029663086,
+      "stable": true,
+      "confidence": 56.24156188964844,
+      "timestamp": "174235333"
+    },
+    {
+      "value": 66.13027954101562,
+      "stable": true,
+      "confidence": 67.04435729980469,
+      "timestamp": "175076333"
+    },
+    {
+      "value": 67.43846130371094,
+      "stable": true,
+      "confidence": 50.05164337158203,
+      "timestamp": "175974333"
+    },
+    {
+      "value": 69.19617462158203,
+      "stable": true,
+      "confidence": 45.82886505126953,
+      "timestamp": "176887333"
+    },
+    {
+      "value": 66.1594467163086,
+      "stable": true,
+      "confidence": 58.33244323730469,
+      "timestamp": "177777333"
+    },
+    {
+      "value": 68.88633728027344,
+      "confidence": 10.483264923095703,
+      "timestamp": "178698333"
+    },
+    {
+      "value": 69.03693389892578,
+      "stable": true,
+      "confidence": 69.50912475585938,
+      "timestamp": "179971333"
+    },
+    {
+      "value": 67.99637603759766,
+      "stable": true,
+      "confidence": 60.382747650146484,
+      "timestamp": "180606333"
+    },
+    {
+      "value": 68.02721405029297,
+      "stable": true,
+      "confidence": 73.77810668945312,
+      "timestamp": "181321333"
+    },
+    {
+      "value": 67.78894805908203,
+      "stable": true,
+      "confidence": 64.54959106445312,
+      "timestamp": "182402333"
+    },
+    {
+      "value": 70.6297836303711,
+      "stable": true,
+      "confidence": 63.979244232177734,
+      "timestamp": "183210333"
+    },
+    {
+      "value": 70.15082550048828,
+      "stable": true,
+      "confidence": 52.75616455078125,
+      "timestamp": "184149333"
+    },
+    {
+      "value": 75.93189239501953,
+      "stable": true,
+      "confidence": 50.0416259765625,
+      "timestamp": "185057333"
+    }
+  ],
+  "breathing_rate_samples": [
+    {
+      "value": 22.360248565673828,
+      "timestamp": "33366666"
+    },
+    {
+      "value": 21.634614944458008,
+      "timestamp": "34400000"
+    },
+    {
+      "value": 22.546972274780273,
+      "timestamp": "35466666"
+    },
+    {
+      "value": 23.841062545776367,
+      "timestamp": "36666666"
+    },
+    {
+      "value": 23.908918380737305,
+      "timestamp": "37800000"
+    },
+    {
+      "value": 23.188404083251953,
+      "timestamp": "39900000"
+    },
+    {
+      "value": 22.562673568725586,
+      "timestamp": "41033333"
+    },
+    {
+      "value": 22.87166404724121,
+      "timestamp": "42200000"
+    },
+    {
+      "value": 23.580785751342773,
+      "timestamp": "43233333"
+    },
+    {
+      "value": 22.87166404724121,
+      "timestamp": "46566666"
+    },
+    {
+      "value": 24.554039001464844,
+      "timestamp": "47733333"
+    },
+    {
+      "value": 24.303796768188477,
+      "timestamp": "48766666"
+    },
+    {
+      "value": 24.51923179626465,
+      "timestamp": "49833333"
+    },
+    {
+      "value": 25.087108612060547,
+      "timestamp": "50966666"
+    },
+    {
+      "value": 24.657533645629883,
+      "stable": true,
+      "confidence": 63.345184326171875,
+      "timestamp": "54166666"
+    },
+    {
+      "value": 25.714284896850586,
+      "stable": true,
+      "confidence": 59.318546295166016,
+      "timestamp": "55266666"
+    },
+    {
+      "value": 26.042552947998047,
+      "stable": true,
+      "confidence": 59.415977478027344,
+      "timestamp": "56333333"
+    },
+    {
+      "value": 24.0944881439209,
+      "stable": true,
+      "confidence": 67.85112762451172,
+      "timestamp": "57500000"
+    },
+    {
+      "value": 24.24870491027832,
+      "stable": true,
+      "confidence": 59.411312103271484,
+      "timestamp": "59733333"
+    },
+    {
+      "value": 25,
+      "stable": true,
+      "confidence": 63.79246520996094,
+      "timestamp": "61933333"
+    },
+    {
+      "value": 25.080385208129883,
+      "stable": true,
+      "confidence": 66.1113510131836,
+      "timestamp": "63066666"
+    },
+    {
+      "value": 24.920127868652344,
+      "stable": true,
+      "confidence": 68.0216293334961,
+      "timestamp": "64233333"
+    },
+    {
+      "value": 25.471696853637695,
+      "stable": true,
+      "confidence": 67.5624008178711,
+      "timestamp": "66400000"
+    },
+    {
+      "value": 24.827585220336914,
+      "stable": true,
+      "confidence": 62.817081451416016,
+      "timestamp": "67466666"
+    },
+    {
+      "value": 24.62686538696289,
+      "stable": true,
+      "confidence": 64.2515869140625,
+      "timestamp": "68666666"
+    },
+    {
+      "value": 24.657533645629883,
+      "stable": true,
+      "confidence": 66.19432830810547,
+      "timestamp": "69866666"
+    },
+    {
+      "value": 25.19999885559082,
+      "stable": true,
+      "confidence": 67.9003677368164,
+      "timestamp": "71900000"
+    },
+    {
+      "value": 24.39496421813965,
+      "stable": true,
+      "confidence": 69.47595977783203,
+      "timestamp": "73133333"
+    },
+    {
+      "value": 25.14969825744629,
+      "stable": true,
+      "confidence": 69.8866958618164,
+      "timestamp": "74200000"
+    },
+    {
+      "value": 24.277456283569336,
+      "stable": true,
+      "confidence": 68.6060791015625,
+      "timestamp": "75266666"
+    },
+    {
+      "value": 22.978721618652344,
+      "stable": true,
+      "confidence": 66.8716049194336,
+      "timestamp": "78733333"
+    },
+    {
+      "value": 22.978721618652344,
+      "stable": true,
+      "confidence": 66.61782836914062,
+      "timestamp": "79866666"
+    },
+    {
+      "value": 23.260435104370117,
+      "stable": true,
+      "confidence": 70.11689758300781,
+      "timestamp": "80933333"
+    },
+    {
+      "value": 23.529409408569336,
+      "stable": true,
+      "confidence": 69.88762664794922,
+      "timestamp": "82033333"
+    },
+    {
+      "value": 22.764225006103516,
+      "stable": true,
+      "confidence": 66.63631439208984,
+      "timestamp": "84300000"
+    },
+    {
+      "value": 22.76422691345215,
+      "stable": true,
+      "confidence": 72.13646697998047,
+      "timestamp": "85433333"
+    },
+    {
+      "value": 22.580644607543945,
+      "stable": true,
+      "confidence": 72.46192932128906,
+      "timestamp": "86833333"
+    },
+    {
+      "value": 22.40663719177246,
+      "stable": true,
+      "confidence": 72.0026626586914,
+      "timestamp": "89800000"
+    },
+    {
+      "value": 22.076858520507812,
+      "stable": true,
+      "confidence": 74.54937744140625,
+      "timestamp": "90966666"
+    },
+    {
+      "value": 22.395021438598633,
+      "stable": true,
+      "confidence": 73.19367218017578,
+      "timestamp": "91900000"
+    },
+    {
+      "value": 22.53520965576172,
+      "stable": true,
+      "confidence": 72.33048248291016,
+      "timestamp": "93000000"
+    },
+    {
+      "value": 22.992700576782227,
+      "stable": true,
+      "confidence": 71.56640625,
+      "timestamp": "95200000"
+    },
+    {
+      "value": 22.808868408203125,
+      "stable": true,
+      "confidence": 47.872962951660156,
+      "timestamp": "99433333"
+    },
+    {
+      "value": 23.32155418395996,
+      "stable": true,
+      "confidence": 48.25844192504883,
+      "timestamp": "100533333"
+    },
+    {
+      "value": 23.884197235107422,
+      "stable": true,
+      "confidence": 47.269187927246094,
+      "timestamp": "101633333"
+    },
+    {
+      "value": 24.05832290649414,
+      "stable": true,
+      "confidence": 46.62299728393555,
+      "timestamp": "102633333"
+    },
+    {
+      "value": 24.175823211669922,
+      "stable": true,
+      "confidence": 46.48377990722656,
+      "timestamp": "103633333"
+    },
+    {
+      "value": 24.324323654174805,
+      "stable": true,
+      "confidence": 66.20972442626953,
+      "timestamp": "106933333"
+    },
+    {
+      "value": 24.294477462768555,
+      "stable": true,
+      "confidence": 66.92475891113281,
+      "timestamp": "107933333"
+    },
+    {
+      "value": 24.44444465637207,
+      "stable": true,
+      "confidence": 66.54853820800781,
+      "timestamp": "108966666"
+    },
+    {
+      "value": 24.565757751464844,
+      "stable": true,
+      "confidence": 66.59937286376953,
+      "timestamp": "109966666"
+    },
+    {
+      "value": 25.84856414794922,
+      "stable": true,
+      "confidence": 67.38240051269531,
+      "timestamp": "111000000"
+    },
+    {
+      "value": 26.086956024169922,
+      "stable": true,
+      "confidence": 84.78414154052734,
+      "timestamp": "112033333"
+    },
+    {
+      "value": 26.381059646606445,
+      "stable": true,
+      "confidence": 88.03717803955078,
+      "timestamp": "112966666"
+    },
+    {
+      "value": 26.341463088989258,
+      "stable": true,
+      "confidence": 87.9925765991211,
+      "timestamp": "114000000"
+    },
+    {
+      "value": 27.038625717163086,
+      "stable": true,
+      "confidence": 87.81181335449219,
+      "timestamp": "115033333"
+    },
+    {
+      "value": 26.543777465820312,
+      "stable": true,
+      "confidence": 84.7602767944336,
+      "timestamp": "116233333"
+    },
+    {
+      "value": 27.52293586730957,
+      "stable": true,
+      "confidence": 81.25164794921875,
+      "timestamp": "117399999"
+    },
+    {
+      "value": 27.0931339263916,
+      "stable": true,
+      "confidence": 76.66373443603516,
+      "timestamp": "118966666"
+    },
+    {
+      "value": 26.617374420166016,
+      "stable": true,
+      "confidence": 77.83522033691406,
+      "timestamp": "120133333"
+    },
+    {
+      "value": 26.5625,
+      "stable": true,
+      "confidence": 81.78594970703125,
+      "timestamp": "121300000"
+    },
+    {
+      "value": 26.600984573364258,
+      "stable": true,
+      "confidence": 81.37320709228516,
+      "timestamp": "122333333"
+    },
+    {
+      "value": 26.677066802978516,
+      "stable": true,
+      "confidence": 79.04276275634766,
+      "timestamp": "123433333"
+    },
+    {
+      "value": 26.726057052612305,
+      "stable": true,
+      "confidence": 81.23532104492188,
+      "timestamp": "124500000"
+    },
+    {
+      "value": 26.770538330078125,
+      "stable": true,
+      "confidence": 88.61756134033203,
+      "timestamp": "125600000"
+    },
+    {
+      "value": 26.770538330078125,
+      "stable": true,
+      "confidence": 67.7556381225586,
+      "timestamp": "127600000"
+    },
+    {
+      "value": 26.770538330078125,
+      "stable": true,
+      "confidence": 51.72059631347656,
+      "timestamp": "129333333"
+    },
+    {
+      "value": 27.37642478942871,
+      "stable": true,
+      "confidence": 54.0687370300293,
+      "timestamp": "131766666"
+    },
+    {
+      "value": 27.2520809173584,
+      "stable": true,
+      "confidence": 56.371673583984375,
+      "timestamp": "132833333"
+    },
+    {
+      "value": 28.124998092651367,
+      "stable": true,
+      "confidence": 56.47962951660156,
+      "timestamp": "133700000"
+    },
+    {
+      "value": 27.536230087280273,
+      "stable": true,
+      "confidence": 55.87556838989258,
+      "timestamp": "134833333"
+    },
+    {
+      "value": 27.60736083984375,
+      "stable": true,
+      "confidence": 71.8393783569336,
+      "timestamp": "135700000"
+    },
+    {
+      "value": 27.692306518554688,
+      "stable": true,
+      "confidence": 77.0323486328125,
+      "timestamp": "136866666"
+    },
+    {
+      "value": 27.480915069580078,
+      "stable": true,
+      "confidence": 79.57154846191406,
+      "timestamp": "137933333"
+    },
+    {
+      "value": 26.992895126342773,
+      "stable": true,
+      "confidence": 69.17986297607422,
+      "timestamp": "139766666"
+    },
+    {
+      "value": 26.409265518188477,
+      "stable": true,
+      "confidence": 66.27107238769531,
+      "timestamp": "140933333"
+    },
+    {
+      "value": 26.30769157409668,
+      "stable": true,
+      "confidence": 68.71112060546875,
+      "timestamp": "141900000"
+    },
+    {
+      "value": 26.30769157409668,
+      "stable": true,
+      "confidence": 68.1203384399414,
+      "timestamp": "142900000"
+    },
+    {
+      "value": 26.30769157409668,
+      "stable": true,
+      "confidence": 67.34976196289062,
+      "timestamp": "143966666"
+    },
+    {
+      "value": 26.388887405395508,
+      "stable": true,
+      "confidence": 71.33695983886719,
+      "timestamp": "145000000"
+    },
+    {
+      "value": 26.57342529296875,
+      "stable": true,
+      "confidence": 86.43290710449219,
+      "timestamp": "146033333"
+    },
+    {
+      "value": 26.776857376098633,
+      "stable": true,
+      "confidence": 85.80634307861328,
+      "timestamp": "147166666"
+    },
+    {
+      "value": 27.370304107666016,
+      "stable": true,
+      "confidence": 67.38677978515625,
+      "timestamp": "150100000"
+    },
+    {
+      "value": 27.37642478942871,
+      "stable": true,
+      "confidence": 66.62688446044922,
+      "timestamp": "151033333"
+    },
+    {
+      "value": 27.4547176361084,
+      "stable": true,
+      "confidence": 67.46375274658203,
+      "timestamp": "152133333"
+    },
+    {
+      "value": 27.428571701049805,
+      "stable": true,
+      "confidence": 68.67786407470703,
+      "timestamp": "153233333"
+    },
+    {
+      "value": 27.428571701049805,
+      "stable": true,
+      "confidence": 69.7509765625,
+      "timestamp": "154300000"
+    },
+    {
+      "value": 27.567567825317383,
+      "stable": true,
+      "confidence": 81.4402847290039,
+      "timestamp": "155233333"
+    },
+    {
+      "value": 27.742521286010742,
+      "stable": true,
+      "confidence": 77.55766296386719,
+      "timestamp": "156066666"
+    },
+    {
+      "value": 28.07881736755371,
+      "stable": true,
+      "confidence": 76.7270736694336,
+      "timestamp": "157066666"
+    },
+    {
+      "value": 28.213165283203125,
+      "stable": true,
+      "confidence": 79.75882720947266,
+      "timestamp": "158000000"
+    },
+    {
+      "value": 28.39969825744629,
+      "stable": true,
+      "confidence": 84.04281616210938,
+      "timestamp": "158900000"
+    },
+    {
+      "value": 28.55082893371582,
+      "stable": true,
+      "confidence": 86.59642791748047,
+      "timestamp": "159866666"
+    },
+    {
+      "value": 28.75,
+      "stable": true,
+      "confidence": 86.85274505615234,
+      "timestamp": "160666666"
+    },
+    {
+      "value": 29.012760162353516,
+      "stable": true,
+      "confidence": 81.89496612548828,
+      "timestamp": "161500000"
+    },
+    {
+      "value": 29.090909957885742,
+      "stable": true,
+      "confidence": 83.8812026977539,
+      "timestamp": "162466666"
+    },
+    {
+      "value": 29.130142211914062,
+      "stable": true,
+      "confidence": 82.19828796386719,
+      "timestamp": "163433333"
+    },
+    {
+      "value": 29.189189910888672,
+      "stable": true,
+      "confidence": 61.666465759277344,
+      "timestamp": "165800000"
+    },
+    {
+      "value": 30.59033966064453,
+      "stable": true,
+      "confidence": 59.63175582885742,
+      "timestamp": "168200000"
+    },
+    {
+      "value": 30.740039825439453,
+      "confidence": 40.33979415893555,
+      "timestamp": "169833333"
+    },
+    {
+      "value": 30.894309997558594,
+      "confidence": 42.64762878417969,
+      "timestamp": "170833333"
+    },
+    {
+      "value": 30.950227737426758,
+      "confidence": 44.094154357910156,
+      "timestamp": "171733333"
+    },
+    {
+      "value": 31.064237594604492,
+      "stable": true,
+      "confidence": 45.0372314453125,
+      "timestamp": "172933333"
+    },
+    {
+      "value": 31.064237594604492,
+      "stable": true,
+      "confidence": 64.7167739868164,
+      "timestamp": "173866666"
+    },
+    {
+      "value": 31.19266128540039,
+      "stable": true,
+      "confidence": 70.51112365722656,
+      "timestamp": "174766666"
+    },
+    {
+      "value": 31.44104766845703,
+      "stable": true,
+      "confidence": 48.28314971923828,
+      "timestamp": "177166666"
+    },
+    {
+      "value": 31.44104766845703,
+      "stable": true,
+      "confidence": 48.40481948852539,
+      "timestamp": "178866666"
+    },
+    {
+      "value": 31.64426040649414,
+      "stable": true,
+      "confidence": 48.10544967651367,
+      "timestamp": "179666666"
+    },
+    {
+      "value": 31.77570152282715,
+      "stable": true,
+      "confidence": 49.927268981933594,
+      "timestamp": "180766666"
+    },
+    {
+      "value": 31.808731079101562,
+      "stable": true,
+      "confidence": 51.53908920288086,
+      "timestamp": "181833333"
+    },
+    {
+      "value": 32.104637145996094,
+      "stable": true,
+      "confidence": 67.83894348144531,
+      "timestamp": "182766666"
+    },
+    {
+      "value": 32.432430267333984,
+      "stable": true,
+      "confidence": 66.83040618896484,
+      "timestamp": "184400000"
+    },
+    {
+      "value": 32.32044219970703,
+      "stable": true,
+      "confidence": 70.18611145019531,
+      "timestamp": "186400000"
+    }
+  ]
+}
