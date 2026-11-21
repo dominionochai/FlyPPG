@@ -8,12 +8,14 @@ import argparse
 import csv
 import json
 import os
+import sys
 from pathlib import Path
 
 import cv2
 import numpy as np
 from scipy import signal
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 FPS_FALLBACK = 30.0
 FACE = cv2.CascadeClassifier(
     cv2.data.haarcascades + "haarcascade_frontalface_default.xml"
