@@ -85,7 +85,10 @@ def process(src, dst, arm, Wr):
         f = f.astype(np.float32)
         if arm == 'conventional':
             buf.append(cv2.GaussianBlur(f, (0, 0), 1.5 * sx)); f = np.mean(buf, 0)
-        if gain[t] != 1: f = f / gain[t]\n        if spatial is not None:\n            sg = cv2.resize(spatial[t], (w, h), interpolation=cv2.INTER_LINEAR)\n            f *= sg[..., None]
+        if gain[t] != 1: f = f / gain[t]
+        if spatial is not None:
+            sg = cv2.resize(spatial[t], (w, h), interpolation=cv2.INTER_LINEAR)
+            f *= sg[..., None]\n        if spatial is not None:\n            sg = cv2.resize(spatial[t], (w, h), interpolation=cv2.INTER_LINEAR)\n            f *= sg[..., None]
         if field is not None:
             if field[0] == 'fly': uy = cv2.resize(field[1][t, :, 0].reshape(3, 3).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * sy; ux = cv2.resize(field[1][t, :, 1].reshape(3, 3).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * sx
             else: fl = cv2.resize(field[1][t], (w, h), interpolation=cv2.INTER_LINEAR); ux, uy = fl[..., 0] * sx, fl[..., 1] * sy
