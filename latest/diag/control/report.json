@@ -1,0 +1,112 @@
+{
+  "label": "control",
+  "file": "control.mp4",
+  "decoded_frame_count": 630,
+  "cv2_reported_fps": 30.0,
+  "width": 768,
+  "height": 480,
+  "probe": {
+    "video": {
+      "codec_name": "h264",
+      "width": 768,
+      "height": 480,
+      "sample_aspect_ratio": null,
+      "display_aspect_ratio": null,
+      "pix_fmt": "yuv420p",
+      "r_frame_rate": "30/1",
+      "avg_frame_rate": "30/1",
+      "nb_frames": "630",
+      "duration": "21.000000",
+      "time_base": "1/15360",
+      "field_order": "progressive"
+    },
+    "tags_rotate": null,
+    "side_data": {},
+    "format": {
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "duration": "21.000000",
+      "size": "15900295",
+      "bit_rate": "6057255"
+    }
+  },
+  "timestamps": {
+    "packets": 630,
+    "median_interval_s": 0.03333300000000072,
+    "implied_fps": 30.000300002999378,
+    "min_interval_s": 0.03333299999999895,
+    "max_interval_s": 0.03333400000000353,
+    "interval_std_s": 4.7159154860486343e-07,
+    "intervals_gt_1p5x_median": 0,
+    "intervals_lt_0p5x_median": 0,
+    "first_pts_s": 0.0,
+    "last_pts_s": 20.966667
+  },
+  "ffmpeg_decode_errors": {
+    "exit_code": 0,
+    "stderr_line_count": 0,
+    "stderr_head": []
+  },
+  "luma": {
+    "mean": 103.10857594807943,
+    "min": 101.79624938964844,
+    "max": 104.14458465576172
+  },
+  "frame_diff": {
+    "median": 0.40937501192092896,
+    "mad": 0.037709312273025514,
+    "max": 0.9918749928474426
+  },
+  "flagged_discontinuity_frames": [],
+  "saved_frames": [
+    "frames/control_f000000.png",
+    "frames/control_f000315.png",
+    "frames/control_f000629.png"
+  ],
+  "detector": "mediapipe_face_detection",
+  "sampled_frames": 42,
+  "faces_detected": 42,
+  "face_detection_rate": 1.0,
+  "framing_summary": {
+    "face_h_frac": {
+      "p5": 0.46770940274000167,
+      "p50": 0.47825323045253754,
+      "p95": 0.49985620379447937
+    },
+    "face_w_frac": {
+      "p5": 0.29240691661834717,
+      "p50": 0.29901358485221863,
+      "p95": 0.31252548992633816
+    },
+    "cx_offset": {
+      "p5": -0.04241208732128143,
+      "p50": -0.04030019789934158,
+      "p95": -0.039395001530647275
+    },
+    "cy_frac": {
+      "p5": 0.4297062084078789,
+      "p50": 0.43690309673547745,
+      "p95": 0.440258352458477
+    },
+    "above_head_face_heights": {
+      "p5": 0.3761733779433872,
+      "p50": 0.40654531278696954,
+      "p95": 0.42941653960325027
+    },
+    "below_chin_face_heights": {
+      "p5": 0.6241332741332963,
+      "p50": 0.6737139035464392,
+      "p95": 0.7148426090879075
+    }
+  },
+  "scorer_haar_check": {
+    "cascade_loaded": true,
+    "frames": 630,
+    "frames_with_haar_detection": 630,
+    "frames_using_centered_fallback": 0,
+    "compared_frames": 42,
+    "roi_centre_on_mediapipe_face_fraction": 1.0,
+    "median_iou_vs_mediapipe": 0.8456118460267312,
+    "median_centre_distance_px": 16.65114060886554,
+    "haar_detected_on_compared_frames_fraction": 1.0
+  }
+}

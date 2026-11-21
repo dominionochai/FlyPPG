@@ -1,0 +1,5 @@
+    "rmse_bpm": null,
+    "within_5_bpm_pct_of_all_windows": null,
+    "note": "SmartSpectra produced no usable pulse-rate samples; no baseline exists for this recording."
+  }
+}

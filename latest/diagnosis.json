@@ -1,0 +1,246 @@
+{
+  "verdict": "OUTCOME_C_SUSPECTED: the control clip also yields no usable pulse in this runner -> runner/SDK/runtime defect suspected; MCD incompatibility cannot be concluded.",
+  "runs": [
+    {
+      "run": "control",
+      "video": "control.mp4",
+      "requested": "breathing+cardio",
+      "status": "INVALID_NO_OUTPUT",
+      "packets": 0,
+      "pulse_packets": 0,
+      "pulse_samples_nonzero_conf": 0,
+      "breathing_packets": 0,
+      "validation_events": 486,
+      "chest_events": 482,
+      "errors": 0,
+      "top_validation": [
+        {
+          "message": "7 kChestNotVisible: Place more of the chest in view.",
+          "count": 482
+        },
+        {
+          "message": "1 kNoFaceFound: No face found.",
+          "count": 3
+        },
+        {
+          "message": "0 kOk: Hold still and record.",
+          "count": 1
+        }
+      ],
+      "transitions": [
+        1,
+        2,
+        3,
+        4,
+        1
+      ]
+    },
+    {
+      "run": "mcd_breathing_cardio",
+      "video": "video.mp4",
+      "requested": "breathing+cardio",
+      "status": "INVALID_NO_OUTPUT",
+      "packets": 0,
+      "pulse_packets": 0,
+      "pulse_samples_nonzero_conf": 0,
+      "breathing_packets": 0,
+      "validation_events": 3476,
+      "chest_events": 3473,
+      "errors": 0,
+      "top_validation": [
+        {
+          "message": "7 kChestNotVisible: Place more of the chest in view.",
+          "count": 3473
+        },
+        {
+          "message": "1 kNoFaceFound: No face found.",
+          "count": 2
+        },
+        {
+          "message": "0 kOk: Hold still and record.",
+          "count": 1
+        }
+      ],
+      "transitions": [
+        1,
+        2,
+        3,
+        4,
+        1
+      ]
+    },
+    {
+      "run": "mcd_cardio",
+      "video": "video.mp4",
+      "requested": "cardio",
+      "status": "INVALID_NO_OUTPUT",
+      "packets": 0,
+      "pulse_packets": 0,
+      "pulse_samples_nonzero_conf": 0,
+      "breathing_packets": 0,
+      "validation_events": 3695,
+      "chest_events": 3690,
+      "errors": 0,
+      "top_validation": [
+        {
+          "message": "7 kChestNotVisible: Place more of the chest in view.",
+          "count": 3690
+        },
+        {
+          "message": "1 kNoFaceFound: No face found.",
+          "count": 4
+        },
+        {
+          "message": "0 kOk: Hold still and record.",
+          "count": 1
+        }
+      ],
+      "transitions": [
+        1,
+        2,
+        3,
+        4,
+        1
+      ]
+    }
+  ],
+  "framing": {
+    "control": {
+      "detection_rate": 1.0,
+      "below_chin_face_heights": {
+        "p5": 0.6241332741332963,
+        "p50": 0.6737139035464392,
+        "p95": 0.7148426090879075
+      },
+      "face_h_frac": {
+        "p5": 0.46770940274000167,
+        "p50": 0.47825323045253754,
+        "p95": 0.49985620379447937
+      },
+      "size": [
+        768,
+        480
+      ],
+      "decoded_frames": 630,
+      "timestamps": {
+        "packets": 630,
+        "median_interval_s": 0.03333300000000072,
+        "implied_fps": 30.000300002999378,
+        "min_interval_s": 0.03333299999999895,
+        "max_interval_s": 0.03333400000000353,
+        "interval_std_s": 4.7159154860486343e-07,
+        "intervals_gt_1p5x_median": 0,
+        "intervals_lt_0p5x_median": 0,
+        "first_pts_s": 0.0,
+        "last_pts_s": 20.966667
+      },
+      "flagged": [],
+      "decode_error_lines": 0,
+      "conversion_check": null
+    },
+    "mcd": {
+      "detection_rate": 1.0,
+      "below_chin_face_heights": {
+        "p5": 0.8806475814348416,
+        "p50": 1.031846608821449,
+        "p95": 1.1217023108073847
+      },
+      "face_h_frac": {
+        "p5": 0.20948517918586732,
+        "p50": 0.22281134128570557,
+        "p95": 0.24775540232658386
+      },
+      "size": [
+        640,
+        480
+      ],
+      "decoded_frames": 5377,
+      "timestamps": {
+        "packets": 5377,
+        "median_interval_s": 0.03333299999999895,
+        "implied_fps": 30.000300003000977,
+        "min_interval_s": 0.03333299999999895,
+        "max_interval_s": 0.033334000000024844,
+        "interval_std_s": 4.714045216944377e-07,
+        "intervals_gt_1p5x_median": 0,
+        "intervals_lt_0p5x_median": 0,
+        "first_pts_s": 0.0,
+        "last_pts_s": 179.2
+      },
+      "flagged": [
+        2742
+      ],
+      "decode_error_lines": 0,
+      "conversion_check": {
+        "reference_size": [
+          640,
+          480
+        ],
+        "converted_size": [
+          640,
+          480
+        ],
+        "same_size": true,
+        "reference_frame_count_container": 0,
+        "converted_decoded_frames": 5377,
+        "first_frame_mean_abs_diff_0_255": 1.0797038078308105,
+        "reference_probe": {
+          "video": {
+            "codec_name": "mpeg4",
+            "width": 640,
+            "height": 480,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "4:3",
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "nb_frames": null,
+            "duration": "0.000000",
+            "time_base": "1/30",
+            "field_order": null
+          },
+          "tags_rotate": null,
+          "side_data": {},
+          "format": {
+            "format_name": "avi",
+            "duration": null,
+            "size": "29360128",
+            "bit_rate": null
+          }
+        },
+        "reference_timestamps": {
+          "packets": 5377,
+          "median_interval_s": 0.03333299999999895,
+          "implied_fps": 30.000300003000977,
+          "min_interval_s": 0.03333299999999895,
+          "max_interval_s": 0.033334000000024844,
+          "interval_std_s": 4.714045216944377e-07,
+          "intervals_gt_1p5x_median": 0,
+          "intervals_lt_0p5x_median": 0,
+          "first_pts_s": 0.0,
+          "last_pts_s": 179.2
+        }
+      }
+    }
+  },
+  "validation_vs_framing": {
+    "control": {
+      "events_joined": 486,
+      "chest_fraction": 0.9917695473251029,
+      "mean_below_chin_when_chest": 0.6694425293524824,
+      "mean_below_chin_when_other": 0.6960567608473134
+    },
+    "mcd_breathing_cardio": {
+      "events_joined": 3476,
+      "chest_fraction": 0.9991369390103567,
+      "mean_below_chin_when_chest": 1.0203022294865716,
+      "mean_below_chin_when_other": 0.8878831109830688
+    },
+    "mcd_cardio": {
+      "events_joined": 3695,
+      "chest_fraction": 0.9986468200270636,
+      "mean_below_chin_when_chest": 1.0233186753130084,
+      "mean_below_chin_when_other": 0.8878831109830688
+    }
+  }
+}

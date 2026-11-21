@@ -1,0 +1,78 @@
+I20261121 11:31:06.629356  4068 metric_gating_calculator.cc:129] MetricGatingCalculator: Optimistic start - enabling 1 features for requested metrics
+I20261121 11:31:06.629670  4068 metric_gating_calculator.cc:158] MetricGatingCalculator: Requesting authorization for 3 metrics
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795260666.641092    4069 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795260666.643177    4067 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795260666.656530    4067 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+I20261121 11:31:06.656975  4069 dense_face_landmark_calculator.cc:57] Dense face landmarks not requested; calculator will pass through timestamps.
+W20261121 11:31:06.657107  4069 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795260666.715974    4068 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+I20261121 11:31:06.725958  4071 metric_gating_calculator.cc:238] MetricGatingCalculator: 3 metrics enabled out of 3 requested
+I20261121 11:31:06.726009  4071 metric_gating_calculator.cc:265] MetricGatingCalculator: Authorization complete - 1 features required for allowed metrics
+I20261121 11:31:06.726020  4071 metric_gating_calculator.cc:291] MetricGatingCalculator: Final feature gating - BREATHING:0 MICROMOTION:0 EDA:0 FACE:0 CARDIO:1
+W0000 00:00:1795260666.738935    4068 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795260666.873346    4069 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+I20261121 11:31:17.096336  4083 video_file_source.cc:322] End of video file: video.mp4
+I20261121 11:31:17.096468  4119 smartspectra.cc:764] Video source completed — stopping session
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "mcd_cardio",
+  "video": "video.mp4",
+  "requested_metrics": "cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 0,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3695,
+  "validation_summary": [
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 3690
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 4
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 1
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 179200000,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 594
+    },
+    {
+      "status": 2,
+      "wall_ms": 692
+    },
+    {
+      "status": 3,
+      "wall_ms": 709
+    },
+    {
+      "status": 4,
+      "wall_ms": 10952
+    },
+    {
+      "status": 1,
+      "wall_ms": 11044
+    }
+  ],
+  "wall_seconds": 11.049,
+  "pulse_rate_samples": "(0 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
+No pulse-rate packets were produced. Status: INVALID_NO_OUTPUT

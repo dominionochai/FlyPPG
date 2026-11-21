@@ -1,0 +1,364 @@
+{
+  "recording": "video.mp4",
+  "fps": 30.0,
+  "frames_used": 5377,
+  "duration_s": 179.23333333333332,
+  "windows_total": 34,
+  "arms": {
+    "raw_POS": {
+      "windows_scored": 34,
+      "coverage_pct": 100.0,
+      "mae_bpm": 23.846794577205884,
+      "rmse_bpm": 32.533414027315686,
+      "within_5_bpm_pct_of_all_windows": 23.529411764705884
+    },
+    "surround_norm_POS": {
+      "windows_scored": 34,
+      "coverage_pct": 100.0,
+      "mae_bpm": 23.846794577205884,
+      "rmse_bpm": 32.533414027315686,
+      "within_5_bpm_pct_of_all_windows": 23.529411764705884
+    },
+    "surround_gated_POS": {
+      "windows_scored": 34,
+      "coverage_pct": 100.0,
+      "mae_bpm": 23.846794577205884,
+      "rmse_bpm": 32.533414027315686,
+      "within_5_bpm_pct_of_all_windows": 23.529411764705884
+    },
+    "FlyPPG_v3": {
+      "windows_scored": 34,
+      "coverage_pct": 100.0,
+      "mae_bpm": 20.201918658088236,
+      "rmse_bpm": 28.359401259644276,
+      "within_5_bpm_pct_of_all_windows": 20.58823529411765
+    },
+    "SmartSpectra": {
+      "usable_samples": 0,
+      "discarded_zero_confidence_or_nonpositive": 0,
+      "status": "INVALID_NO_OUTPUT",
+      "windows_scored": 0,
+      "coverage_pct": 0.0,
+      "mae_bpm": null,
+      "rmse_bpm": null,
+      "within_5_bpm_pct_of_all_windows": null,
+      "note": "SmartSpectra produced no usable pulse-rate samples; no baseline exists for this recording."
+    }
+  },
+  "windows": [
+    {
+      "center_s": 4.983333333333333,
+      "reference_bpm": 73.388671875,
+      "raw_POS_bpm": 107.2265625,
+      "surround_norm_POS_bpm": 107.2265625,
+      "surround_gated_POS_bpm": 107.2265625,
+      "FlyPPG_v3_POS_bpm": 106.787109375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 9.983333333333333,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 46.58203125,
+      "surround_norm_POS_bpm": 46.58203125,
+      "surround_gated_POS_bpm": 46.58203125,
+      "FlyPPG_v3_POS_bpm": 49.21875,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 14.983333333333333,
+      "reference_bpm": 68.5546875,
+      "raw_POS_bpm": 117.333984375,
+      "surround_norm_POS_bpm": 117.333984375,
+      "surround_gated_POS_bpm": 117.333984375,
+      "FlyPPG_v3_POS_bpm": 63.28125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 19.983333333333334,
+      "reference_bpm": 72.509765625,
+      "raw_POS_bpm": 64.599609375,
+      "surround_norm_POS_bpm": 64.599609375,
+      "surround_gated_POS_bpm": 64.599609375,
+      "FlyPPG_v3_POS_bpm": 64.16015625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 24.983333333333334,
+      "reference_bpm": 72.0703125,
+      "raw_POS_bpm": 148.974609375,
+      "surround_norm_POS_bpm": 148.974609375,
+      "surround_gated_POS_bpm": 148.974609375,
+      "FlyPPG_v3_POS_bpm": 148.974609375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 29.983333333333334,
+      "reference_bpm": 70.751953125,
+      "raw_POS_bpm": 53.173828125,
+      "surround_norm_POS_bpm": 53.173828125,
+      "surround_gated_POS_bpm": 53.173828125,
+      "FlyPPG_v3_POS_bpm": 130.95703125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 34.983333333333334,
+      "reference_bpm": 72.0703125,
+      "raw_POS_bpm": 51.416015625,
+      "surround_norm_POS_bpm": 51.416015625,
+      "surround_gated_POS_bpm": 51.416015625,
+      "FlyPPG_v3_POS_bpm": 62.841796875,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 39.983333333333334,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 98.4375,
+      "surround_norm_POS_bpm": 98.4375,
+      "surround_gated_POS_bpm": 98.4375,
+      "FlyPPG_v3_POS_bpm": 97.119140625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 44.983333333333334,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 73.388671875,
+      "surround_norm_POS_bpm": 73.388671875,
+      "surround_gated_POS_bpm": 73.388671875,
+      "FlyPPG_v3_POS_bpm": 63.28125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 49.983333333333334,
+      "reference_bpm": 72.94921875,
+      "raw_POS_bpm": 50.537109375,
+      "surround_norm_POS_bpm": 50.537109375,
+      "surround_gated_POS_bpm": 50.537109375,
+      "FlyPPG_v3_POS_bpm": 49.658203125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 54.983333333333334,
+      "reference_bpm": 78.22265625,
+      "raw_POS_bpm": 78.22265625,
+      "surround_norm_POS_bpm": 78.22265625,
+      "surround_gated_POS_bpm": 78.22265625,
+      "FlyPPG_v3_POS_bpm": 74.70703125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 59.983333333333334,
+      "reference_bpm": 76.46484375,
+      "raw_POS_bpm": 150.732421875,
+      "surround_norm_POS_bpm": 150.732421875,
+      "surround_gated_POS_bpm": 150.732421875,
+      "FlyPPG_v3_POS_bpm": 85.25390625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 64.98333333333333,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 56.689453125,
+      "surround_norm_POS_bpm": 56.689453125,
+      "surround_gated_POS_bpm": 56.689453125,
+      "FlyPPG_v3_POS_bpm": 149.853515625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 69.98333333333333,
+      "reference_bpm": 78.22265625,
+      "raw_POS_bpm": 90.087890625,
+      "surround_norm_POS_bpm": 90.087890625,
+      "surround_gated_POS_bpm": 90.087890625,
+      "FlyPPG_v3_POS_bpm": 87.890625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 74.98333333333333,
+      "reference_bpm": 73.388671875,
+      "raw_POS_bpm": 71.19140625,
+      "surround_norm_POS_bpm": 71.19140625,
+      "surround_gated_POS_bpm": 71.19140625,
+      "FlyPPG_v3_POS_bpm": 49.658203125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 79.98333333333333,
+      "reference_bpm": 78.662109375,
+      "raw_POS_bpm": 74.267578125,
+      "surround_norm_POS_bpm": 74.267578125,
+      "surround_gated_POS_bpm": 74.267578125,
+      "FlyPPG_v3_POS_bpm": 54.931640625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 84.98333333333333,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 70.3125,
+      "surround_norm_POS_bpm": 70.3125,
+      "surround_gated_POS_bpm": 70.3125,
+      "FlyPPG_v3_POS_bpm": 71.630859375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 89.98333333333333,
+      "reference_bpm": 77.34375,
+      "raw_POS_bpm": 74.70703125,
+      "surround_norm_POS_bpm": 74.70703125,
+      "surround_gated_POS_bpm": 74.70703125,
+      "FlyPPG_v3_POS_bpm": 72.94921875,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 94.98333333333333,
+      "reference_bpm": 73.388671875,
+      "raw_POS_bpm": 146.337890625,
+      "surround_norm_POS_bpm": 146.337890625,
+      "surround_gated_POS_bpm": 146.337890625,
+      "FlyPPG_v3_POS_bpm": 61.962890625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 99.98333333333333,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 78.22265625,
+      "surround_norm_POS_bpm": 78.22265625,
+      "surround_gated_POS_bpm": 78.22265625,
+      "FlyPPG_v3_POS_bpm": 79.1015625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 104.98333333333333,
+      "reference_bpm": 79.98046875,
+      "raw_POS_bpm": 148.095703125,
+      "surround_norm_POS_bpm": 148.095703125,
+      "surround_gated_POS_bpm": 148.095703125,
+      "FlyPPG_v3_POS_bpm": 148.095703125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 109.98333333333333,
+      "reference_bpm": 79.1015625,
+      "raw_POS_bpm": 51.416015625,
+      "surround_norm_POS_bpm": 51.416015625,
+      "surround_gated_POS_bpm": 51.416015625,
+      "FlyPPG_v3_POS_bpm": 82.177734375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 114.98333333333333,
+      "reference_bpm": 78.662109375,
+      "raw_POS_bpm": 58.88671875,
+      "surround_norm_POS_bpm": 58.88671875,
+      "surround_gated_POS_bpm": 58.88671875,
+      "FlyPPG_v3_POS_bpm": 61.5234375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 119.98333333333333,
+      "reference_bpm": 76.904296875,
+      "raw_POS_bpm": 135.3515625,
+      "surround_norm_POS_bpm": 135.3515625,
+      "surround_gated_POS_bpm": 135.3515625,
+      "FlyPPG_v3_POS_bpm": 69.43359375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 124.98333333333333,
+      "reference_bpm": 76.025390625,
+      "raw_POS_bpm": 56.689453125,
+      "surround_norm_POS_bpm": 56.689453125,
+      "surround_gated_POS_bpm": 56.689453125,
+      "FlyPPG_v3_POS_bpm": 58.447265625,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 129.98333333333332,
+      "reference_bpm": 76.46484375,
+      "raw_POS_bpm": 78.22265625,
+      "surround_norm_POS_bpm": 78.22265625,
+      "surround_gated_POS_bpm": 78.22265625,
+      "FlyPPG_v3_POS_bpm": 77.34375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 134.98333333333332,
+      "reference_bpm": 76.46484375,
+      "raw_POS_bpm": 98.876953125,
+      "surround_norm_POS_bpm": 98.876953125,
+      "surround_gated_POS_bpm": 98.876953125,
+      "FlyPPG_v3_POS_bpm": 62.40234375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 139.98333333333332,
+      "reference_bpm": 77.34375,
+      "raw_POS_bpm": 65.91796875,
+      "surround_norm_POS_bpm": 65.91796875,
+      "surround_gated_POS_bpm": 65.91796875,
+      "FlyPPG_v3_POS_bpm": 61.083984375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 144.98333333333332,
+      "reference_bpm": 84.375,
+      "raw_POS_bpm": 87.01171875,
+      "surround_norm_POS_bpm": 87.01171875,
+      "surround_gated_POS_bpm": 87.01171875,
+      "FlyPPG_v3_POS_bpm": 79.98046875,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 149.98333333333332,
+      "reference_bpm": 80.419921875,
+      "raw_POS_bpm": 54.931640625,
+      "surround_norm_POS_bpm": 54.931640625,
+      "surround_gated_POS_bpm": 54.931640625,
+      "FlyPPG_v3_POS_bpm": 52.734375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 154.98333333333332,
+      "reference_bpm": 79.1015625,
+      "raw_POS_bpm": 61.083984375,
+      "surround_norm_POS_bpm": 61.083984375,
+      "surround_gated_POS_bpm": 61.083984375,
+      "FlyPPG_v3_POS_bpm": 57.568359375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 159.98333333333332,
+      "reference_bpm": 73.388671875,
+      "raw_POS_bpm": 56.689453125,
+      "surround_norm_POS_bpm": 56.689453125,
+      "surround_gated_POS_bpm": 56.689453125,
+      "FlyPPG_v3_POS_bpm": 57.568359375,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 164.98333333333332,
+      "reference_bpm": 75.5859375,
+      "raw_POS_bpm": 63.28125,
+      "surround_norm_POS_bpm": 63.28125,
+      "surround_gated_POS_bpm": 63.28125,
+      "FlyPPG_v3_POS_bpm": 63.28125,
+      "smartspectra_bpm": null
+    },
+    {
+      "center_s": 169.98333333333332,
+      "reference_bpm": 78.662109375,
+      "raw_POS_bpm": 107.2265625,
+      "surround_norm_POS_bpm": 107.2265625,
+      "surround_gated_POS_bpm": 107.2265625,
+      "FlyPPG_v3_POS_bpm": 95.361328125,
+      "smartspectra_bpm": null
+    }
+  ],
+  "reference_method": "dominant 0.7-3.0 Hz frequency of synchronized ppg_sync column 1 per 10s window",
+  "flyppg_method": "Ablation: raw POS, unconditional surround normalization + POS, gated surround normalization + POS, and FlyPPG v3 local stabilization + POS",
+  "ablation_note": "The added arms isolate whether the real-video regression comes from surround normalization or the synthetic-trained motion readout. This is diagnostic, not an algorithm change.",
+  "smartspectra_samples": 0,
+  "smartspectra_raw_entries": 0,
+  "smartspectra_status": "INVALID_NO_OUTPUT",
+  "baseline_valid": false,
+  "face_detector": "haar"
+}

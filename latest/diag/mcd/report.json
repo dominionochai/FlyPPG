@@ -1,0 +1,168 @@
+{
+  "label": "mcd_converted",
+  "file": "video.mp4",
+  "decoded_frame_count": 5377,
+  "cv2_reported_fps": 30.0,
+  "width": 640,
+  "height": 480,
+  "probe": {
+    "video": {
+      "codec_name": "h264",
+      "width": 640,
+      "height": 480,
+      "sample_aspect_ratio": "1:1",
+      "display_aspect_ratio": "4:3",
+      "pix_fmt": "yuv420p",
+      "r_frame_rate": "30/1",
+      "avg_frame_rate": "30/1",
+      "nb_frames": "5377",
+      "duration": "179.233333",
+      "time_base": "1/15360",
+      "field_order": "progressive"
+    },
+    "tags_rotate": null,
+    "side_data": {},
+    "format": {
+      "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+      "duration": "179.233333",
+      "size": "4561883",
+      "bit_rate": "203617"
+    }
+  },
+  "timestamps": {
+    "packets": 5377,
+    "median_interval_s": 0.03333299999999895,
+    "implied_fps": 30.000300003000977,
+    "min_interval_s": 0.03333299999999895,
+    "max_interval_s": 0.033334000000024844,
+    "interval_std_s": 4.714045216944377e-07,
+    "intervals_gt_1p5x_median": 0,
+    "intervals_lt_0p5x_median": 0,
+    "first_pts_s": 0.0,
+    "last_pts_s": 179.2
+  },
+  "ffmpeg_decode_errors": {
+    "exit_code": 0,
+    "stderr_line_count": 0,
+    "stderr_head": []
+  },
+  "luma": {
+    "mean": 125.8360739749272,
+    "min": 95.45979309082031,
+    "max": 129.3106231689453
+  },
+  "frame_diff": {
+    "median": 0.37687501311302185,
+    "mad": 0.05583433969116211,
+    "max": 25.712291717529297
+  },
+  "flagged_discontinuity_frames": [
+    2742
+  ],
+  "saved_frames": [
+    "frames/mcd_converted_f000000.png",
+    "frames/mcd_converted_f002688.png",
+    "frames/mcd_converted_f002740.png",
+    "frames/mcd_converted_f002741.png",
+    "frames/mcd_converted_f002742.png",
+    "frames/mcd_converted_f002743.png",
+    "frames/mcd_converted_f005376.png"
+  ],
+  "detector": "mediapipe_face_detection",
+  "sampled_frames": 359,
+  "faces_detected": 359,
+  "face_detection_rate": 1.0,
+  "framing_summary": {
+    "face_h_frac": {
+      "p5": 0.20948517918586732,
+      "p50": 0.22281134128570557,
+      "p95": 0.24775540232658386
+    },
+    "face_w_frac": {
+      "p5": 0.15711864233016967,
+      "p50": 0.16709187626838684,
+      "p95": 0.1858228325843811
+    },
+    "cx_offset": {
+      "p5": -0.10176715403795242,
+      "p50": -0.09740415215492249,
+      "p95": -0.08761941343545913
+    },
+    "cy_frac": {
+      "p5": 0.6554403722286224,
+      "p50": 0.6586836278438568,
+      "p95": 0.6636778265237808
+    },
+    "above_head_face_heights": {
+      "p5": 2.156692577226224,
+      "p50": 2.4575442852274145,
+      "p95": 2.6639178367415908
+    },
+    "below_chin_face_heights": {
+      "p5": 0.8806475814348416,
+      "p50": 1.031846608821449,
+      "p95": 1.1217023108073847
+    }
+  },
+  "scorer_haar_check": {
+    "cascade_loaded": true,
+    "frames": 5377,
+    "frames_with_haar_detection": 5377,
+    "frames_using_centered_fallback": 0,
+    "compared_frames": 359,
+    "roi_centre_on_mediapipe_face_fraction": 1.0,
+    "median_iou_vs_mediapipe": 0.7815928944773514,
+    "median_centre_distance_px": 3.82982700376546,
+    "haar_detected_on_compared_frames_fraction": 1.0
+  },
+  "conversion_check": {
+    "reference_size": [
+      640,
+      480
+    ],
+    "converted_size": [
+      640,
+      480
+    ],
+    "same_size": true,
+    "reference_frame_count_container": 0,
+    "converted_decoded_frames": 5377,
+    "first_frame_mean_abs_diff_0_255": 1.0797038078308105,
+    "reference_probe": {
+      "video": {
+        "codec_name": "mpeg4",
+        "width": 640,
+        "height": 480,
+        "sample_aspect_ratio": "1:1",
+        "display_aspect_ratio": "4:3",
+        "pix_fmt": "yuv420p",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1",
+        "nb_frames": null,
+        "duration": "0.000000",
+        "time_base": "1/30",
+        "field_order": null
+      },
+      "tags_rotate": null,
+      "side_data": {},
+      "format": {
+        "format_name": "avi",
+        "duration": null,
+        "size": "29360128",
+        "bit_rate": null
+      }
+    },
+    "reference_timestamps": {
+      "packets": 5377,
+      "median_interval_s": 0.03333299999999895,
+      "implied_fps": 30.000300003000977,
+      "min_interval_s": 0.03333299999999895,
+      "max_interval_s": 0.033334000000024844,
+      "interval_std_s": 4.714045216944377e-07,
+      "intervals_gt_1p5x_median": 0,
+      "intervals_lt_0p5x_median": 0,
+      "first_pts_s": 0.0,
+      "last_pts_s": 179.2
+    }
+  }
+}
