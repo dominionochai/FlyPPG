@@ -97,6 +97,11 @@ jobs:
           ffmpeg -y -i chest_source_video -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p chest_test.mp4
           ffprobe -v error -select_streams v:0 -show_entries stream=width,height,avg_frame_rate,duration -of json chest_test.mp4 | tee video_probe.json
 
+      - name: Install SDK and FlyPPG dependencies
+        run: |
+          npm install --no-save @smartspectra/node-sdk
+          python3 -m pip install "numpy<2" scipy opencv-python-headless imageio-ffmpeg
+
       - name: Create deterministic handheld-motion and flicker stress clip
         run: |
           python3 - <<'PY'
@@ -151,11 +156,6 @@ jobs:
               }, f, indent=2)
           print(f"Created deterministic stress clip: {index} frames at {fps:.3f} FPS")
           PY
-
-      - name: Install SDK and FlyPPG dependencies
-        run: |
-          npm install --no-save @smartspectra/node-sdk
-          python3 -m pip install "numpy<2" scipy opencv-python-headless imageio-ffmpeg
 
       - name: Preprocess static and stressed clips identically across arms
         run: |
@@ -340,6 +340,7 @@ jobs:
 
       - name: Publish to ci-diagnostics (readable without artifact access)
         if: always()
+        continue-on-error: true
         shell: bash
         run: |
           set +e
