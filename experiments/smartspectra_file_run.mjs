@@ -1,5 +1,5 @@
 // SmartSpectra file-processing runner (documented Node.js SDK API only).
-//   node smartspectra_file_run.mjs <video> [outDir] [--metrics=cardio|breathing+cardio] [--label=NAME] [--timestamps=FILE] [--log-level=debug|info|warning]
+//   node smartspectra_file_run.mjs <video> [outDir] [--metrics=cardio|breathing+cardio] [--label=NAME] [--timestamps=FILE] [--log-level=debug|info|warning] [--interframe-delay-ms=N] [--max-duration-ms=N]
 // Defaults are unchanged from the original runner: pulse-only request (cardioMetrics), useFile(video) with no playback options.
 // Additions are diagnostic only: per-run counters, status-transition log, Long->Number JSON conversion, and a summary.json that is
 // ALWAYS written (even on SDK error/timeout). Exit code is 1 whenever no pulse-rate packet was produced.
@@ -123,8 +123,12 @@ timeout = setTimeout(async () => {
 }, 600_000);
 
 try {
-  // Documented: useFile(videoPath, { timestampsPath?, interframeDelayMs?, startOffsetMs? }). Only timestampsPath is exposed here, opt-in.
-  if (flags.timestamps) sdk.useFile(videoPath, { timestampsPath: flags.timestamps }); else sdk.useFile(videoPath);
+  // Documented: useFile(videoPath, { timestampsPath?, interframeDelayMs?, startOffsetMs?, maxDurationMs? }); all exposed here as opt-in flags.
+  const fileOptions = {};
+  if (flags.timestamps) fileOptions.timestampsPath = flags.timestamps;
+  if (flags['interframe-delay-ms']) fileOptions.interframeDelayMs = Number(flags['interframe-delay-ms']);   // documented: throttle so file playback is not frame-dropped
+  if (flags['max-duration-ms']) fileOptions.maxDurationMs = Number(flags['max-duration-ms']);               // documented: stop after this much content
+  if (Object.keys(fileOptions).length) sdk.useFile(videoPath, fileOptions); else sdk.useFile(videoPath);
   sdk.start();
   await done;
   finish();                                   // write results BEFORE teardown so a stuck destroy() cannot lose them
