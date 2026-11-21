@@ -1,0 +1,95 @@
+{
+  "label": "static-fly_stab-r01",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 77,
+  "packets_with_cardio_object": 8,
+  "pulse_packet_count": 5,
+  "pulse_samples_total": 5,
+  "pulse_samples_nonzero_confidence": 5,
+  "breathing_packet_count": 0,
+  "validation_event_count": 2795,
+  "validation_summary": [
+    {
+      "message": "3 kFaceNotCentered: Center face in view.",
+      "count": 1564
+    },
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 679
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 367
+    },
+    {
+      "message": "15 kFaceTooHigh: Move down, or tilt the camera up.",
+      "count": 182
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 3
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 512
+    },
+    {
+      "status": 2,
+      "wall_ms": 604
+    },
+    {
+      "status": 3,
+      "wall_ms": 624
+    },
+    {
+      "status": 4,
+      "wall_ms": 14020
+    },
+    {
+      "status": 1,
+      "wall_ms": 14048
+    }
+  ],
+  "wall_seconds": 14.058,
+  "pulse_rate_samples": [
+    {
+      "value": 71.91109466552734,
+      "stable": true,
+      "confidence": 58.948089599609375,
+      "timestamp": "11114666"
+    },
+    {
+      "value": 72.79946899414062,
+      "stable": true,
+      "confidence": 60.017967224121094,
+      "timestamp": "11782666"
+    },
+    {
+      "value": 69.52490997314453,
+      "stable": true,
+      "confidence": 85.09664916992188,
+      "timestamp": "12670666"
+    },
+    {
+      "value": 71.2589111328125,
+      "stable": true,
+      "confidence": 84.75160217285156,
+      "timestamp": "14119666"
+    },
+    {
+      "value": 79.06006622314453,
+      "stable": true,
+      "confidence": 71.11630249023438,
+      "timestamp": "16331666"
+    }
+  ],
+  "breathing_rate_samples": []
+}
