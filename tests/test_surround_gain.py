@@ -29,9 +29,7 @@ class SurroundGainTests(unittest.TestCase):
         shared = 1.0 + 0.12 * np.sin(2 * np.pi * 0.12 * t)
         result = ss_preprocess.surround_gain(self.make_video(shared))
         expected = shared / np.median(shared)
-        np.testing.assert_allclose(result[:, 0], expected, atol=2e-3)
-        np.testing.assert_allclose(result[:, 1], expected, atol=2e-3)
-        np.testing.assert_allclose(result[:, 2], expected, atol=2e-3)
+        np.testing.assert_allclose(result, expected, atol=2e-3)
 
     def test_face_only_flicker_does_not_trigger_background_correction(self):
         t = np.arange(300, dtype=np.float32) / 30.0
