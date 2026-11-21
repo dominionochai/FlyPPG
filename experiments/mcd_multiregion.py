@@ -23,6 +23,41 @@ def dominant_bpm(values, fps):
     return float(f[band][np.argmax(p[band])] * 60.0)
 
 
+def spectral_peak(values, fps):
+    """Return dominant BPM and its fraction of in-band spectral power."""
+    x = bandpass_pulse(values, fps)
+    frequencies, power = signal.welch(
+        x, fs=fps, nperseg=len(x), nfft=max(4096, len(x) * 4)
+    )
+    band = (frequencies >= 0.7) & (frequencies <= 3.0)
+    band_power = power[band]
+    if not len(band_power) or float(band_power.sum()) <= 0:
+        return None, 0.0
+    peak_index = int(np.argmax(band_power))
+    bpm = float(frequencies[band][peak_index] * 60.0)
+    concentration = float(band_power[peak_index] / band_power.sum())
+    return bpm, concentration
+
+
+def weighted_median(values, weights):
+    """Weighted median that does not average incompatible regional BPMs."""
+    pairs = sorted(
+        (float(value), float(weight))
+        for value, weight in zip(values, weights)
+        if value is not None and np.isfinite(value) and weight > 0
+    )
+    if not pairs:
+        return None
+    total = sum(weight for _, weight in pairs)
+    halfway = total / 2.0
+    running = 0.0
+    for value, weight in pairs:
+        running += weight
+        if running >= halfway:
+            return value
+    return pairs[-1][0]
+
+
 def load_face_video(path):
     cap = cv2.VideoCapture(str(path))
     fps = float(cap.get(cv2.CAP_PROP_FPS))
@@ -95,6 +130,30 @@ def main():
             estimate = dominant_bpm(trace[start:stop], fps)
             row[name + "_bpm"] = estimate
             row[name + "_absolute_error_bpm"] = abs(estimate - truth)
+
+        # Estimate each facial region independently, then combine BPMs rather
+        # than waveforms. This avoids phase cancellation between regions.
+        regional_bpms, regional_weights = [], []
+        regional_diagnostics = {}
+        for region in ("forehead", "left_cheek", "right_cheek"):
+            estimate, concentration = spectral_peak(
+                methods[region + "_POS"][start:stop], fps
+            )
+            quality = readings[region].quality if readings[region].usable else 0.0
+            weight = quality * concentration
+            regional_bpms.append(estimate)
+            regional_weights.append(weight)
+            regional_diagnostics[region] = {
+                "bpm": estimate,
+                "spectral_concentration": concentration,
+                "weight": weight,
+            }
+        consensus = weighted_median(regional_bpms, regional_weights)
+        row["region_consensus_bpm"] = consensus
+        row["region_consensus_absolute_error_bpm"] = (
+            abs(consensus - truth) if consensus is not None else None
+        )
+        row["region_consensus_regions"] = regional_diagnostics
         rows.append(row)
 
     metrics = {}
@@ -105,6 +164,17 @@ def main():
             "rmse_bpm": float(np.sqrt(np.mean(errors ** 2))) if len(errors) else None,
             "within_5_bpm_pct": float(np.mean(errors <= 5) * 100) if len(errors) else None,
         }
+
+    consensus_errors = np.asarray([
+        row["region_consensus_absolute_error_bpm"]
+        for row in rows
+        if row["region_consensus_absolute_error_bpm"] is not None
+    ], dtype=np.float64)
+    metrics["region_consensus"] = {
+        "mae_bpm": float(consensus_errors.mean()) if len(consensus_errors) else None,
+        "rmse_bpm": float(np.sqrt(np.mean(consensus_errors ** 2))) if len(consensus_errors) else None,
+        "within_5_bpm_pct": float(np.mean(consensus_errors <= 5) * 100) if len(consensus_errors) else None,
+    }
 
     report = {
         "recording": Path(args.video).name,
