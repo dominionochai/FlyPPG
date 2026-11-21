@@ -1,6 +1,6 @@
 """Apply FlyPPG arms to REAL video files and re-encode each arm identically (control = re-encode only, so compression is never a confound).
 Analysis runs at 96x96, corrections are applied at full resolution. Usage: python ss_preprocess.py --in videos --out processed [--arms a,b,c]"""
-import os, sys, argparse, subprocess, collections, numpy as np, cv2, imageio_ffmpeg
+import os, sys, argparse, subprocess, collections, numpy as np, cv2
 from scipy import ndimage as ndi
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 import flyppg3 as G
@@ -51,6 +51,7 @@ def farneback_flows(v):
     return np.stack([cv2.calcOpticalFlowFarneback(ref, g8(v[t]), None, .5, 3, 15, 3, 5, 1.2, 0) for t in range(len(v))]).astype(np.float32)
 
 def process(src, dst, arm, Wr):
+    import imageio_ffmpeg
     small, fps, (w, h) = read_small(src); T = len(small); gain = np.ones(T, np.float32); field = None
     if arm in ('surround', 'flyppg'): gain = surround_gain(small)
     if arm in ('fly_stab', 'flyppg'): field = ('fly', fly_disp(small, Wr, gain if arm == 'flyppg' else np.ones(T, np.float32)))
