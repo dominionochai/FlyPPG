@@ -15,7 +15,7 @@ FlyPPG investigates two mechanisms inspired by insect vision:
 1. **Gated surround normalisation.** A background reference is used only when its temporal illumination signal is sufficiently strong and correlated with the foreground. The correction is deliberately conservative.
 2. **T4/T5-inspired local motion estimation.** A compact spatiotemporal feature bank, derived from published fly visual-circuit connectivity as an engineering approximation, estimates local motion fields.
 
-The project includes matched preprocessing arms, SmartSpectra file/custom-input experiment runners, output parsing, scoring utilities, regression tests and an interactive visualization.
+The project includes matched preprocessing arms, SmartSpectra file/custom-input experiment runners, output parsing, scoring utilities, regression tests and an interactive visualization. The new adaptive spatial arm is documented in [ADAPTIVE_ILLUMINATION.md](experiments/ADAPTIVE_ILLUMINATION.md).
 
 ## What was learned
 
