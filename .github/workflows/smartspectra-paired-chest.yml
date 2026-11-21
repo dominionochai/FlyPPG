@@ -186,8 +186,8 @@ jobs:
           tasks = [
               (condition, arm, repeat)
               for condition in ("static", "stress")
-              for arm in ("control", "surround", "fly_stab", "flyppg")
-              for repeat in range(1, 4)
+              for arm in ("control",)
+              for repeat in range(1, 6)
           ]
           random.Random(20261121).shuffle(tasks)
 
@@ -209,6 +209,24 @@ jobs:
                   text = log_path.read_text(encoding="utf-8", errors="replace")
                   log_path.write_text(text.replace(key, "***"), encoding="utf-8")
               print(f"{name} exit={result.returncode}", flush=True)
+              summary_path = destination / "summary.json"
+              if summary_path.exists():
+                  summary = __import__("json").loads(summary_path.read_text())
+                  errors = summary.get("errors", []) or []
+                  if any(error.get("code") == 4 for error in errors):
+                      raise SystemExit(
+                          "SmartSpectra preflight failed: measurement credits exhausted. "
+                          "Stopping to avoid wasting remaining SDK calls."
+                      )
+                  if summary.get("status") == "INVALID_NO_OUTPUT":
+                      raise SystemExit(
+                          "SmartSpectra preflight failed: no output from baseline. "
+                          "Stopping before running comparison arms."
+                      )
+              elif repeat == 1:
+                  raise SystemExit(
+                      "SmartSpectra preflight failed: first baseline run produced no summary.json."
+                  )
           PY
 
       - name: Aggregate repeated runs by condition and preprocessing arm
