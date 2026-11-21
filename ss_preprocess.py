@@ -15,7 +15,7 @@ def read_small(path):
     cap.release(); return np.array(sm, np.float32) / 255, fps, (w, h)
 
 def surround_gain(v):
-    """Estimate shared illumination gain from the background ring; otherwise return identity."""
+    """Apply only a small, gated correction for verified shared illumination flicker."""
     lg = lambda x: np.log(np.maximum(x, 1e-6))
     bp = lambda x: ndi.gaussian_filter1d(x, 3) - ndi.gaussian_filter1d(x, 30)
 
@@ -24,20 +24,19 @@ def surround_gain(v):
     background_signal = bp(lg(background))
     foreground_signal = bp(lg(foreground))
 
-    # A constant or near-constant background has undefined correlation. Treat
-    # that as insufficient evidence, not permission to normalize the video.
-    if np.std(background_signal) < 1e-5 or np.std(foreground_signal) < 1e-5:
+    # Do not infer illumination from tiny fluctuations or a weakly related ROI.
+    if (np.std(background_signal) < 0.015 or
+            np.std(foreground_signal) < 0.015):
         return np.ones(len(v), np.float32)
 
     correlation = np.corrcoef(background_signal, foreground_signal)[0, 1]
-    if not np.isfinite(correlation) or correlation <= .5:
+    if not np.isfinite(correlation) or correlation < 0.75:
         return np.ones(len(v), np.float32)
 
-    reference = np.median(background)
-    if not np.isfinite(reference) or reference <= 1e-6:
-        return np.ones(len(v), np.float32)
-
-    gain = background / reference
+    # Correct only part of the shared temporal component. A hard 1:1
+    # normalization changed image contrast enough to make the SDK lose the chest.
+    correction = np.clip(0.35 * background_signal, -0.05, 0.05)
+    gain = np.exp(correction)
     if not np.all(np.isfinite(gain)):
         return np.ones(len(v), np.float32)
     return gain.astype(np.float32)
