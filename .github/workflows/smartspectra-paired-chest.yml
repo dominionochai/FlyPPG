@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/smartspectra-paired-chest.yml"
+      - "ss_preprocess.py"
+      - "tests/test_surround_gain.py"
   workflow_dispatch:
 
 permissions:
