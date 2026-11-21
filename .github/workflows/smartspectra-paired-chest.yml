@@ -163,7 +163,7 @@ jobs:
           mkdir -p in out/runs
           cp chest_test.mp4 in/static.mp4
           cp chest_stress.mp4 in/stress.mp4
-          python3 ss_preprocess.py --in in --out processed --arms control,fly_stab,flyppg
+          python3 ss_preprocess.py --in in --out processed --arms control,surround,fly_stab,flyppg
 
       - name: Run randomized repeated SmartSpectra comparisons
         env:
@@ -184,7 +184,7 @@ jobs:
           tasks = [
               (condition, arm, repeat)
               for condition in ("static", "stress")
-              for arm in ("control", "fly_stab", "flyppg")
+              for arm in ("control", "surround", "fly_stab", "flyppg")
               for repeat in range(1, 4)
           ]
           random.Random(20261121).shuffle(tasks)
@@ -317,7 +317,7 @@ jobs:
           lines.extend([
               "",
               "Three independent SDK invocations per arm and condition; execution order was shuffled with a fixed seed.",
-              "Control is decode/re-encode only. fly_stab applies FlyPPG motion compensation. flyppg applies illumination normalization plus FlyPPG motion compensation.",
+              "Control is decode/re-encode only. surround applies gated background-referenced illumination normalization only. fly_stab applies FlyPPG motion compensation only. flyppg combines illumination normalization and FlyPPG motion compensation.",
               "The stress clip adds deterministic mild camera translation/rotation and brightness flicker before preprocessing.",
               "These are SDK output/validation and repeatability measures only. This dataset run has no pulse ground-truth reference, so the table does not establish BPM accuracy.",
           ])
