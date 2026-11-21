@@ -63,8 +63,11 @@ def main(root):
         rows.append({"condition": LABEL[c], "key": c, "reps": len(runs[c]), "usable_samples": float(np.mean(usable)), "coverage_pct": float(np.mean(covs)),
                      "mae_vs_clean_bpm": float(np.mean(maes)) if maes else None, "gate_ok_pct": float(np.mean(okp)), "validation_events": float(np.mean(ev))})
     md = ["| condition | reps | usable pulse samples | window coverage % | MAE vs clean (bpm) | frames passing gate % | validation events |", "|---|---|---|---|---|---|---|"]
-    for r in rows: md.append(f"| {r['condition']} | {r['reps']} | {r['usable_samples']:.0f} | {r['coverage_pct']:.0f} | {'n/a' if r['mae_vs_clean_bpm'] is None else f'{r['mae_vs_clean_bpm']:.2f}'} | {r['gate_ok_pct']:.0f} | {r['validation_events']:.0f} |")
-    md.append(""); md.append(f"Noise floor (clean repeat vs clean repeats, leave-one-out): {'n/a' if floor is None else f'{floor:.2f} bpm'}. Pseudo-reference = SmartSpectra's own clean readings; no ground-truth pulse.")
+    for r in rows:
+        mae = "n/a" if r["mae_vs_clean_bpm"] is None else "%.2f" % r["mae_vs_clean_bpm"]
+        md.append("| %s | %d | %.0f | %.0f | %s | %.0f | %.0f |" % (r["condition"], r["reps"], r["usable_samples"], r["coverage_pct"], mae, r["gate_ok_pct"], r["validation_events"]))
+    floor_txt = "n/a" if floor is None else "%.2f bpm" % floor
+    md.append(""); md.append("Noise floor (clean repeat vs clean repeats, leave-one-out): %s. Pseudo-reference = SmartSpectra own clean readings; no ground-truth pulse." % floor_txt)
     verdicts = []
     by = {r["key"]: r for r in rows}
     for s in ("06", "12"):
