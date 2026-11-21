@@ -1,0 +1,82 @@
+name: MCD real-video multi-recording benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/mcd-real-video.yml"
+      - "experiments/mcd_multiregion.py"
+      - "facial_signal.py"
+
+permissions:
+  contents: read
+
+jobs:
+  real-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        recording:
+          - 1024_FullHDwebcam_before
+          - 1035_USBVideo_after
+          - 1091_IriunWebcam_before
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install video and signal dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+          python -m pip install --upgrade pip
+          python -m pip install "numpy<2" scipy "opencv-contrib-python==4.10.0.84"
+
+      - name: Download one MCD recording and its synchronized reference
+        shell: bash
+        env:
+          RECORDING: ${{ matrix.recording }}
+        run: |
+          set -euo pipefail
+          mkdir -p data
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 240 \
+            "$base/video/$RECORDING.avi" -o "data/$RECORDING.avi"
+          curl -fL --retry 3 --retry-delay 2 --connect-timeout 20 --max-time 90 \
+            "$base/ppg_sync/$RECORDING.txt" -o "data/$RECORDING.txt"
+          test "$(stat -c%s "data/$RECORDING.avi")" -gt 5000000
+          test "$(wc -l < "data/$RECORDING.txt")" -gt 1000
+          echo "Recording: $RECORDING"
+          echo "Video bytes: $(stat -c%s "data/$RECORDING.avi")"
+          echo "Reference rows: $(wc -l < "data/$RECORDING.txt")"
+
+      - name: Validate video decode before scoring
+        run: |
+          set -euo pipefail
+          ffprobe -v error -select_streams v:0 -count_frames \
+            -show_entries stream=codec_name,width,height,r_frame_rate,nb_read_frames \
+            -of json "data/${{ matrix.recording }}.avi" | tee video_metadata.json
+          ffmpeg -v error -i "data/${{ matrix.recording }}.avi" -f null -
+
+      - name: Run raw POS and multi-region fusion on real video
+        run: |
+          python experiments/mcd_multiregion.py \
+            --video "data/${{ matrix.recording }}.avi" \
+            --reference "data/${{ matrix.recording }}.txt" \
+            --out "${{ matrix.recording }}_results.json"
+
+      - name: Upload numerical results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcd-${{ matrix.recording }}-results
+          path: |
+            ${{ matrix.recording }}_results.json
+            video_metadata.json
+          if-no-files-found: warn
+          retention-days: 30
