@@ -1,0 +1,67 @@
+W20261121 19:46:52.121362  8264 smartspectra.cc:1659] Device key provisioning did not complete; continuing with locally-available models. Remote EMD model delivery is unavailable this session: POST /device/pair/verify failed. Response:
+ Status: 429
+ Body: 
+{"detail": "Too many requests. Please try again later."}
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795290412.138949    8281 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290412.142460    8281 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290412.151876    8281 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 19:46:52.152220  8283 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795290412.178225    8280 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290412.194734    8283 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+E20261121 19:46:52.469911  8287 secure_model_loader.cc:581] Failed to fetch metadata for model_id=phasic-bp-inference, error=POST /device/pair failed. Response:
+ Status: 429
+ Body: 
+{"detail": "Too many requests. Please try again later."}
+E20261121 19:46:52.470090  8287 secure_model_loader.cc:319] LoadInternal failed for model_id=phasic-bp-inference, error=POST /device/pair failed. Response:
+ Status: 429
+ Body: 
+{"detail": "Too many requests. Please try again later."}
+E20261121 19:46:52.470096  8287 physiology_inference_calculator.cc:597] Model load failed.
+SmartSpectra processing status: 2
+W20261121 19:46:52.478281  8296 smartspectra.cc:1471] Suppressing non-terminal error behind a terminal one: 1: SmartSpectra is not in a valid state for this operation.
+SmartSpectra error 4: SmartSpectra measurement credits have been exhausted. (retryable=false)
+SmartSpectra processing status: 5
+{
+  "label": "static-surround-r03",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 0,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 0,
+  "validation_summary": [],
+  "first_validation_timestamp_us": null,
+  "last_validation_timestamp_us": null,
+  "error_count": 1,
+  "errors": [
+    {
+      "code": 4,
+      "message": "SmartSpectra measurement credits have been exhausted.",
+      "retryable": false
+    }
+  ],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 659
+    },
+    {
+      "status": 2,
+      "wall_ms": 936
+    },
+    {
+      "status": 5,
+      "wall_ms": 943
+    }
+  ],
+  "wall_seconds": 0.944,
+  "pulse_rate_samples": "(0 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
+No pulse-rate packets were produced. Status: INVALID_NO_OUTPUT

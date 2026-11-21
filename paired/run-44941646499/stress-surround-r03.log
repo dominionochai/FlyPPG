@@ -1,0 +1,63 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795290386.485268    7692 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290386.485585    7690 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290386.497197    7689 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 19:46:26.497565  7690 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795290386.524606    7691 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290386.541396    7691 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+E20261121 19:46:26.852418  7696 secure_model_loader.cc:581] Failed to fetch metadata for model_id=phasic-bp-inference, error=Failed to fetch model metadata. Response:
+ Status: 402
+ Body: 
+{"detail":"Insufficient credits"}
+E20261121 19:46:26.852607  7696 secure_model_loader.cc:319] LoadInternal failed for model_id=phasic-bp-inference, error=Failed to fetch model metadata. Response:
+ Status: 402
+ Body: 
+{"detail":"Insufficient credits"}
+E20261121 19:46:26.852612  7696 physiology_inference_calculator.cc:597] Model load failed.
+SmartSpectra processing status: 2
+W20261121 19:46:26.877477  7705 smartspectra.cc:1471] Suppressing non-terminal error behind a terminal one: 1: SmartSpectra is not in a valid state for this operation.
+SmartSpectra error 4: SmartSpectra measurement credits have been exhausted. (retryable=false)
+SmartSpectra processing status: 5
+{
+  "label": "stress-surround-r03",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 0,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 0,
+  "validation_summary": [],
+  "first_validation_timestamp_us": null,
+  "last_validation_timestamp_us": null,
+  "error_count": 1,
+  "errors": [
+    {
+      "code": 4,
+      "message": "SmartSpectra measurement credits have been exhausted.",
+      "retryable": false
+    }
+  ],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 1321
+    },
+    {
+      "status": 2,
+      "wall_ms": 1650
+    },
+    {
+      "status": 5,
+      "wall_ms": 1659
+    }
+  ],
+  "wall_seconds": 1.659,
+  "pulse_rate_samples": "(0 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
+No pulse-rate packets were produced. Status: INVALID_NO_OUTPUT

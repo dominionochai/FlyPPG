@@ -1,0 +1,77 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795290321.724182    7314 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290321.727144    7314 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290321.737120    7314 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 19:45:21.737511  7315 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795290321.764528    7317 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290321.781949    7314 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795290322.131357    7317 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "static-surround-r02",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 829,
+  "packets_with_cardio_object": 352,
+  "pulse_packet_count": 157,
+  "pulse_samples_total": 159,
+  "pulse_samples_nonzero_confidence": 154,
+  "breathing_packet_count": 120,
+  "validation_event_count": 4426,
+  "validation_summary": [
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 4367
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 32
+    },
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 11
+    },
+    {
+      "message": "2 kMultipleFacesFound: Only one face is allowed.",
+      "count": 9
+    },
+    {
+      "message": "17 kFaceNotForward: Face the camera.",
+      "count": 7
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 1416
+    },
+    {
+      "status": 2,
+      "wall_ms": 1749
+    },
+    {
+      "status": 3,
+      "wall_ms": 1761
+    },
+    {
+      "status": 4,
+      "wall_ms": 30469
+    },
+    {
+      "status": 1,
+      "wall_ms": 30549
+    }
+  ],
+  "wall_seconds": 30.582,
+  "pulse_rate_samples": "(159 samples)",
+  "breathing_rate_samples": "(121 samples)"
+}
