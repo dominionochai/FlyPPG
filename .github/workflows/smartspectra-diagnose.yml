@@ -4,14 +4,6 @@ name: SmartSpectra MCD diagnosis
 # Results are committed to the `ci-diagnostics` branch (logs + contact sheets) so they can be read without artifact access.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/smartspectra-diagnose.yml"
-      - "experiments/diagnose_video.py"
-      - "experiments/summarize_diagnosis.py"
-      - "experiments/smartspectra_file_run.mjs"
-
 permissions:
   contents: write
 

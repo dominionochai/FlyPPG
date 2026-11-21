@@ -1,15 +1,7 @@
 name: MCD FlyPPG vs SmartSpectra baseline
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/mcd-head-to-head.yml"
-      - "experiments/**"
-      - "facial_signal.py"
-      - "tests/test_facial_signal.py"
   workflow_dispatch:
-
 permissions:
   contents: read
 

@@ -1,0 +1,118 @@
+name: SmartSpectra budgeted sweep (breadth + framing threshold)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  paired:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install video and Vulkan tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3 libvulkan1 mesa-vulkan-drivers vulkan-tools
+          ffmpeg -version | head -n 1
+          echo "Installed Vulkan ICDs:"
+          ls -la /usr/share/vulkan/icd.d/ || true
+          echo "Vulkan loader summary:"
+          vulkaninfo --summary || true
+
+      - name: Configure software Vulkan (Mesa lavapipe)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \( -name 'lvp_icd*.json' -o -name '*lvp*.json' \) | head -n 1)"
+          if [ -z "$ICD" ]; then
+            echo "Mesa lavapipe ICD was not installed."
+            exit 1
+          fi
+          echo "Using Vulkan ICD: $ICD"
+          echo "VK_ICD_FILENAMES=$ICD" >> "$GITHUB_ENV"
+          echo "VK_DRIVER_FILES=$ICD" >> "$GITHUB_ENV"
+          VK_ICD_FILENAMES="$ICD" VK_DRIVER_FILES="$ICD" vulkaninfo --summary
+
+      - name: Pick clips from the MCD dataset and download them with their reference pulse
+        shell: bash
+        run: |
+          set +e
+          base="https://huggingface.co/datasets/akramic/mcd_rppg/resolve/04df5b6"
+          mkdir -p raw out/refs out/runs
+          curl -s -m 60 "https://huggingface.co/api/datasets/akramic/mcd_rppg/tree/04df5b6/video" \
+            | python3 -c "import json,sys; f=[x['path'].split('/')[-1] for x in json.load(sys.stdin) if 'USBVideo' in x['path']]; print('\n'.join(sorted(f)[:40]))" > cand.txt
+          grep -q 1020_USBVideo_before.avi cand.txt || echo 1020_USBVideo_before.avi > cand.txt
+          # clip 1 is the known clip; then up to 7 more from other recordings
+          { echo 1020_USBVideo_before.avi; grep -v 1020_USBVideo_before.avi cand.txt | awk -F_ '!s[$1]++' | head -7; } > clips.txt
+          i=0
+          while read -r f; do
+            n=$(printf "c%02d" $((i+1)))
+            curl -fL --retry 2 --connect-timeout 20 --max-time 240 "$base/video/$f" -o raw/$n.avi || continue
+            curl -fL --retry 2 --max-time 60 "$base/ppg_sync/${f%.avi}.txt" -o raw/$n.txt || continue
+            echo "$n $f" >> out/clips.txt; i=$((i+1))
+          done < clips.txt
+          cat out/clips.txt
+
+      - name: Install SDK and FlyPPG dependencies
+        run: |
+          npm install --no-save @smartspectra/node-sdk
+          python3 -m pip install numpy scipy opencv-python-headless
+
+      - name: Budgeted SDK runs (hard cap on video seconds sent)
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        shell: bash
+        run: |
+          set +e
+          SEG=60; BUDGET=1500; spent=0
+          pad() { # in out pad%  -> extend canvas below with a flipped copy of the bottom strip (face pixels untouched)
+            H=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$1"); ph=$(( H * $3 / 100 / 2 * 2 ))
+            ffmpeg -y -v error -i "$1" -filter_complex "[0:v]split[a][b];[b]crop=iw:${ph}:0:ih-${ph},vflip[r];[a][r]vstack,scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p "$2"
+          }
+          run() { # name file
+            if [ $((spent + SEG)) -gt $BUDGET ]; then echo "SKIP $1 (budget)"; return; fi
+            node experiments/smartspectra_file_run.mjs "$2" out/runs/$1 --metrics=cardio --label=$1 > out/$1.log 2>&1
+            sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" out/$1.log
+            spent=$((spent + SEG)); echo "spent $spent" > out/spent.txt
+            echo "$1: $(python3 -c "import json;s=json.load(open('out/runs/$1/summary.json'));print(s['status'],s['pulse_samples_nonzero_confidence'])" 2>/dev/null)"
+          }
+          while read -r n f; do
+            ffmpeg -y -v error -i raw/$n.avi -an -t $SEG -c:v libx264 -preset veryfast -pix_fmt yuv420p w_$n.mp4
+            fps=$(python3 -c "import cv2;c=cv2.VideoCapture('w_$n.mp4');print(c.get(5))"); frames=$(python3 -c "import cv2;c=cv2.VideoCapture('w_$n.mp4');print(int(c.get(7)))")
+            head -n $frames raw/$n.txt > out/refs/$n.txt; echo $fps > out/refs/$n.fps
+            pad w_$n.mp4 p40_$n.mp4 40
+          done < out/clips.txt
+          # 1) framing threshold on the known clip (3 runs), 2) every clip adapted, 3) every other clip alone to confirm it is rejected
+          for p in 10 20 30; do pad w_c01.mp4 t_$p.mp4 $p; run thr_pad$p t_$p.mp4; done
+          while read -r n f; do run ${n}_pad40 p40_$n.mp4; done < out/clips.txt
+          while read -r n f; do [ $n = c01 ] || run ${n}_orig w_$n.mp4; done < out/clips.txt
+          # clip 1 alone is already known to be rejected (full clip, earlier run); run it only if budget remains
+          run c01_orig w_c01.mp4
+          python3 sweep_report.py out | tee out/REPORT.md >> "$GITHUB_STEP_SUMMARY"
+          find out -name metrics.json -size +3M -delete
+
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: budget-sweep, path: out/, retention-days: 30 }
+
+      - name: Publish to ci-diagnostics (readable without artifact access)
+        if: always()
+        shell: bash
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        run: |
+          set +e
+          grep -rIl -F "${SMARTSPECTRA_API_KEY}" out && exit 1
+          git config user.name github-actions; git config user.email actions@users.noreply.github.com
+          git fetch origin ci-diagnostics:ci-diagnostics 2>/dev/null; git checkout -f ci-diagnostics 2>/dev/null || git checkout --orphan ci-diagnostics
+          mkdir -p sweep && rm -rf "sweep/run-${GITHUB_RUN_ID}" && cp -r out "sweep/run-${GITHUB_RUN_ID}"
+          git add sweep && git commit -q -m "budget sweep ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
