@@ -72,7 +72,8 @@ def farneback_flows(v):
 def process(src, dst, arm, Wr):
     import imageio_ffmpeg
     small, fps, (w, h) = read_small(src); T = len(small); gain = np.ones(T, np.float32); spatial = None; field = None
-    if arm in ('surround', 'flyppg', 'combined_lighting'): gain = surround_gain(small)\n    if arm in ('spatial', 'combined_lighting'): spatial = spatial_illumination_gain(small)
+    if arm in ('surround', 'flyppg', 'combined_lighting'): gain = surround_gain(small)
+    if arm in ('spatial', 'combined_lighting'): spatial = spatial_illumination_gain(small)
     if arm in ('fly_stab', 'flyppg'): field = ('fly', fly_disp(small, Wr, gain if arm == 'flyppg' else np.ones(T, np.float32)))
     if arm == 'classical': field = ('flow', farneback_flows(small))
     xx, yy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32)); sx, sy = w / A, h / A
@@ -88,7 +89,7 @@ def process(src, dst, arm, Wr):
         if gain[t] != 1: f = f / gain[t]
         if spatial is not None:
             sg = cv2.resize(spatial[t], (w, h), interpolation=cv2.INTER_LINEAR)
-            f *= sg[..., None]\n        if spatial is not None:\n            sg = cv2.resize(spatial[t], (w, h), interpolation=cv2.INTER_LINEAR)\n            f *= sg[..., None]
+            f *= sg[..., None]
         if field is not None:
             if field[0] == 'fly': uy = cv2.resize(field[1][t, :, 0].reshape(3, 3).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * sy; ux = cv2.resize(field[1][t, :, 1].reshape(3, 3).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * sx
             else: fl = cv2.resize(field[1][t], (w, h), interpolation=cv2.INTER_LINEAR); ux, uy = fl[..., 0] * sx, fl[..., 1] * sy
