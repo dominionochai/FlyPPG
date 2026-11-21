@@ -1,0 +1,5902 @@
+{
+  "video": "w_c01.mp4",
+  "packets": [],
+  "validations": [
+    {
+      "code": 0,
+      "timestamp_us": 0,
+      "hint": "Hold still and record."
+    },
+    {
+      "code": 1,
+      "timestamp_us": 33333,
+      "hint": "No face found."
+    },
+    {
+      "code": 1,
+      "timestamp_us": 66666,
+      "hint": "No face found."
+    },
+    {
+      "code": 1,
+      "timestamp_us": 100000,
+      "hint": "No face found."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 1966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 2966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 3966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 4966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 5966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 6933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7399999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7899999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 7966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 8966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 9966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 10966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 11800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 12966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13799999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 13966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14799999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 14900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15799999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 15933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 16966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 17966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 18966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 19966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 20966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 21900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 22966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 23833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 24966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 25966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26099999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26599999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 26966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27099999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27599999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 27900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28099999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 28933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29599999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 29900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30099999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30599999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 30966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31099999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 31966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32299999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 32966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 33966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 34966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 35966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 36933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 37966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 38833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 39833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 40933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 41866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 42966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 43966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 44966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 45933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 46900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 47966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 48900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 49966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50700000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 50966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51200000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 51966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52199999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 52933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 53966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 54966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 55966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56000000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 56966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 57966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58066666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58133333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58166666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58199999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58233333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 58966666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59033333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59100000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59199999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59266666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59300000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59333333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59366666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59400000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59433333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59466666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59500000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59533333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59566666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59600000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59633333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59666666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59699999,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59733333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59766666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59800000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59833333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59866666,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59900000,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59933333,
+      "hint": "Place more of the chest in view."
+    },
+    {
+      "code": 7,
+      "timestamp_us": 59966666,
+      "hint": "Place more of the chest in view."
+    }
+  ],
+  "errors": []
+}

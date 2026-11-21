@@ -1,0 +1,65 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795293586.115862    4018 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795293586.116157    4017 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795293586.124860    4020 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 20:39:46.125214  4017 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795293586.152089    4019 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795293586.168289    4019 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795293586.532608    4020 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "thr_pad20",
+  "video": "t_20.mp4",
+  "requested_metrics": "cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 176,
+  "packets_with_cardio_object": 176,
+  "pulse_packet_count": 63,
+  "pulse_samples_total": 64,
+  "pulse_samples_nonzero_confidence": 62,
+  "breathing_packet_count": 0,
+  "validation_event_count": 1567,
+  "validation_summary": [
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 1564
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 3
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 59966666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 1625
+    },
+    {
+      "status": 2,
+      "wall_ms": 1972
+    },
+    {
+      "status": 3,
+      "wall_ms": 1983
+    },
+    {
+      "status": 4,
+      "wall_ms": 12342
+    },
+    {
+      "status": 1,
+      "wall_ms": 12501
+    }
+  ],
+  "wall_seconds": 12.512,
+  "pulse_rate_samples": "(64 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}

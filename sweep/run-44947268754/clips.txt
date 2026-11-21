@@ -1,0 +1,8 @@
+c01 1020_USBVideo_before.avi
+c02 1020_USBVideo_after.avi
+c03 1024_USBVideo_after.avi
+c04 1035_USBVideo_after.avi
+c05 1091_USBVideo_after.avi
+c06 1097_USBVideo_after.avi
+c07 1099_USBVideo_after.avi
+c08 1107_USBVideo_after.avi
