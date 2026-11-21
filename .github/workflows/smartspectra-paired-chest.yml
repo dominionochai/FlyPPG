@@ -35,7 +35,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \\( -name 'lvp_icd*.json' -o -name '*lvp*.json' \\) | head -n 1)"
+          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \( -name 'lvp_icd*.json' -o -name '*lvp*.json' \) | head -n 1)"
           if [ -z "$ICD" ]; then
             echo "Mesa lavapipe ICD was not installed."
             exit 1
@@ -89,7 +89,7 @@ jobs:
           if size < 100_000:
               raise SystemExit(f"Downloaded file is unexpectedly small: {size} bytes")
           pathlib.Path("dataset_source.txt").write_text(
-              f"dataset=justchugh/MPSC-RR\\nfile={chosen}\\nbytes={size}\\nlicense=CC-BY-4.0\\n",
+              f"dataset=justchugh/MPSC-RR\nfile={chosen}\nbytes={size}\nlicense=CC-BY-4.0\n",
               encoding="utf-8",
           )
           print(f"Downloaded {chosen}: {size:,} bytes")
@@ -212,6 +212,7 @@ jobs:
       - name: Aggregate repeated runs by condition and preprocessing arm
         if: always()
         run: |
+          mkdir -p out/runs
           python3 - <<'PY'
           import json
           from collections import defaultdict
