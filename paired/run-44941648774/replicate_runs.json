@@ -1,0 +1,506 @@
+[
+  {
+    "condition": "static",
+    "arm": "control",
+    "repeat": "r01",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "control",
+    "repeat": "r02",
+    "ok_frames_pct": 97.9381443298969,
+    "chest_not_visible_pct": 0.6286145335680161,
+    "pulse": {
+      "count": 129,
+      "rate_mean": 78.77370994035587,
+      "rate_std": 11.495004195062858,
+      "mean_confidence": 62.26416887978251
+    },
+    "breathing": {
+      "count": 29,
+      "rate_mean": 22.580491427717536,
+      "rate_std": 0.7138697397480902,
+      "mean_confidence": 85.36624106045427
+    },
+    "error_count": 0,
+    "status": "PULSE_PRODUCED"
+  },
+  {
+    "condition": "static",
+    "arm": "control",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "fly_stab",
+    "repeat": "r01",
+    "ok_frames_pct": 5.850885991307255,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "fly_stab",
+    "repeat": "r02",
+    "ok_frames_pct": 8.954203691045796,
+    "chest_not_visible_pct": 20.027341079972658,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 0,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "fly_stab",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "flyppg",
+    "repeat": "r01",
+    "ok_frames_pct": 0.02904443799012489,
+    "chest_not_visible_pct": 67.49927388905024,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 0,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "flyppg",
+    "repeat": "r02",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "flyppg",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "static",
+    "arm": "surround",
+    "repeat": "r01",
+    "ok_frames_pct": 57.57918552036199,
+    "chest_not_visible_pct": 27.07390648567119,
+    "pulse": {
+      "count": 102,
+      "rate_mean": 77.66295608819699,
+      "rate_std": 11.600214732379094,
+      "mean_confidence": 51.20903230180927
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 0,
+    "status": "PULSE_PRODUCED"
+  },
+  {
+    "condition": "static",
+    "arm": "surround",
+    "repeat": "r02",
+    "ok_frames_pct": 16.596045197740114,
+    "chest_not_visible_pct": 83.26271186440678,
+    "pulse": {
+      "count": 21,
+      "rate_mean": 91.0286607288179,
+      "rate_std": 7.232452029288743,
+      "mean_confidence": 49.84475344703311
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 0,
+    "status": "PULSE_PRODUCED"
+  },
+  {
+    "condition": "static",
+    "arm": "surround",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "control",
+    "repeat": "r01",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "control",
+    "repeat": "r02",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "control",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "fly_stab",
+    "repeat": "r01",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "fly_stab",
+    "repeat": "r02",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "fly_stab",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "flyppg",
+    "repeat": "r01",
+    "ok_frames_pct": 5.708245243128964,
+    "chest_not_visible_pct": 0.33222591362126247,
+    "pulse": {
+      "count": 11,
+      "rate_mean": 73.91608810424805,
+      "rate_std": 7.795175329755876,
+      "mean_confidence": 57.888114582408555
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 0,
+    "status": "PULSE_PRODUCED"
+  },
+  {
+    "condition": "stress",
+    "arm": "flyppg",
+    "repeat": "r02",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "flyppg",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "surround",
+    "repeat": "r01",
+    "ok_frames_pct": 80.444817456987,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 176,
+      "rate_mean": 66.23022695021196,
+      "rate_std": 0.5681779370238585,
+      "mean_confidence": 94.29745882207698
+    },
+    "breathing": {
+      "count": 99,
+      "rate_mean": 27.222591303815744,
+      "rate_std": 2.9061142432328397,
+      "mean_confidence": 64.91600662770898
+    },
+    "error_count": 0,
+    "status": "PULSE_PRODUCED"
+  },
+  {
+    "condition": "stress",
+    "arm": "surround",
+    "repeat": "r02",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  },
+  {
+    "condition": "stress",
+    "arm": "surround",
+    "repeat": "r03",
+    "ok_frames_pct": 0.0,
+    "chest_not_visible_pct": 0.0,
+    "pulse": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "breathing": {
+      "count": 0,
+      "rate_mean": null,
+      "rate_std": null,
+      "mean_confidence": null
+    },
+    "error_count": 1,
+    "status": "INVALID_NO_OUTPUT"
+  }
+]

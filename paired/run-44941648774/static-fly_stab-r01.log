@@ -1,0 +1,84 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795290373.708753    7427 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290373.710028    7428 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290373.725125    7428 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 19:46:13.725636  7428 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795290373.757620    7430 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290373.776265    7430 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+W0000 00:00:1795290373.884771    7429 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 3
+W20261121 19:46:23.917223  7443 smartspectra.cc:1471] Suppressing non-terminal error behind a terminal one: 1: SmartSpectra is not in a valid state for this operation.
+SmartSpectra error 4: SmartSpectra measurement credits have been exhausted. (retryable=false)
+SmartSpectra processing status: 5
+E20261121 19:46:24.099960  7415 rest_api_client.cc:539] POST /v2/initialize failed. Status code: 402
+W20261121 19:46:24.100345  7415 usage_tracker.cc:451] Failed to reinitialize continuous session.
+E20261121 19:46:24.667582  7415 rest_api_client.cc:539] POST /v2/initialize failed. Status code: 402
+W20261121 19:46:24.667827  7415 usage_tracker.cc:451] Failed to reinitialize continuous session.
+E20261121 19:46:25.790167  7415 rest_api_client.cc:539] POST /v2/initialize failed. Status code: 402
+W20261121 19:46:25.790444  7415 usage_tracker.cc:451] Failed to reinitialize continuous session.
+W20261121 19:46:26.030992  7467 usage_tracker.cc:177] Usage teardown drain timed out with 1 batch(es) undelivered; that usage is not billed.
+{
+  "label": "static-fly_stab-r01",
+  "video": "static.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "INVALID_NO_OUTPUT",
+  "packet_count": 31,
+  "packets_with_cardio_object": 0,
+  "pulse_packet_count": 0,
+  "pulse_samples_total": 0,
+  "pulse_samples_nonzero_confidence": 0,
+  "breathing_packet_count": 0,
+  "validation_event_count": 2991,
+  "validation_summary": [
+    {
+      "message": "3 kFaceNotCentered: Center face in view.",
+      "count": 1658
+    },
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 1001
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 175
+    },
+    {
+      "message": "15 kFaceTooHigh: Move down, or tilt the camera up.",
+      "count": 157
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 176433333,
+  "error_count": 1,
+  "errors": [
+    {
+      "code": 4,
+      "message": "SmartSpectra measurement credits have been exhausted.",
+      "retryable": false
+    }
+  ],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 419
+    },
+    {
+      "status": 2,
+      "wall_ms": 507
+    },
+    {
+      "status": 3,
+      "wall_ms": 527
+    },
+    {
+      "status": 5,
+      "wall_ms": 10563
+    }
+  ],
+  "wall_seconds": 10.568,
+  "pulse_rate_samples": "(0 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
+No pulse-rate packets were produced. Status: INVALID_NO_OUTPUT

@@ -1,0 +1,12 @@
+{
+  "video": "stress.mp4",
+  "packets": [],
+  "validations": [],
+  "errors": [
+    {
+      "code": 4,
+      "message": "SmartSpectra measurement credits have been exhausted.",
+      "retryable": false
+    }
+  ]
+}

@@ -1,0 +1,238 @@
+[
+  {
+    "condition": "static",
+    "arm": "control",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 48.96907216494845
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.31430726678400805
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 64.5
+    },
+    "pulse_confidence": {
+      "median": 62.26416887978251,
+      "iqr": 0.0
+    },
+    "pulse_rate_std": {
+      "median": 11.495004195062858,
+      "iqr": 0.0
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 14.5
+    },
+    "breathing_confidence": {
+      "median": 85.36624106045427,
+      "iqr": 0.0
+    },
+    "breathing_rate_std": {
+      "median": 0.7138697397480902,
+      "iqr": 0.0
+    }
+  },
+  {
+    "condition": "static",
+    "arm": "fly_stab",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 5.850885991307255,
+      "iqr": 4.477101845522898
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 10.013670539986329
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_confidence": null,
+    "pulse_rate_std": null,
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "static",
+    "arm": "flyppg",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 0.014522218995062446
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 33.74963694452512
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_confidence": null,
+    "pulse_rate_std": null,
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "static",
+    "arm": "surround",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 16.596045197740114,
+      "iqr": 28.789592760180994
+    },
+    "chest_not_visible_pct": {
+      "median": 27.07390648567119,
+      "iqr": 41.63135593220339
+    },
+    "pulse_samples": {
+      "median": 21.0,
+      "iqr": 51.0
+    },
+    "pulse_confidence": {
+      "median": 50.52689287442119,
+      "iqr": 0.6821394273880799
+    },
+    "pulse_rate_std": {
+      "median": 9.416333380833919,
+      "iqr": 2.1838813515451747
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "stress",
+    "arm": "control",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_confidence": null,
+    "pulse_rate_std": null,
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "stress",
+    "arm": "fly_stab",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_confidence": null,
+    "pulse_rate_std": null,
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "stress",
+    "arm": "flyppg",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 2.854122621564482
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.16611295681063123
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 5.5
+    },
+    "pulse_confidence": {
+      "median": 57.888114582408555,
+      "iqr": 0.0
+    },
+    "pulse_rate_std": {
+      "median": 7.795175329755876,
+      "iqr": 0.0
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "breathing_confidence": null,
+    "breathing_rate_std": null
+  },
+  {
+    "condition": "stress",
+    "arm": "surround",
+    "runs": 3,
+    "ok_frames_pct": {
+      "median": 0.0,
+      "iqr": 40.2224087284935
+    },
+    "chest_not_visible_pct": {
+      "median": 0.0,
+      "iqr": 0.0
+    },
+    "pulse_samples": {
+      "median": 0.0,
+      "iqr": 88.0
+    },
+    "pulse_confidence": {
+      "median": 94.29745882207698,
+      "iqr": 0.0
+    },
+    "pulse_rate_std": {
+      "median": 0.5681779370238585,
+      "iqr": 0.0
+    },
+    "breathing_samples": {
+      "median": 0.0,
+      "iqr": 49.5
+    },
+    "breathing_confidence": {
+      "median": 64.91600662770898,
+      "iqr": 0.0
+    },
+    "breathing_rate_std": {
+      "median": 2.9061142432328397,
+      "iqr": 0.0
+    }
+  }
+]

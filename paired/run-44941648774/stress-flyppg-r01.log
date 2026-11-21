@@ -1,0 +1,73 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795290247.468574    6781 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290247.471901    6781 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290247.483372    6781 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261121 19:44:07.483861  6780 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795290247.521101    6782 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795290247.540053    6782 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+W0000 00:00:1795290247.643338    6780 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 3
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "stress-flyppg-r01",
+  "video": "stress.mp4",
+  "requested_metrics": "breathing+cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 26,
+  "packets_with_cardio_object": 14,
+  "pulse_packet_count": 11,
+  "pulse_samples_total": 11,
+  "pulse_samples_nonzero_confidence": 11,
+  "breathing_packet_count": 0,
+  "validation_event_count": 3311,
+  "validation_summary": [
+    {
+      "message": "1 kNoFaceFound: No face found.",
+      "count": 2134
+    },
+    {
+      "message": "16 kFaceTooLow: Move up, or tilt the camera down.",
+      "count": 977
+    },
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 189
+    },
+    {
+      "message": "7 kChestNotVisible: Place more of the chest in view.",
+      "count": 11
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 186866666,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 583
+    },
+    {
+      "status": 2,
+      "wall_ms": 673
+    },
+    {
+      "status": 3,
+      "wall_ms": 688
+    },
+    {
+      "status": 4,
+      "wall_ms": 11468
+    },
+    {
+      "status": 1,
+      "wall_ms": 11718
+    }
+  ],
+  "wall_seconds": 11.727,
+  "pulse_rate_samples": "(11 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
