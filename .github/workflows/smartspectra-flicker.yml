@@ -97,19 +97,27 @@ jobs:
           ffmpeg -y -i chest_source_video -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p chest_test.mp4
           ffprobe -v error -select_streams v:0 -show_entries stream=width,height,avg_frame_rate,duration -of json chest_test.mp4 | tee video_probe.json
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
       - name: Install SDK and FlyPPG dependencies
+        shell: bash
         run: |
-          npm install --no-save @smartspectra/node-sdk
-          python3 -m pip install "numpy<2" scipy opencv-python-headless imageio-ffmpeg mediapipe==0.10.14
+          set -uo pipefail
+          npm install --no-save @smartspectra/node-sdk > npm.log 2>&1 || { echo "::error::npm install failed: $(tail -n 3 npm.log | tr '\n' ' ')"; exit 1; }
+          python -m pip install --upgrade pip > pip.log 2>&1
+          python -m pip install numpy scipy opencv-python-headless imageio-ffmpeg mediapipe==0.10.14 >> pip.log 2>&1 || { echo "::error::pip install failed: $(tail -n 5 pip.log | tr '\n' ' ')"; exit 1; }
+          python -c "import cv2, mediapipe, scipy, numpy, imageio_ffmpeg; print('imports ok', cv2.__version__, numpy.__version__)"
 
       - name: Build the six clips (clean and flickered, each with and without FlyPPG near-face normalisation)
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p clips out/runs
-          python3 experiments/flicker_experiment.py inject chest_test.mp4 clips/clean.mp4 --strength 0        # same encoder for every clip
-          python3 experiments/flicker_experiment.py inject chest_test.mp4 clips/fl06.mp4 --strength 0.06 --seed 1
-          python3 experiments/flicker_experiment.py inject chest_test.mp4 clips/fl12.mp4 --strength 0.12 --seed 1
+          python experiments/flicker_experiment.py inject chest_test.mp4 clips/clean.mp4 --strength 0        # same encoder for every clip
+          python experiments/flicker_experiment.py inject chest_test.mp4 clips/fl06.mp4 --strength 0.06 --seed 1
+          python experiments/flicker_experiment.py inject chest_test.mp4 clips/fl12.mp4 --strength 0.12 --seed 1
           for c in clean fl06 fl12; do python3 experiments/flicker_experiment.py nearref clips/$c.mp4 clips/${c}_nr.mp4 2>&1 | grep -v -E "^(W0000|I0000|INFO)" | tee out/nearref_$c.log; done
           ls -l clips
 
@@ -130,7 +138,7 @@ jobs:
         if: always()
         run: |
           set +e
-          python3 experiments/flicker_score.py out/runs | tee -a "$GITHUB_STEP_SUMMARY"
+          python experiments/flicker_score.py out/runs | tee -a "$GITHUB_STEP_SUMMARY"
           find out -name metrics.json -size +4M -delete
 
       - name: Upload
