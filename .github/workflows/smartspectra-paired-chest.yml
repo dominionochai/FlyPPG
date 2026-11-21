@@ -1,0 +1,136 @@
+name: SmartSpectra paired chest test (control vs FlyPPG)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  paired:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install video and Vulkan tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg python3 libvulkan1 mesa-vulkan-drivers vulkan-tools
+          ffmpeg -version | head -n 1
+          echo "Installed Vulkan ICDs:"
+          ls -la /usr/share/vulkan/icd.d/ || true
+          echo "Vulkan loader summary:"
+          vulkaninfo --summary || true
+
+      - name: Configure software Vulkan (Mesa lavapipe)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ICD="$(find /usr/share/vulkan/icd.d -maxdepth 1 -type f \( -name 'lvp_icd*.json' -o -name '*lvp*.json' \) | head -n 1)"
+          if [ -z "$ICD" ]; then
+            echo "Mesa lavapipe ICD was not installed."
+            exit 1
+          fi
+          echo "Using Vulkan ICD: $ICD"
+          echo "VK_ICD_FILENAMES=$ICD" >> "$GITHUB_ENV"
+          echo "VK_DRIVER_FILES=$ICD" >> "$GITHUB_ENV"
+          VK_ICD_FILENAMES="$ICD" VK_DRIVER_FILES="$ICD" vulkaninfo --summary
+
+      - name: Download a frontal chest recording from MPSC-RR
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import pathlib
+          import urllib.parse
+          import urllib.request
+
+          api = "https://huggingface.co/api/datasets/justchugh/MPSC-RR/tree/main?recursive=true"
+          req = urllib.request.Request(api, headers={"User-Agent": "FlyPPG-dataset-test/1.0"})
+          with urllib.request.urlopen(req, timeout=60) as response:
+              entries = json.load(response)
+
+          candidates = [
+              item for item in entries
+              if item.get("type") == "file"
+              and pathlib.PurePosixPath(item["path"]).name.lower() in {"s1_front.mov", "s1_front.mp4"}
+          ]
+          if not candidates:
+              candidates = [
+                  item for item in entries
+                  if item.get("type") == "file"
+                  and "front" in pathlib.PurePosixPath(item["path"]).stem.lower()
+                  and pathlib.PurePosixPath(item["path"]).suffix.lower() in {".mov", ".mp4"}
+              ]
+          if not candidates:
+              raise SystemExit("No frontal chest video found in MPSC-RR repository tree.")
+
+          chosen = candidates[0]["path"]
+          url = "https://huggingface.co/datasets/justchugh/MPSC-RR/resolve/main/" + urllib.parse.quote(chosen, safe="/")
+          req = urllib.request.Request(url, headers={"User-Agent": "FlyPPG-dataset-test/1.0"})
+          with urllib.request.urlopen(req, timeout=180) as response, open("chest_source_video", "wb") as output:
+              while True:
+                  chunk = response.read(1024 * 1024)
+                  if not chunk:
+                      break
+                  output.write(chunk)
+
+          size = pathlib.Path("chest_source_video").stat().st_size
+          if size < 100_000:
+              raise SystemExit(f"Downloaded file is unexpectedly small: {size} bytes")
+          pathlib.Path("dataset_source.txt").write_text(
+              f"dataset=justchugh/MPSC-RR\nfile={chosen}\nbytes={size}\nlicense=CC-BY-4.0\n",
+              encoding="utf-8",
+          )
+          print(f"Downloaded {chosen}: {size:,} bytes")
+          PY
+          ffmpeg -y -i chest_source_video -an -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -preset veryfast -pix_fmt yuv420p chest_test.mp4
+          ffprobe -v error -select_streams v:0 -show_entries stream=width,height,avg_frame_rate,duration -of json chest_test.mp4 | tee video_probe.json
+
+      - name: Install SDK and FlyPPG dependencies
+        run: |
+          npm install --no-save @smartspectra/node-sdk
+          python3 -m pip install numpy scipy opencv-python-headless imageio-ffmpeg
+
+      - name: Preprocess identically (control = re-encode only) and run SmartSpectra on each arm
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
+        shell: bash
+        run: |
+          set +e
+          mkdir -p in out/runs; cp chest_test.mp4 in/chest.mp4
+          python3 ss_preprocess.py --in in --out processed --arms control,flyppg,fly_stab 2>&1 | tail -5
+          for arm in control flyppg fly_stab; do
+            node experiments/smartspectra_file_run.mjs processed/$arm/chest.mp4 out/runs/$arm --metrics=cardio --label=$arm > out/$arm.log 2>&1
+            sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" out/$arm.log
+            echo "$arm exit=$?"
+          done
+          python3 experiments/compare_arms.py out/runs | tee out/COMPARE.md >> "$GITHUB_STEP_SUMMARY"
+          find out -name metrics.json -size +3M -delete
+
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paired-chest
+          path: out/
+          retention-days: 30
+
+      - name: Publish to ci-diagnostics (readable without artifact access)
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          grep -rIl -F "${SMARTSPECTRA_API_KEY}" out && exit 1
+          git config user.name github-actions; git config user.email actions@users.noreply.github.com
+          git fetch origin ci-diagnostics:ci-diagnostics 2>/dev/null; git checkout -f ci-diagnostics 2>/dev/null || git checkout --orphan ci-diagnostics
+          mkdir -p paired && rm -rf "paired/run-${GITHUB_RUN_ID}" && cp -r out "paired/run-${GITHUB_RUN_ID}"
+          git add paired && git commit -q -m "paired chest test ${GITHUB_RUN_ID}" && git push origin HEAD:ci-diagnostics
+        env:
+          SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
