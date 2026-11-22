@@ -1,4 +1,4 @@
-name: SmartSpectra flicker experiment (clean vs TV-style flicker vs flicker + FlyPPG)
+name: SmartSpectra flicker experiment (flicker, entrainment trap, and FlyPPG denotch/nearref fixes)
 
 # Does SmartSpectra degrade under TV/monitor-style flicker (a limitation its own docs list), and does FlyPPG's fly-lamina-style
 # near-face divisive normalisation restore it? File playback is paced in real time (documented interframeDelayMs) because the
@@ -110,7 +110,7 @@ jobs:
           python -m pip install numpy scipy opencv-python-headless imageio-ffmpeg mediapipe==0.10.14 >> pip.log 2>&1 || { echo "::error::pip install failed: $(tail -n 5 pip.log | tr '\n' ' ')"; exit 1; }
           python -c "import cv2, mediapipe, scipy, numpy, imageio_ffmpeg; print('imports ok', cv2.__version__, numpy.__version__)"
 
-      - name: Build the six clips (clean and flickered, each with and without FlyPPG near-face normalisation)
+      - name: Build the ten clips (clean / broadband flicker / entrainment trap, each with FlyPPG denotch or near-face normalisation)
         shell: bash
         run: |
           set -euo pipefail
@@ -118,16 +118,18 @@ jobs:
           python experiments/flicker_experiment.py inject chest_test.mp4 clips/clean.mp4 --strength 0        # same encoder for every clip
           python experiments/flicker_experiment.py inject chest_test.mp4 clips/fl06.mp4 --strength 0.06 --seed 1
           python experiments/flicker_experiment.py inject chest_test.mp4 clips/fl12.mp4 --strength 0.12 --seed 1
+          python experiments/flicker_experiment.py inject chest_test.mp4 clips/ent088.mp4 --strength 0.08 --freq-bpm 88   # trap: an 88 bpm reading is locked to the light
+          for c in fl06 fl12 ent088; do python3 experiments/flicker_experiment.py denotch clips/$c.mp4 clips/${c}_dn.mp4 | tee out/denotch_$c.log; done
           for c in clean fl06 fl12; do python3 experiments/flicker_experiment.py nearref clips/$c.mp4 clips/${c}_nr.mp4 2>&1 | grep -v -E "^(W0000|I0000|INFO)" | tee out/nearref_$c.log; done
           ls -l clips
 
-      - name: SmartSpectra on all six clips, 2 repeats, real-time paced, first 60 s
+      - name: SmartSpectra on all ten clips, 2 repeats, real-time paced, first 60 s
         env:
           SMARTSPECTRA_API_KEY: ${{ secrets.SMARTSPECTRA_API_KEY }}
         shell: bash
         run: |
           set +e
-          for rep in 1 2; do for c in clean clean_nr fl06 fl06_nr fl12 fl12_nr; do
+          for rep in 1 2; do for c in clean clean_nr fl06 fl06_dn fl06_nr fl12 fl12_dn fl12_nr ent088 ent088_dn; do
             n=${c}_r${rep}
             node experiments/smartspectra_file_run.mjs clips/$c.mp4 out/runs/$n --metrics=cardio --label=$n --interframe-delay-ms=33 --max-duration-ms=60000 > out/$n.log 2>&1
             sed -i "s|${SMARTSPECTRA_API_KEY}|***|g" out/$n.log
@@ -138,7 +140,7 @@ jobs:
         if: always()
         run: |
           set +e
-          python experiments/flicker_score.py out/runs | tee -a "$GITHUB_STEP_SUMMARY"
+          python experiments/flicker_score.py out/runs --flicker-bpm 88 | tee -a "$GITHUB_STEP_SUMMARY"
           find out -name metrics.json -size +4M -delete
 
       - name: Upload
