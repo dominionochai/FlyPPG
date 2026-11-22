@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FlyPPG Viewer</title>
+<style>
+/* Two screens in one file: rPPG comparison (SmartSpectra vs FlyPPG) and the fly brain hologram. Each screen runs in its own frame so their styles and scripts stay separate. */
+:root { --bg: #02060c; --fg: #d7ecff; --muted: #7f9bb8; --line: rgba(120,190,255,0.18); --accent: #5ee0c0;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; background: var(--bg); color: var(--fg); font: 13px/1.4 var(--font); }
+body { display: grid; grid-template-rows: 54px minmax(0, 1fr); }
+nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 max(18px, env(safe-area-inset-right, 0px)) 0 max(18px, env(safe-area-inset-left, 0px));
+  background: rgba(10, 18, 30, 0.72); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 650; letter-spacing: -0.01em; }
+.brand i { width: 16px; height: 16px; border-radius: 5px; background: conic-gradient(from 200deg, #5ee0c0, #ff6b8b, #4cb4ff, #5ee0c0); display: block; }
+.seg { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--line); }
+.seg button { font: 500 12.5px var(--font); color: var(--muted); background: transparent; border: 0; border-radius: 999px; padding: 7px 16px; cursor: pointer; transition: background 180ms, color 180ms, transform 100ms ease-out; }
+.seg button:active { transform: scale(0.97); }
+.seg button[aria-selected="true"] { background: rgba(94, 224, 192, 0.16); color: #eafff9; box-shadow: inset 0 0 0 1px rgba(94, 224, 192, 0.4); }
+.seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main { position: relative; min-height: 0; }
+iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--bg); }
+iframe[hidden] { display: none; }
+@media (max-width: 520px) { .brand span { display: none; } }
+@media (prefers-reduced-motion: reduce) { .seg button { transition: none; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="brand"><i></i><span>FlyPPG</span></div>
+  <div class="seg" role="tablist" aria-label="Screens">
+    <button id="tab-compare" role="tab" aria-selected="true" aria-controls="f-compare" type="button">rPPG compare</button>
+    <button id="tab-brain" role="tab" aria-selected="false" aria-controls="f-brain" type="button">Fly brain</button>
+  </div>
+</nav>
+<main>
+  <iframe id="f-compare" title="SmartSpectra and FlyPPG comparison" srcdoc="&lt;!doctype html&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;rPPG Split Analyzer&lt;/title&gt;
+&lt;meta name=&quot;claude:viewport-fit-sides&quot; content=&quot;cover&quot;&gt;
+&lt;style&gt;
+/* Layout: Rerun-style viewer. Blueprint sidebar left. 2x2 grid: faces on top (one per rPPG system), multi-series graph under each. Shared scrub timeline. */
+:root {
+  --bg: #07090c;
+  --chrome: rgba(22, 26, 32, 0.72);
+  --panel: #0d1116;
+  --line: rgba(255, 255, 255, 0.08);
+  --fg: #e8edf3;
+  --muted: #8a94a2;
+  --accent: #5ee0c0;
+  --font: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Inter&quot;, system-ui, sans-serif;
+  --mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 13px/1.4 var(--font);
+  padding-block: 20px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02em; line-height: 1.1; }
+.viewer {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-rows: 40px minmax(0, 1fr) 44px;
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  height: min(760px, calc(100vh - 90px)); min-height: 600px;
+}
+.topbar, .side, .stage, .timeline { background: var(--panel); min-width: 0; }
+.topbar { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; background: var(--chrome); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+.brand { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
+.brand i { width: 14px; height: 14px; border-radius: 4px; background: conic-gradient(from 200deg, #5ee0c0, #ff6b8b, #5ee0c0); display: block; }
+.layout-btns { display: flex; gap: 6px; }
+.layout-btns span { width: 18px; height: 14px; border: 1px solid #3a424d; border-radius: 3px; display: block; }
+.layout-btns span.on { background: #3a424d; }
+.side { padding: 12px; overflow: auto; }
+.side h2 { margin: 0 0 10px; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
+.tree { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.tree li { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; color: #c4ccd6; }
+.tree .sub { margin-left: 16px; color: var(--muted); font-family: var(--mono); font-size: 11.5px; }
+.tree .dot { width: 8px; height: 8px; border-radius: 3px; background: #3a424d; flex: none; }
+.stage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 40% minmax(0, 1fr); gap: 1px; background: var(--line); }
+.pane { background: var(--panel); display: grid; grid-template-rows: 28px minmax(0, 1fr); min-width: 0; min-height: 0; }
+.pane-head { display: flex; align-items: center; justify-content: space-between; padding: 0 12px; border-bottom: 1px solid var(--line); }
+.pane-head b { font-weight: 600; font-size: 12.5px; }
+.pane-head .tools { color: var(--muted); display: flex; gap: 10px; font-size: 12px; }
+.pane-body { position: relative; min-height: 0; overflow: hidden; }
+.pane-body svg, .pane-body canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.legend { position: absolute; right: 10px; bottom: 26px; display: grid; gap: 3px; font-family: var(--mono); font-size: 10.5px; color: #b6bfcb; text-align: right; pointer-events: none; z-index: 2; }
+.legend span::after { content: &quot;&quot;; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-left: 7px; background: var(--c); }
+.timeline { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; padding: 0 14px; background: var(--chrome); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); }
+.play { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #3a424d; background: transparent; color: var(--fg); cursor: pointer; display: grid; place-items: center; padding: 0; transition: transform 100ms ease-out; }
+.play:active { transform: scale(0.94); }
+.play:focus-visible, .scrub:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.scrub { flex: 1; min-width: 0; accent-color: var(--accent); }
+.readout { font-family: var(--mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.note { margin: 10px 2px 0; color: var(--muted); font-size: 12px; }
+@media (max-width: 760px) {
+  .viewer { grid-template-columns: minmax(0, 1fr); grid-template-rows: 40px auto 44px; height: auto; }
+  .side { display: none; }
+  .stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: 220px; }
+  .legend { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .play { transition: none; } }
+&lt;/style&gt;
+
+&lt;h1&gt;SmartSpectra + FlyPPG&lt;/h1&gt;
+
+&lt;div class=&quot;viewer&quot;&gt;
+  &lt;div class=&quot;topbar&quot;&gt;
+    &lt;div class=&quot;brand&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;rppg-compare&lt;/span&gt;&lt;/div&gt;
+    &lt;div class=&quot;layout-btns&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;on&quot;&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;aside class=&quot;side&quot;&gt;
+    &lt;h2&gt;&lt;span&gt;Blueprint&lt;/span&gt;&lt;span&gt;+&lt;/span&gt;&lt;/h2&gt;
+    &lt;ul class=&quot;tree&quot;&gt;
+      &lt;li&gt;&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;smartspectra&lt;/li&gt;
+      &lt;li class=&quot;sub&quot;&gt;detector&lt;/li&gt;
+      &lt;li class=&quot;sub&quot;&gt;signals&lt;/li&gt;
+      &lt;li&gt;&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;flyppg&lt;/li&gt;
+      &lt;li class=&quot;sub&quot;&gt;landmarker&lt;/li&gt;
+      &lt;li class=&quot;sub&quot;&gt;signals&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+
+  &lt;section class=&quot;stage&quot;&gt;
+    &lt;div class=&quot;pane&quot;&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;smartspectra · detector&lt;/b&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-body&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 400 220&quot; preserveAspectRatio=&quot;xMidYMid slice&quot; aria-label=&quot;Face detector view&quot;&gt;
+          &lt;defs&gt;
+            &lt;linearGradient id=&quot;bgA&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#34424f&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#171d25&quot;/&gt;&lt;/linearGradient&gt;
+            &lt;linearGradient id=&quot;skinA&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#6b5a52&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#4a3f3b&quot;/&gt;&lt;/linearGradient&gt;
+          &lt;/defs&gt;
+          &lt;rect width=&quot;400&quot; height=&quot;220&quot; fill=&quot;url(#bgA)&quot;/&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;120&quot; height=&quot;220&quot; fill=&quot;#6f8b96&quot; opacity=&quot;0.28&quot;/&gt;
+          &lt;path d=&quot;M70 220 C80 170 130 160 200 160 C270 160 320 170 330 220Z&quot; fill=&quot;#2c6b58&quot;/&gt;
+          &lt;rect x=&quot;178&quot; y=&quot;140&quot; width=&quot;44&quot; height=&quot;34&quot; rx=&quot;14&quot; fill=&quot;#5a4a44&quot;/&gt;
+          &lt;ellipse cx=&quot;200&quot; cy=&quot;96&quot; rx=&quot;48&quot; ry=&quot;60&quot; fill=&quot;url(#skinA)&quot;/&gt;
+          &lt;path d=&quot;M152 84 C154 46 246 46 248 84 C236 62 164 62 152 84Z&quot; fill=&quot;#3a3330&quot;/&gt;
+          &lt;rect x=&quot;146&quot; y=&quot;40&quot; width=&quot;108&quot; height=&quot;124&quot; rx=&quot;6&quot; fill=&quot;none&quot; stroke=&quot;#8b6cf0&quot; stroke-width=&quot;2&quot;/&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;pane&quot;&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;flyppg · landmarker&lt;/b&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-body&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 400 220&quot; preserveAspectRatio=&quot;xMidYMid slice&quot; aria-label=&quot;Face landmarker view&quot;&gt;
+          &lt;defs&gt;
+            &lt;linearGradient id=&quot;bgB&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#34424f&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#171d25&quot;/&gt;&lt;/linearGradient&gt;
+            &lt;linearGradient id=&quot;skinB&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#6b5a52&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#4a3f3b&quot;/&gt;&lt;/linearGradient&gt;
+          &lt;/defs&gt;
+          &lt;rect width=&quot;400&quot; height=&quot;220&quot; fill=&quot;url(#bgB)&quot;/&gt;
+          &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;120&quot; height=&quot;220&quot; fill=&quot;#6f8b96&quot; opacity=&quot;0.28&quot;/&gt;
+          &lt;path d=&quot;M70 220 C80 170 130 160 200 160 C270 160 320 170 330 220Z&quot; fill=&quot;#2c6b58&quot;/&gt;
+          &lt;rect x=&quot;178&quot; y=&quot;140&quot; width=&quot;44&quot; height=&quot;34&quot; rx=&quot;14&quot; fill=&quot;#5a4a44&quot;/&gt;
+          &lt;ellipse cx=&quot;200&quot; cy=&quot;96&quot; rx=&quot;48&quot; ry=&quot;60&quot; fill=&quot;url(#skinB)&quot;/&gt;
+          &lt;path d=&quot;M152 84 C154 46 246 46 248 84 C236 62 164 62 152 84Z&quot; fill=&quot;#3a3330&quot;/&gt;
+          &lt;ellipse cx=&quot;200&quot; cy=&quot;98&quot; rx=&quot;50&quot; ry=&quot;62&quot; fill=&quot;none&quot; stroke=&quot;#5ee06a&quot; stroke-width=&quot;1.6&quot;/&gt;
+          &lt;g fill=&quot;#ff6b8b&quot; id=&quot;lm&quot;&gt;&lt;/g&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;pane&quot;&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;smartspectra&lt;/b&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-body&quot;&gt;&lt;canvas id=&quot;cA&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend&quot; id=&quot;lgA&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;pane&quot;&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;flyppg&lt;/b&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-body&quot;&gt;&lt;canvas id=&quot;cB&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend&quot; id=&quot;lgB&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;div class=&quot;timeline&quot;&gt;
+    &lt;button class=&quot;play&quot; id=&quot;play&quot; aria-label=&quot;Play or pause&quot;&gt;&lt;svg width=&quot;10&quot; height=&quot;10&quot; viewBox=&quot;0 0 10 10&quot; aria-hidden=&quot;true&quot;&gt;&lt;path id=&quot;ico&quot; d=&quot;M2 1l7 4-7 4z&quot; fill=&quot;currentColor&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;
+    &lt;input class=&quot;scrub&quot; id=&quot;scrub&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;400&quot; value=&quot;124&quot; aria-label=&quot;Frame&quot;&gt;
+    &lt;span class=&quot;readout&quot; id=&quot;readout&quot;&gt;frame_nr: #124&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;p class=&quot;note&quot;&gt;Sample data. Faces are placeholders and the signals are synthetic. Both graphs share one scrub cursor.&lt;/p&gt;
+
+&lt;script&gt;
+(function () {
+  var N = 400, FPS = 30, frame = 124, playing = false, last = 0;
+  var C = { pulse: &quot;#5ee0c0&quot;, conf: &quot;#f2b84b&quot;, motion: &quot;#ff6b8b&quot;, peak: &quot;#ffffff&quot;, grid: &quot;rgba(255,255,255,0.07)&quot;, axis: &quot;#7b8594&quot; };
+
+  function rnd(seed) { var s = seed; return function () { s = (s * 16807) % 2147483647; return s / 2147483647; }; }
+  function make(seed, hr, noise, confBase, motionAmp) {
+    var r = rnd(seed), f = hr / 60, bvp = [], conf = [], mot = [], nz = 0, i;
+    for (i = 0; i &lt; N; i++) {
+      var t = i / FPS, ph = 2 * Math.PI * (f * t + 0.025 * Math.sin(t * 0.5));
+      var amp = 0.88 + 0.12 * Math.sin(t * 0.8);
+      nz = nz * 0.65 + (r() - 0.5) * noise;
+      var v = (Math.sin(ph) + 0.35 * Math.sin(2 * ph - 0.9)) / 1.3;
+      bvp.push(Math.max(-1, Math.min(1, v * amp + nz)));
+      var m = 0.04 + motionAmp * (Math.exp(-Math.pow((i - 250) / 14, 2)) + 0.5 * Math.exp(-Math.pow((i - 60) / 9, 2)));
+      mot.push(Math.min(1, m + r() * 0.015));
+      conf.push(Math.max(0, Math.min(1, confBase - 0.55 * m + 0.03 * Math.sin(t * 1.3))));
+    }
+    var pk = [];
+    for (i = 3; i &lt; N - 3; i++) {
+      if (bvp[i] &gt; 0.45 &amp;&amp; bvp[i] &gt;= bvp[i - 1] &amp;&amp; bvp[i] &gt; bvp[i + 1] &amp;&amp; bvp[i] &gt;= bvp[i - 2] &amp;&amp; bvp[i] &gt; bvp[i + 2] &amp;&amp; bvp[i] &gt;= bvp[i - 3] &amp;&amp; bvp[i] &gt; bvp[i + 3] &amp;&amp; (!pk.length || i - pk[pk.length - 1] &gt; 14)) pk.push(i);
+    }
+    var bpm = pk.length &gt; 1 ? 60 * FPS / ((pk[pk.length - 1] - pk[0]) / (pk.length - 1)) : 0;
+    return { bvp: bvp, conf: conf, mot: mot, pk: pk, bpm: bpm };
+  }
+  var A = make(5, 72, 0.06, 0.94, 0.08), B = make(11, 71, 0.34, 0.74, 0.55);
+
+  var scrub = document.getElementById(&quot;scrub&quot;), readout = document.getElementById(&quot;readout&quot;);
+  var play = document.getElementById(&quot;play&quot;), ico = document.getElementById(&quot;ico&quot;);
+
+  // landmark dots for the flyppg face
+  var gi, gj, dots = &quot;&quot;;
+  for (gi = 0; gi &lt; 9; gi++) for (gj = 0; gj &lt; 7; gj++) {
+    var x = 200 + (gj - 3) * 12.5, y = 52 + gi * 11;
+    if (Math.pow((x - 200) / 46, 2) + Math.pow((y - 98) / 58, 2) &lt; 1) dots += &#x27;&lt;circle cx=&quot;&#x27; + x.toFixed(1) + &#x27;&quot; cy=&quot;&#x27; + y + &#x27;&quot; r=&quot;1.5&quot;/&gt;&#x27;;
+  }
+  document.getElementById(&quot;lm&quot;).innerHTML = dots;
+
+  function draw(c, S, prefix) {
+    var d = window.devicePixelRatio || 1, r = c.getBoundingClientRect();
+    c.width = Math.max(2, Math.round(r.width * d)); c.height = Math.max(2, Math.round(r.height * d));
+    var ctx = c.getContext(&quot;2d&quot;), w = r.width, h = r.height;
+    ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, w, h);
+    var wide = w &gt; 480, L = 38, R = wide ? 150 : 14, T = 24, Bm = 24, pw = w - L - R, total = h - T - Bm;
+    var gap = 26, h1 = (total - gap) * 0.66, h2 = total - gap - h1, y2 = T + h1 + gap;
+    function X(i) { return L + i / (N - 1) * pw; }
+    function Y1(v) { return T + (1 - (v + 1) / 2) * h1; }
+    function Y2(v) { return y2 + (1 - v) * h2; }
+    ctx.font = &quot;10px ui-monospace, Menlo, monospace&quot;;
+    var k;
+    // lane titles
+    ctx.textAlign = &quot;left&quot;; ctx.textBaseline = &quot;bottom&quot;; ctx.fillStyle = &quot;#9aa4b2&quot;;
+    ctx.fillText(&quot;PULSE SIGNAL (a.u.)&quot;, L, T - 8);
+    ctx.fillText(&quot;SIGNAL QUALITY (0–1)&quot;, L, y2 - 8);
+    // grids
+    ctx.textAlign = &quot;right&quot;; ctx.textBaseline = &quot;middle&quot;; ctx.lineWidth = 1;
+    [-1, 0, 1].forEach(function (v) {
+      ctx.strokeStyle = v === 0 ? &quot;rgba(255,255,255,0.14)&quot; : C.grid; ctx.beginPath(); ctx.moveTo(L, Y1(v)); ctx.lineTo(L + pw, Y1(v)); ctx.stroke();
+      ctx.fillStyle = C.axis; ctx.fillText(v &gt; 0 ? &quot;+1&quot; : String(v), L - 7, Y1(v));
+    });
+    [0, 0.5, 1].forEach(function (v) {
+      ctx.strokeStyle = C.grid; ctx.beginPath(); ctx.moveTo(L, Y2(v)); ctx.lineTo(L + pw, Y2(v)); ctx.stroke();
+      ctx.fillStyle = C.axis; ctx.fillText(v.toFixed(1), L - 7, Y2(v));
+    });
+    ctx.textAlign = &quot;center&quot;; ctx.textBaseline = &quot;top&quot;;
+    for (k = 0; k &lt;= N; k += 60) { var tx = X(Math.min(k, N - 1)); ctx.fillStyle = C.axis; ctx.fillText((k / FPS).toFixed(0) + &quot; s&quot;, tx, y2 + h2 + 7); }
+    // pulse line
+    ctx.lineJoin = &quot;round&quot;; ctx.lineWidth = 2; ctx.strokeStyle = C.pulse; ctx.beginPath();
+    for (k = 0; k &lt; N; k++) { k === 0 ? ctx.moveTo(X(k), Y1(S.bvp[k])) : ctx.lineTo(X(k), Y1(S.bvp[k])); }
+    ctx.stroke();
+    // heartbeat markers
+    S.pk.forEach(function (i) {
+      ctx.beginPath(); ctx.arc(X(i), Y1(S.bvp[i]), 3.2, 0, 6.2832); ctx.fillStyle = &quot;#07090c&quot;; ctx.fill();
+      ctx.lineWidth = 1.6; ctx.strokeStyle = C.peak; ctx.stroke();
+    });
+    // quality lines
+    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = C.conf; ctx.beginPath();
+    for (k = 0; k &lt; N; k++) { k === 0 ? ctx.moveTo(X(k), Y2(S.conf[k])) : ctx.lineTo(X(k), Y2(S.conf[k])); }
+    ctx.stroke();
+    ctx.strokeStyle = C.motion; ctx.beginPath();
+    for (k = 0; k &lt; N; k++) { k === 0 ? ctx.moveTo(X(k), Y2(S.mot[k])) : ctx.lineTo(X(k), Y2(S.mot[k])); }
+    ctx.stroke();
+    // cursor
+    var cx = X(frame);
+    ctx.lineWidth = 1; ctx.strokeStyle = &quot;rgba(255,255,255,0.55)&quot;; ctx.beginPath(); ctx.moveTo(cx, T - 4); ctx.lineTo(cx, y2 + h2); ctx.stroke();
+    [[Y1(S.bvp[frame]), C.pulse], [Y2(S.conf[frame]), C.conf], [Y2(S.mot[frame]), C.motion]].forEach(function (p) {
+      ctx.beginPath(); ctx.arc(cx, p[0], 4, 0, 6.2832); ctx.fillStyle = p[1]; ctx.fill(); ctx.strokeStyle = &quot;#07090c&quot;; ctx.lineWidth = 1.5; ctx.stroke();
+    });
+    // value readout gutter
+    if (wide) {
+      var gx = L + pw + 22, rows = [
+        [&quot;Heart rate&quot;, S.bpm.toFixed(0) + &quot; bpm&quot;, &quot;#e8edf3&quot;],
+        [&quot;Pulse&quot;, S.bvp[frame].toFixed(2), C.pulse],
+        [&quot;Confidence&quot;, S.conf[frame].toFixed(2), C.conf],
+        [&quot;Motion&quot;, S.mot[frame].toFixed(2), C.motion]
+      ];
+      rows.forEach(function (row, i) {
+        var ry = T + i * 46;
+        ctx.textAlign = &quot;left&quot;; ctx.textBaseline = &quot;top&quot;; ctx.font = &quot;10.5px -apple-system, Inter, system-ui, sans-serif&quot;; ctx.fillStyle = &quot;#8a94a2&quot;;
+        ctx.fillText(row[0], gx + (i ? 14 : 0), ry);
+        if (i) { ctx.beginPath(); ctx.arc(gx + 4, ry + 6, 4, 0, 6.2832); ctx.fillStyle = row[2]; ctx.fill(); }
+        ctx.font = &quot;600 20px ui-monospace, Menlo, monospace&quot;; ctx.fillStyle = row[2];
+        ctx.fillText(row[1], gx + (i ? 14 : 0), ry + 15);
+      });
+    }
+    c._geom = { L: L, pw: pw };
+  }
+  var cA = document.getElementById(&quot;cA&quot;), cB = document.getElementById(&quot;cB&quot;);
+  function render() {
+    draw(cA, A, &quot;smartspectra&quot;); draw(cB, B, &quot;flyppg&quot;);
+    readout.textContent = &quot;frame_nr: #&quot; + frame + &quot;  ·  t = &quot; + (frame / FPS).toFixed(2) + &quot; s&quot;;
+    scrub.value = frame;
+  }
+  scrub.addEventListener(&quot;input&quot;, function () { frame = +scrub.value; render(); });
+  function hover(c) {
+    c.addEventListener(&quot;pointermove&quot;, function (e) {
+      var gm = c._geom; if (!gm) return;
+      var u = (e.clientX - c.getBoundingClientRect().left - gm.L) / gm.pw;
+      if (u &lt; 0 || u &gt; 1) return;
+      frame = Math.round(u * (N - 1)); render();
+    });
+  }
+  hover(cA); hover(cB);
+  function tick(ts) {
+    if (!playing) return;
+    if (ts - last &gt; 33) { last = ts; frame = frame &gt;= N - 1 ? 0 : frame + 1; render(); }
+    requestAnimationFrame(tick);
+  }
+  play.addEventListener(&quot;click&quot;, function () {
+    playing = !playing;
+    ico.setAttribute(&quot;d&quot;, playing ? &quot;M2 1h2v8H2zM6 1h2v8H6z&quot; : &quot;M2 1l7 4-7 4z&quot;);
+    if (playing) requestAnimationFrame(tick);
+  });
+  window.addEventListener(&quot;resize&quot;, render);
+  render();
+})();
+&lt;/script&gt;
+"></iframe>
+  <iframe id="f-brain" title="Fly brain hologram" hidden srcdoc="&lt;!doctype html&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;
+&lt;title&gt;Fly Brain Hologram&lt;/title&gt;
+&lt;meta name=&quot;claude:viewport-fit-sides&quot; content=&quot;cover&quot;&gt;
+&lt;style&gt;
+/* Layout: full-bleed holographic stage. Canvas fills the screen; HUD text floats in the four corners. Single dark look by choice. */
+:root {
+  --bg: #02060c;
+  --blue: #4cb4ff;
+  --cyan: #8fe3ff;
+  --red: #ff3355;
+  --muted: #6f93b3;
+  --fg: #d7ecff;
+  --mono: ui-monospace, &quot;SF Mono&quot;, &quot;JetBrains Mono&quot;, Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Inter&quot;, system-ui, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font: 12px/1.45 var(--mono);
+  overflow: hidden;
+}
+.stage {
+  position: relative; height: 100%; min-height: 520px; overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 52%, rgba(24, 96, 170, 0.28), rgba(2, 6, 12, 0) 70%),
+    radial-gradient(ellipse 120% 90% at 50% 120%, rgba(30, 120, 200, 0.18), rgba(2, 6, 12, 0) 60%),
+    var(--bg);
+  touch-action: none;
+  cursor: grab;
+}
+.stage.drag { cursor: grabbing; }
+canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.scan {
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(120, 200, 255, 0.045) 0, rgba(120, 200, 255, 0.045) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode: screen;
+}
+.sweep {
+  position: absolute; left: 0; right: 0; height: 22%; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(110, 200, 255, 0), rgba(110, 200, 255, 0.07), rgba(110, 200, 255, 0));
+  animation: sweep 7s linear infinite;
+}
+@keyframes sweep { from { top: -25%; } to { top: 105%; } }
+.vignette { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 85% 80% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.7)); }
+.hud {
+  position: absolute; inset: 0; pointer-events: none;
+  padding-block: 22px;
+  padding-left: max(22px, env(safe-area-inset-left, 0px));
+  padding-right: max(22px, env(safe-area-inset-right, 0px));
+}
+.hud &gt; * { position: absolute; }
+.corner { width: 26px; height: 26px; border: 1.5px solid rgba(110, 190, 255, 0.55); }
+.c1 { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+.c2 { top: 12px; right: 12px; border-left: 0; border-bottom: 0; }
+.c3 { bottom: 12px; left: 12px; border-right: 0; border-top: 0; }
+.c4 { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+.title { top: 34px; left: max(34px, calc(env(safe-area-inset-left, 0px) + 18px)); }
+.eyebrow { font-size: 10.5px; letter-spacing: 0.22em; color: var(--muted); text-transform: uppercase; }
+h1 { margin: 6px 0 0; font: 600 clamp(20px, 3.2vw, 34px)/1.05 var(--sans); letter-spacing: -0.02em; color: var(--fg); text-shadow: 0 0 24px rgba(76, 180, 255, 0.55); }
+.sub { margin-top: 8px; color: var(--muted); font-size: 11.5px; max-width: 34ch; }
+.readout { top: 34px; right: max(34px, calc(env(safe-area-inset-right, 0px) + 18px)); text-align: right; display: grid; gap: 3px; font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.readout b { color: var(--cyan); font-weight: 500; }
+.legend { left: max(34px, calc(env(safe-area-inset-left, 0px) + 18px)); bottom: 34px; display: grid; gap: 9px; }
+.row { display: flex; align-items: center; gap: 12px; }
+.swatch { width: 34px; height: 0; border-top: 4px solid var(--red); border-radius: 2px; box-shadow: 0 0 12px var(--red); }
+.swatch.thin { border-top: 1.5px solid var(--blue); box-shadow: 0 0 8px var(--blue); }
+.row .t { display: grid; }
+.row .t span:first-child { color: var(--fg); letter-spacing: 0.04em; }
+.row .t span:last-child { color: var(--muted); font-size: 10.5px; }
+.layers { right: max(34px, calc(env(safe-area-inset-right, 0px) + 18px)); bottom: 34px; display: grid; gap: 4px; text-align: right; font-size: 10.5px; color: var(--muted); }
+.layers div b { color: #ff7a90; font-weight: 500; margin-right: 8px; }
+.controls { left: 50%; bottom: 30px; transform: translateX(-50%); display: flex; gap: 8px; pointer-events: auto; }
+.controls button {
+  font: 11px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg);
+  background: rgba(8, 24, 44, 0.55); border: 1px solid rgba(110, 190, 255, 0.35); border-radius: 999px; padding: 9px 15px; cursor: pointer;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  transition: transform 100ms ease-out, background 160ms, border-color 160ms;
+}
+.controls button:active { transform: scale(0.96); }
+.controls button[aria-pressed=&quot;true&quot;] { background: rgba(255, 51, 85, 0.2); border-color: rgba(255, 90, 120, 0.8); color: #ffd3dc; }
+.controls button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.foot { bottom: 8px; left: 0; right: 0; text-align: center; font-size: 10px; color: #4d6a84; letter-spacing: 0.04em; pointer-events: none; }
+@media (max-width: 760px) {
+  .layers, .sub { display: none; }
+  .controls { bottom: 78px; }
+  .legend { bottom: 118px; }
+  .readout { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { .sweep { animation: none; opacity: 0; } .controls button { transition: none; } }
+&lt;/style&gt;
+
+&lt;div class=&quot;stage&quot; id=&quot;stage&quot;&gt;
+  &lt;canvas id=&quot;cv&quot;&gt;&lt;/canvas&gt;
+  &lt;div class=&quot;scan&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;sweep&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;vignette&quot;&gt;&lt;/div&gt;
+  &lt;div class=&quot;hud&quot;&gt;
+    &lt;i class=&quot;corner c1&quot;&gt;&lt;/i&gt;&lt;i class=&quot;corner c2&quot;&gt;&lt;/i&gt;&lt;i class=&quot;corner c3&quot;&gt;&lt;/i&gt;&lt;i class=&quot;corner c4&quot;&gt;&lt;/i&gt;
+    &lt;div class=&quot;title&quot;&gt;
+      &lt;div class=&quot;eyebrow&quot;&gt;Drosophila melanogaster · adult&lt;/div&gt;
+      &lt;h1&gt;Fly brain, motion circuit&lt;/h1&gt;
+      &lt;div class=&quot;sub&quot;&gt;T4 and T5 cells carry the fly&#x27;s sense of which way things move.&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;readout&quot;&gt;
+      &lt;span&gt;YAW &lt;b id=&quot;yaw&quot;&gt;0°&lt;/b&gt;&lt;/span&gt;
+      &lt;span&gt;PITCH &lt;b id=&quot;pit&quot;&gt;0°&lt;/b&gt;&lt;/span&gt;
+      &lt;span&gt;RENDERED &lt;b id=&quot;cnt&quot;&gt;0&lt;/b&gt; T4/T5&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;legend&quot;&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;i class=&quot;swatch&quot;&gt;&lt;/i&gt;&lt;div class=&quot;t&quot;&gt;&lt;span&gt;T4 · ON edges&lt;/span&gt;&lt;span&gt;dendrite in medulla M10 → lobula plate&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;i class=&quot;swatch&quot;&gt;&lt;/i&gt;&lt;div class=&quot;t&quot;&gt;&lt;span&gt;T5 · OFF edges&lt;/span&gt;&lt;span&gt;dendrite in lobula Lo1 → lobula plate&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;&lt;i class=&quot;swatch thin&quot;&gt;&lt;/i&gt;&lt;div class=&quot;t&quot;&gt;&lt;span&gt;Everything else&lt;/span&gt;&lt;span&gt;lamina, medulla, central brain&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;layers&quot;&gt;
+      &lt;div&gt;&lt;b&gt;LOP 1&lt;/b&gt;front → back&lt;/div&gt;
+      &lt;div&gt;&lt;b&gt;LOP 2&lt;/b&gt;back → front&lt;/div&gt;
+      &lt;div&gt;&lt;b&gt;LOP 3&lt;/b&gt;upward&lt;/div&gt;
+      &lt;div&gt;&lt;b&gt;LOP 4&lt;/b&gt;downward&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;controls&quot;&gt;
+      &lt;button id=&quot;bIso&quot; type=&quot;button&quot; aria-pressed=&quot;false&quot;&gt;Isolate T4/T5&lt;/button&gt;
+      &lt;button id=&quot;bPulse&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;Signal pulses&lt;/button&gt;
+      &lt;button id=&quot;bSpin&quot; type=&quot;button&quot; aria-pressed=&quot;true&quot;&gt;Auto rotate&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;foot&quot;&gt;Drag to rotate · scroll to zoom · stylized from published anatomy, not connectome coordinates&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function () {
+  var stage = document.getElementById(&quot;stage&quot;), cv = document.getElementById(&quot;cv&quot;), ctx = cv.getContext(&quot;2d&quot;);
+  var scene = document.createElement(&quot;canvas&quot;), sx = scene.getContext(&quot;2d&quot;);
+  var reduce = window.matchMedia &amp;&amp; matchMedia(&quot;(prefers-reduced-motion: reduce)&quot;).matches;
+
+  /* ---------- seeded random ---------- */
+  var seed = 90210;
+  function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+  var RAD = Math.PI / 180;
+
+  /* ---------- geometry ---------- */
+var pts = [], lines = [], T = [], i, j, k;
+function pt(x, y, z, b, s) { pts.push(x, y, z, b, s); }
+function line(kind, arr) { lines.push({ kind: kind, p: arr }); }
+function ev(x, y, z, c, r) { var a = (x - c[0]) / r[0], b = (y - c[1]) / r[1], d = (z - c[2]) / r[2]; return a * a + b * b + d * d; }
+var CB = { c: [0, 0.04, 0], r: [0.54, 0.44, 0.42] }, SEZ = { c: [0, -0.34, 0.08], r: [0.3, 0.21, 0.27] };
+function inBrain(x, y, z) { return Math.min(ev(x, y, z, CB.c, CB.r), ev(x, y, z, SEZ.c, SEZ.r)); }
+function blob(c, r, n, b, sz, reject, fill) {
+  for (var q = 0; q &lt; n; q++) {
+    var u = rnd() * 2 - 1, th = rnd() * 6.2832, rr = Math.sqrt(1 - u * u), kk = rnd() &lt; fill ? Math.cbrt(rnd()) : 0.97 + rnd() * 0.03;
+    var x = c[0] + rr * Math.cos(th) * r[0] * kk, y = c[1] + u * r[1] * kk, z = c[2] + rr * Math.sin(th) * r[2] * kk;
+    if (reject &amp;&amp; reject(x, y, z)) continue;
+    pt(x, y, z, b, sz);
+  }
+}
+function walks(n, steps, st, start, ok, kind) {
+  for (var q = 0; q &lt; n; q++) {
+    var s0 = start(), x = s0[0], y = s0[1], z = s0[2], p = [];
+    for (var w = 0; w &lt; steps; w++) {
+      p.push(x, y, z);
+      var nx = x + (rnd() - 0.5) * st, ny = y + (rnd() - 0.5) * st, nz = z + (rnd() - 0.5) * st;
+      if (ok(nx, ny, nz)) { x = nx; y = ny; z = nz; }
+    }
+    line(kind, p);
+  }
+}
+function bez(P0, C, P1, n) {
+  var out = [];
+  for (var q = 0; q &lt;= n; q++) { var t = q / n, m = 1 - t; out.push(m * m * P0[0] + 2 * m * t * C[0] + t * t * P1[0], m * m * P0[1] + 2 * m * t * C[1] + t * t * P1[1], m * m * P0[2] + 2 * m * t * C[2] + t * t * P1[2]); }
+  return out;
+}
+function dirOf(s, a, e) { return [s * Math.cos(e) * Math.cos(a), Math.sin(e), Math.cos(e) * Math.sin(a)]; }
+function randIn(c, r, ok) { var x, y, z, g = 0; do { x = c[0] + (rnd() * 2 - 1) * r[0]; y = c[1] + (rnd() * 2 - 1) * r[1]; z = c[2] + (rnd() * 2 - 1) * r[2]; g++; } while (!ok(x, y, z) &amp;&amp; g &lt; 60); return [x, y, z]; }
+
+// central brain and subesophageal zone
+blob(CB.c, CB.r, 3400, 0.85, 1.4, function (x, y, z) { return ev(x, y, z, SEZ.c, SEZ.r) &lt; 0.9; }, 0.35);
+blob(SEZ.c, SEZ.r, 900, 0.8, 1.4, function (x, y, z) { return ev(x, y, z, CB.c, CB.r) &lt; 0.9; }, 0.35);
+for (i = -2; i &lt;= 2; i++) {
+  var la = i * 0.42, ring = [];
+  for (j = 0; j &lt;= 48; j++) { var tt = j / 48 * 6.2832; ring.push(CB.c[0] + Math.cos(la) * Math.cos(tt) * CB.r[0], CB.c[1] + Math.sin(la) * CB.r[1], CB.c[2] + Math.cos(la) * Math.sin(tt) * CB.r[2]); }
+  line(&quot;grid&quot;, ring);
+}
+for (i = 0; i &lt; 6; i++) {
+  var lo = i * Math.PI / 6, mer = [];
+  for (j = 0; j &lt;= 48; j++) { var t3 = j / 48 * 6.2832; mer.push(CB.c[0] + Math.cos(t3) * Math.cos(lo) * CB.r[0], CB.c[1] + Math.sin(t3) * CB.r[1], CB.c[2] + Math.cos(t3) * Math.sin(lo) * CB.r[2]); }
+  line(&quot;grid&quot;, mer);
+}
+walks(330, 10, 0.13, function () { return randIn(CB.c, CB.r, function (x, y, z) { return inBrain(x, y, z) &lt; 0.9; }); }, function (x, y, z) { return inBrain(x, y, z) &lt; 0.95; }, &quot;fiber&quot;);
+// antennal lobes and mushroom bodies
+[-1, 1].forEach(function (s) {
+  blob([s * 0.13, -0.17, 0.33], [0.075, 0.075, 0.075], 160, 0.95, 1.6, null, 0.6);
+  blob([s * 0.2, 0.22, -0.2], [0.1, 0.08, 0.09], 150, 0.95, 1.6, null, 0.7);
+  line(&quot;mb&quot;, [s * 0.2, 0.22, -0.2, s * 0.22, 0.15, -0.02, s * 0.2, 0.1, 0.12, s * 0.17, 0.1, 0.24]);
+  line(&quot;mb&quot;, [s * 0.17, 0.1, 0.24, s * 0.19, 0.24, 0.26, s * 0.2, 0.33, 0.22]);
+  line(&quot;mb&quot;, [s * 0.17, 0.1, 0.24, s * 0.1, 0.02, 0.3, s * 0.07, -0.04, 0.32]);
+});
+
+// neck and ventral nerve cord
+for (i = 0; i &lt; 70; i++) {
+  var a0 = rnd() * 6.2832, rd = 0.075 * Math.sqrt(rnd()), ox = Math.cos(a0) * rd, oz = Math.sin(a0) * rd, pl = [];
+  for (j = 0; j &lt;= 9; j++) { var yy = -0.5 - j * 0.035; pl.push(ox * (1 + j * 0.05) + (rnd() - 0.5) * 0.015, yy, oz - 0.02 * j + (rnd() - 0.5) * 0.015 + 0.04); }
+  line(&quot;vnc&quot;, pl);
+}
+for (i = 0; i &lt; 360; i++) { var a1 = rnd() * 6.2832, yy1 = -0.5 - rnd() * 0.3; pt(Math.cos(a1) * 0.075, yy1, Math.sin(a1) * 0.075 + 0.02 - (0.5 + yy1) * 0.2 * -1 * 0 , 0.8, 1.3); }
+blob([0, -0.95, -0.1], [0.24, 0.2, 0.16], 900, 0.85, 1.4, null, 0.35);
+blob([0, -1.2, -0.14], [0.1, 0.13, 0.08], 260, 0.85, 1.3, null, 0.4);
+for (i = 0; i &lt; 70; i++) { var a2 = rnd() * 6.2832, rd2 = 0.2 * Math.sqrt(rnd()), pl2 = []; for (j = 0; j &lt;= 8; j++) pl2.push(Math.cos(a2) * rd2 * (1 - j * 0.03), -0.78 - j * 0.05, Math.sin(a2) * rd2 * 0.8 - 0.1); line(&quot;vnc&quot;, pl2); }
+
+// optic lobes
+[-1, 1].forEach(function (s) {
+  var LC = [s * 0.76, 0, -0.06], LR = [0.46, 0.5, 0.5], AR = 60 * RAD, ER = 62 * RAD, a, e, ia, ie, d;
+  function LP(r, dv) { return [LC[0] + dv[0] * LR[0] * r, LC[1] + dv[1] * LR[1] * r, LC[2] + dv[2] * LR[2] * r]; }
+  function shell(r, na, ne, b, sz) {
+    for (ia = 0; ia &lt; na; ia++) for (ie = 0; ie &lt; ne; ie++) {
+      a = (ia / (na - 1) * 2 - 1) * AR + (rnd() - 0.5) * 0.02; e = (ie / (ne - 1) * 2 - 1) * ER + (rnd() - 0.5) * 0.02;
+      var q = LP(r, dirOf(s, a, e)); pt(q[0], q[1], q[2], b, sz);
+    }
+  }
+  // outline hull of the whole lobe
+  blob(LC, LR, 1700, 0.6, 1.25, function (x, y, z) { return inBrain(x, y, z) &lt; 1.05; }, 0.25);
+  shell(1.02, 34, 28, 0.9, 1.5);
+  [0.9, 0.84, 0.78, 0.72].forEach(function (r) { shell(r, 28, 22, 0.5, 1.1); });
+  shell(0.66, 30, 24, 0.95, 1.5);
+  [1.02, 0.66].forEach(function (r) {
+    for (ie = 0; ie &lt; 24; ie += 3) { var pl = []; for (ia = 0; ia &lt;= 30; ia++) { a = (ia / 30 * 2 - 1) * AR; e = (ie / 23 * 2 - 1) * ER; var q = LP(r, dirOf(s, a, e)); pl.push(q[0], q[1], q[2]); } line(&quot;grid&quot;, pl); }
+    for (ia = 0; ia &lt; 30; ia += 4) { var pl3 = []; for (ie = 0; ie &lt;= 24; ie++) { a = (ia / 29 * 2 - 1) * AR; e = (ie / 24 * 2 - 1) * ER; var q2 = LP(r, dirOf(s, a, e)); pl3.push(q2[0], q2[1], q2[2]); } line(&quot;grid&quot;, pl3); }
+  });
+  for (ia = 0; ia &lt; 18; ia++) for (ie = 0; ie &lt; 14; ie++) {
+    a = (ia / 17 * 2 - 1) * AR; e = (ie / 13 * 2 - 1) * ER; d = dirOf(s, a, e); var wob = (rnd() - 0.5) * 0.04;
+    var q0 = LP(1.02, d), q1 = LP(0.84, d), q3 = LP(0.66, d);
+    line(&quot;col&quot;, [q0[0], q0[1], q0[2], q1[0] + wob, q1[1], q1[2] + wob, q3[0], q3[1], q3[2]]);
+  }
+  walks(120, 9, 0.12, function () { return randIn(LC, LR, function (x, y, z) { return ev(x, y, z, LC, LR) &lt; 0.85 &amp;&amp; inBrain(x, y, z) &gt; 1.1; }); }, function (x, y, z) { return ev(x, y, z, LC, LR) &lt; 0.95 &amp;&amp; inBrain(x, y, z) &gt; 1.05; }, &quot;fiber&quot;);
+  // lobula and lobula plate
+  var LoC = [s * 0.68, -0.02, -0.2], LoR = [0.17, 0.3, 0.13], LPx = s * 0.72;
+  blob(LoC, LoR, 600, 0.9, 1.3, null, 0.3);
+  for (i = -2; i &lt;= 2; i++) { var rg = [], ky = i * 0.12, kr = Math.sqrt(Math.max(0.02, 1 - Math.pow(ky / LoR[1], 2))); for (j = 0; j &lt;= 28; j++) { var t2 = j / 28 * 6.2832; rg.push(LoC[0] + Math.cos(t2) * LoR[0] * kr * s, LoC[1] + ky, LoC[2] + Math.sin(t2) * LoR[2] * kr); } line(&quot;grid&quot;, rg); }
+  for (k = 0; k &lt; 4; k++) { var zz = -0.45 + (k - 1.5) * 0.045; for (ia = 0; ia &lt; 14; ia++) for (ie = 0; ie &lt; 18; ie++) pt(LPx + (ia / 13 * 2 - 1) * 0.16 * s, (ie / 17 * 2 - 1) * 0.32, zz + (rnd() - 0.5) * 0.008, 0.85, 1.2); }
+  // tracts to the central brain
+  for (i = 0; i &lt; 28; i++) {
+    var o = [s * 0.54, (rnd() - 0.5) * 0.6, (rnd() - 0.5) * 0.7], tg = randIn(CB.c, CB.r, function (x, y, z) { return ev(x, y, z, CB.c, CB.r) &lt; 0.7; });
+    var cc = [(o[0] + tg[0]) / 2, (o[1] + tg[1]) / 2 + (rnd() - 0.5) * 0.3, (o[2] + tg[2]) / 2 + (rnd() - 0.5) * 0.3];
+    line(&quot;tract&quot;, bez(o, cc, tg, 14));
+  }
+  // T4 and T5, subtypes a-d, one per lobula plate layer
+  var nu = 5, nv = 4;
+  for (ia = 0; ia &lt; nu; ia++) for (ie = 0; ie &lt; nv; ie++) for (k = 0; k &lt; 4; k++) {
+    var uu = (ia / (nu - 1) * 2 - 1) * 0.8 + (rnd() - 0.5) * 0.1, vv = (ie / (nv - 1) * 2 - 1) * 0.78 + (rnd() - 0.5) * 0.1;
+    a = uu * AR; e = vv * ER; var dd = dirOf(s, a, e);
+    var ta = [-s * Math.cos(e) * Math.sin(a), 0, Math.cos(e) * Math.cos(a)], te = [-s * Math.sin(e) * Math.cos(a), Math.cos(e), -Math.sin(e) * Math.sin(a)];
+    var P1 = [LPx + uu * 0.13 * s, vv * 0.28, -0.45 + (k - 1.5) * 0.045];
+    var Q0 = LP(0.66, dd), mid = [(Q0[0] + P1[0]) / 2 + s * 0.08, (Q0[1] + P1[1]) / 2, (Q0[2] + P1[2]) / 2 - 0.04];
+    T.push({ kind: &quot;t4&quot;, p: bez(Q0, mid, P1, 16), ph: rnd() });
+    [ta, te].forEach(function (tv) { [1, -1].forEach(function (sg) { line(&quot;twig&quot;, [Q0[0], Q0[1], Q0[2], Q0[0] - dd[0] * 0.025 + sg * tv[0] * 0.06, Q0[1] - dd[1] * 0.025 + sg * tv[1] * 0.06, Q0[2] - dd[2] * 0.025 + sg * tv[2] * 0.06]); }); });
+    line(&quot;twig&quot;, [P1[0] - 0.04 * s, P1[1], P1[2], P1[0] + 0.04 * s, P1[1], P1[2]]);
+    var u5 = uu * 0.85, ins = Math.sqrt(Math.max(0.02, 1 - Math.pow(vv * 0.28 / LoR[1], 2) - u5 * u5));
+    var R0 = [LoC[0] + s * LoR[0] * ins, vv * 0.28, LoC[2] + u5 * LoR[2]];
+    var mid5 = [(R0[0] + P1[0]) / 2 + s * 0.05, (R0[1] + P1[1]) / 2, (R0[2] + P1[2]) / 2];
+    T.push({ kind: &quot;t5&quot;, p: bez(R0, mid5, P1, 16), ph: rnd() });
+    line(&quot;twig&quot;, [R0[0], R0[1] - 0.05, R0[2], R0[0] + s * 0.03, R0[1], R0[2], R0[0], R0[1] + 0.05, R0[2]]);
+    line(&quot;twig&quot;, [R0[0], R0[1], R0[2] - 0.045, R0[0] + s * 0.03, R0[1], R0[2], R0[0], R0[1], R0[2] + 0.045]);
+    line(&quot;twig&quot;, [P1[0], P1[1] - 0.045, P1[2], P1[0], P1[1] + 0.045, P1[2]]);
+  }
+});
+var NP = pts.length / 5;
+  document.getElementById(&quot;cnt&quot;).textContent = T.length;
+
+  /* ---------- camera ---------- */
+  var yaw = -0.7, pitch = 0.18, zoom = 1.3, W = 0, H = 0, DPR = 1, iso = false, pulses = true, spin = !reduce, drag = null, tNow = 0;
+  function resize() {
+    var r = stage.getBoundingClientRect();
+    DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    W = Math.max(2, r.width); H = Math.max(2, r.height);
+    cv.width = scene.width = Math.round(W * DPR); cv.height = scene.height = Math.round(H * DPR);
+  }
+  var cy_ = Math.cos(0), proj = new Float32Array(3);
+  function makeProj() {
+    var cyw = Math.cos(yaw), syw = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+    var F = Math.min(W * 0.2, H * 0.3) * zoom * DPR, cxs = W * 0.5 * DPR, cys = H * 0.5 * DPR, D = 8;
+    return function (x, y, z, out) {
+      y += 0.32; var x1 = x * cyw + z * syw, z1 = -x * syw + z * cyw;
+      var y2 = y * cp - z1 * sp, z2 = y * sp + z1 * cp;
+      var p = D / (D - z2);
+      out[0] = cxs + x1 * F * p; out[1] = cys - y2 * F * p; out[2] = z2;
+    };
+  }
+
+  /* ---------- drawing ---------- */
+  var STYLE = {
+    grid:  { c: &quot;90,170,255&quot;, w: 0.7, a: 0.12 },
+    col:   { c: &quot;90,170,255&quot;, w: 0.8, a: 0.2 },
+    fiber: { c: &quot;100,180,255&quot;, w: 0.9, a: 0.3 },
+    tract: { c: &quot;110,190,255&quot;, w: 1.8, a: 0.35 },
+    vnc:   { c: &quot;120,200,255&quot;, w: 1, a: 0.4 },
+    mb:    { c: &quot;140,215,255&quot;, w: 3.2, a: 0.75 },
+    t4:    { c: &quot;255,40,75&quot;, w: 2.1, a: 0.62 },
+    t5:    { c: &quot;255,70,70&quot;, w: 2.1, a: 0.62 },
+    twig:  { c: &quot;255,90,110&quot;, w: 1.1, a: 0.5 }
+  };
+  var BLUE_KINDS = [&quot;grid&quot;, &quot;col&quot;, &quot;fiber&quot;, &quot;tract&quot;, &quot;vnc&quot;, &quot;mb&quot;], RED_KINDS = [&quot;twig&quot;, &quot;t4&quot;, &quot;t5&quot;];
+  var buf = new Float32Array(3);
+
+  function strokeBatch(g, list, kind, near, P, dim) {
+    var st = STYLE[kind], any = false;
+    g.beginPath();
+    for (var n = 0; n &lt; list.length; n++) {
+      var L = list[n]; if (L.kind !== kind) continue;
+      var p = L.p, m = p.length / 3, zs = 0;
+      for (var q = 0; q &lt; m; q++) { P(p[q * 3], p[q * 3 + 1], p[q * 3 + 2], buf); zs += buf[2]; if (q === 0) g.moveTo(buf[0], buf[1]); else g.lineTo(buf[0], buf[1]); }
+      any = true;
+    }
+    return any;
+  }
+  function drawBatch(g, list, kind, P, dim, scale) {
+    var st = STYLE[kind], bucketsA = [0.4, 1];
+    // split near/far by lateral camera depth of each polyline midpoint
+    for (var side = 0; side &lt; 2; side++) {
+      g.beginPath(); var any = false;
+      for (var n = 0; n &lt; list.length; n++) {
+        var L = list[n]; if (L.kind !== kind) continue;
+        var p = L.p, m = p.length / 3, mi = (m &gt;&gt; 1) * 3;
+        P(p[mi], p[mi + 1], p[mi + 2], buf);
+        var near = buf[2] &gt; 0 ? 1 : 0; if (near !== side) continue;
+        for (var q = 0; q &lt; m; q++) { P(p[q * 3], p[q * 3 + 1], p[q * 3 + 2], buf); if (q === 0) g.moveTo(buf[0], buf[1]); else g.lineTo(buf[0], buf[1]); }
+        any = true;
+      }
+      if (!any) continue;
+      g.lineWidth = st.w * DPR * scale; g.strokeStyle = &quot;rgba(&quot; + st.c + &quot;,&quot; + (st.a * (side ? 1 : 0.55) * dim) + &quot;)&quot;; g.stroke();
+    }
+  }
+
+  function render(t) {
+    var P = makeProj(), g = sx;
+    g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = &quot;source-over&quot;; g.clearRect(0, 0, scene.width, scene.height);
+    g.globalCompositeOperation = &quot;lighter&quot;; g.lineJoin = &quot;round&quot;; g.lineCap = &quot;round&quot;;
+    var dimBlue = iso ? 0.22 : 1;
+
+    // holographic base: concentric rings and ticks
+    var by = -1.4, rings = [1.3, 2.0, 2.7, 3.3];
+    g.lineWidth = 1 * DPR;
+    rings.forEach(function (R, ri) {
+      g.beginPath();
+      for (var q = 0; q &lt;= 90; q++) { var an = q / 90 * 6.2832; P(Math.cos(an) * R, by, Math.sin(an) * R, buf); q ? g.lineTo(buf[0], buf[1]) : g.moveTo(buf[0], buf[1]); }
+      g.strokeStyle = &quot;rgba(90,180,255,&quot; + (0.34 - ri * 0.05) + &quot;)&quot;; g.stroke();
+    });
+    g.beginPath();
+    for (var tk = 0; tk &lt; 48; tk++) {
+      var an2 = tk / 48 * 6.2832, r1 = 3.3, r2 = tk % 4 === 0 ? 3.55 : 3.43;
+      P(Math.cos(an2) * r1, by, Math.sin(an2) * r1, buf); g.moveTo(buf[0], buf[1]);
+      P(Math.cos(an2) * r2, by, Math.sin(an2) * r2, buf); g.lineTo(buf[0], buf[1]);
+    }
+    g.strokeStyle = &quot;rgba(120,200,255,0.4)&quot;; g.stroke();
+    // projector beam hint
+    g.beginPath(); P(0, by, 0, buf); var bx0 = buf[0], by0 = buf[1];
+    var bg = g.createRadialGradient(bx0, by0, 0, bx0, by0, 120 * DPR); bg.addColorStop(0, &quot;rgba(80,170,255,0.16)&quot;); bg.addColorStop(1, &quot;rgba(80,170,255,0)&quot;);
+    g.fillStyle = bg; g.beginPath(); g.ellipse(bx0, by0, 130 * DPR, 40 * DPR, 0, 0, 6.2832); g.fill();
+
+    // scan ring moving up through the brain
+    var sy = -1.4 + ((t * 0.00018) % 1) * 2;
+    g.beginPath();
+    for (var q2 = 0; q2 &lt;= 90; q2++) { var a3 = q2 / 90 * 6.2832; P(Math.cos(a3) * 1.5, sy, Math.sin(a3) * 0.8, buf); q2 ? g.lineTo(buf[0], buf[1]) : g.moveTo(buf[0], buf[1]); }
+    g.lineWidth = 1.2 * DPR; g.strokeStyle = &quot;rgba(140,225,255,0.28)&quot;; g.stroke();
+
+    // points
+    var wasBlue = &quot;rgba(90,175,255,1)&quot;;
+    g.fillStyle = wasBlue;
+    for (var n = 0; n &lt; NP; n++) {
+      var o = n * 5; P(pts[o], pts[o + 1], pts[o + 2], buf);
+      var dep = (buf[2] + 2.4) / 4.8; dep = dep &lt; 0 ? 0 : dep &gt; 1 ? 1 : dep;
+      var al = pts[o + 3] * (0.25 + 0.75 * dep) * 0.75 * dimBlue;
+      var sc = pts[o + 4] * DPR * (0.8 + 0.5 * dep);
+      g.globalAlpha = al; g.fillRect(buf[0] - sc / 2, buf[1] - sc / 2, sc, sc);
+    }
+    g.globalAlpha = 1;
+
+    // blue lines
+    BLUE_KINDS.forEach(function (kd) { drawBatch(g, lines, kd, P, dimBlue, 1); });
+    // red: dendrite twigs, then the thick axons
+    drawBatch(g, lines, &quot;twig&quot;, P, 1, 1);
+    drawBatch(g, T, &quot;t4&quot;, P, 1, 1);
+    drawBatch(g, T, &quot;t5&quot;, P, 1, 1);
+
+    // signal pulses along T4/T5
+    if (pulses) {
+      for (var ti = 0; ti &lt; T.length; ti++) {
+        var nr = T[ti], m = nr.p.length / 3 - 1, ph = ((t * 0.00055 + nr.ph) % 1) * 1.35;
+        if (ph &gt; 1) continue;
+        var fi = ph * m, i0 = Math.floor(fi), fr = fi - i0, i1 = Math.min(m, i0 + 1);
+        var x = nr.p[i0 * 3] + (nr.p[i1 * 3] - nr.p[i0 * 3]) * fr, y = nr.p[i0 * 3 + 1] + (nr.p[i1 * 3 + 1] - nr.p[i0 * 3 + 1]) * fr, z = nr.p[i0 * 3 + 2] + (nr.p[i1 * 3 + 2] - nr.p[i0 * 3 + 2]) * fr;
+        P(x, y, z, buf);
+        var gr = g.createRadialGradient(buf[0], buf[1], 0, buf[0], buf[1], 7 * DPR);
+        gr.addColorStop(0, &quot;rgba(255,235,240,0.9)&quot;); gr.addColorStop(0.3, &quot;rgba(255,90,120,0.4)&quot;); gr.addColorStop(1, &quot;rgba(255,40,70,0)&quot;);
+        g.fillStyle = gr; g.beginPath(); g.arc(buf[0], buf[1], 7 * DPR, 0, 6.2832); g.fill();
+      }
+    }
+
+    // compose with bloom
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalCompositeOperation = &quot;source-over&quot;; ctx.clearRect(0, 0, cv.width, cv.height);
+    ctx.globalCompositeOperation = &quot;lighter&quot;;
+    try { ctx.globalAlpha = 0.55; ctx.filter = &quot;blur(&quot; + (14 * DPR) + &quot;px)&quot;; ctx.drawImage(scene, 0, 0); ctx.globalAlpha = 0.5; ctx.filter = &quot;blur(&quot; + (4 * DPR) + &quot;px)&quot;; ctx.drawImage(scene, 0, 0); ctx.filter = &quot;none&quot;; ctx.globalAlpha = 1; } catch (err) {}
+    ctx.drawImage(scene, 0, 0);
+    document.getElementById(&quot;yaw&quot;).textContent = ((((yaw / RAD) % 360) + 360) % 360).toFixed(0) + &quot;°&quot;;
+    document.getElementById(&quot;pit&quot;).textContent = (pitch / RAD).toFixed(0) + &quot;°&quot;;
+  }
+
+  /* ---------- interaction ---------- */
+  stage.addEventListener(&quot;pointerdown&quot;, function (e) {
+    if (e.target.closest &amp;&amp; e.target.closest(&quot;button&quot;)) return;
+    drag = { x: e.clientX, y: e.clientY }; stage.classList.add(&quot;drag&quot;); stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener(&quot;pointermove&quot;, function (e) {
+    if (!drag) return;
+    yaw += (e.clientX - drag.x) * 0.008; pitch = Math.max(-1.2, Math.min(1.2, pitch + (e.clientY - drag.y) * 0.006));
+    drag.x = e.clientX; drag.y = e.clientY;
+  });
+  function up() { drag = null; stage.classList.remove(&quot;drag&quot;); }
+  stage.addEventListener(&quot;pointerup&quot;, up); stage.addEventListener(&quot;pointercancel&quot;, up);
+  stage.addEventListener(&quot;wheel&quot;, function (e) { e.preventDefault(); zoom = Math.max(0.6, Math.min(2.2, zoom * (e.deltaY &gt; 0 ? 0.94 : 1.06))); }, { passive: false });
+  function toggle(id, fn) {
+    var b = document.getElementById(id);
+    b.addEventListener(&quot;click&quot;, function () { var on = b.getAttribute(&quot;aria-pressed&quot;) !== &quot;true&quot;; b.setAttribute(&quot;aria-pressed&quot;, on); fn(on); });
+  }
+  toggle(&quot;bIso&quot;, function (v) { iso = v; });
+  toggle(&quot;bPulse&quot;, function (v) { pulses = v; });
+  toggle(&quot;bSpin&quot;, function (v) { spin = v; });
+  if (reduce) document.getElementById(&quot;bSpin&quot;).setAttribute(&quot;aria-pressed&quot;, &quot;false&quot;);
+
+  var last = 0;
+  function frame(ts) {
+    var dt = Math.min(50, ts - last); last = ts; tNow = ts;
+    if (spin &amp;&amp; !drag) yaw += dt * 0.00018;
+    render(tNow); requestAnimationFrame(frame);
+  }
+  window.addEventListener(&quot;resize&quot;, function () { resize(); render(tNow); });
+  resize(); render(2600);
+  requestAnimationFrame(frame);
+})();
+&lt;/script&gt;
+"></iframe>
+</main>
+<script>
+(function () {
+  var tabs = { compare: document.getElementById("tab-compare"), brain: document.getElementById("tab-brain") };
+  var frames = { compare: document.getElementById("f-compare"), brain: document.getElementById("f-brain") };
+  function show(name) {
+    if (!tabs[name]) name = "compare";
+    Object.keys(tabs).forEach(function (k) {
+      var on = k === name;
+      tabs[k].setAttribute("aria-selected", on ? "true" : "false");
+      frames[k].hidden = !on;
+    });
+    try { frames[name].contentWindow.dispatchEvent(new Event("resize")); } catch (e) {}
+    try { history.replaceState(null, "", "#" + name); } catch (e) {}
+  }
+  Object.keys(tabs).forEach(function (k) { tabs[k].addEventListener("click", function () { show(k); }); });
+  window.addEventListener("hashchange", function () { show(location.hash.slice(1)); });
+  show(location.hash.slice(1) || "compare");
+})();
+</script>
+</body>
+</html>
