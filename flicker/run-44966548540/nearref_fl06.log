@@ -1,0 +1,4 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/google/protobuf/symbol_database.py:55: UserWarning: SymbolDatabase.GetPrototype() is deprecated. Please use message_factory.GetMessageClass() instead. SymbolDatabase.GetPrototype() will be removed soon.
+  warnings.warn('SymbolDatabase.GetPrototype() is deprecated. Please '
+near-face reference: frames=5607 landmark_found=5563 armed=False ring_corr(BGR)=[0.784, 0.333, 0.231] roi_band_std(BGR)=[0.02604, 0.01704, 0.01171] beta(BGR)=[0.0, 0.0, 0.0]

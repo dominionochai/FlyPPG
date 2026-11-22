@@ -1,0 +1,65 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1795308329.595807    5717 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795308329.596405    5718 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795308329.605718    5718 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W20261122 00:45:29.606086  5716 physiology_inference_calculator.cc:229] Unable to resolve configured model path. Falling back to remote delivery if available.
+W0000 00:00:1795308329.632913    5719 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+W0000 00:00:1795308329.650302    5719 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+SmartSpectra processing status: 1
+SmartSpectra processing status: 2
+SmartSpectra processing status: 3
+W0000 00:00:1795308329.733444    5717 landmark_projection_calculator.cc:78] Using NORM_RECT without IMAGE_DIMENSIONS is only supported for the square ROI. Provide IMAGE_DIMENSIONS or use PROJECTION_MATRIX.
+SmartSpectra processing status: 4
+SmartSpectra processing status: 1
+{
+  "label": "clean_nr_r2",
+  "video": "clean_nr.mp4",
+  "requested_metrics": "cardio",
+  "status": "PULSE_PRODUCED",
+  "packet_count": 230,
+  "packets_with_cardio_object": 230,
+  "pulse_packet_count": 50,
+  "pulse_samples_total": 50,
+  "pulse_samples_nonzero_confidence": 47,
+  "breathing_packet_count": 0,
+  "validation_event_count": 1801,
+  "validation_summary": [
+    {
+      "message": "0 kOk: Hold still and record.",
+      "count": 1800
+    },
+    {
+      "message": "2 kMultipleFacesFound: Only one face is allowed.",
+      "count": 1
+    }
+  ],
+  "first_validation_timestamp_us": 0,
+  "last_validation_timestamp_us": 60000000,
+  "error_count": 0,
+  "errors": [],
+  "status_transitions": [
+    {
+      "status": 1,
+      "wall_ms": 278
+    },
+    {
+      "status": 2,
+      "wall_ms": 347
+    },
+    {
+      "status": 3,
+      "wall_ms": 358
+    },
+    {
+      "status": 4,
+      "wall_ms": 60619
+    },
+    {
+      "status": 1,
+      "wall_ms": 60627
+    }
+  ],
+  "wall_seconds": 60.638,
+  "pulse_rate_samples": "(50 samples)",
+  "breathing_rate_samples": "(0 samples)"
+}
