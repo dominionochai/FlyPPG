@@ -1,0 +1,17 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/google/protobuf/symbol_database.py:55: UserWarning: SymbolDatabase.GetPrototype() is deprecated. Please use message_factory.GetMessageClass() instead. SymbolDatabase.GetPrototype() will be removed soon.
+  warnings.warn('SymbolDatabase.GetPrototype() is deprecated. Please '
+Traceback (most recent call last):
+  File "/home/runner/work/FlyPPG/FlyPPG/experiments/flicker_experiment.py", line 180, in <module>
+    inject(a.src, a.dst, a.strength, a.seed, a.freq_bpm) if a.cmd == "inject" else (nearref(a.src, a.dst) if a.cmd == "nearref" else denotch(a.src, a.dst))
+                                                                                    ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/FlyPPG/FlyPPG/experiments/flicker_experiment.py", line 161, in nearref
+    bp = lambda x: bandpass_series(x, fps); bg_, bf = bp(g), bp(f)
+                                                      ^^^^^
+  File "/home/runner/work/FlyPPG/FlyPPG/experiments/flicker_experiment.py", line 161, in <lambda>
+    bp = lambda x: bandpass_series(x, fps); bg_, bf = bp(g), bp(f)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/FlyPPG/FlyPPG/experiments/flicker_experiment.py", line 75, in bandpass_series
+    return np.fft.irfft(np.fft.rfft(x - x.mean()) * H, n)
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~
+ValueError: operands could not be broadcast together with shapes (5607,2) (2804,) 
