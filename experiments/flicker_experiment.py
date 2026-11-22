@@ -61,18 +61,19 @@ def _mesh():
 
 
 def bandpass_series(x, fps):
-    """Bandpass a 1-D series to the ~0.5-4 Hz flicker band.
+    """Bandpass a 1-D series or (T,C) matrix to the ~0.5-4 Hz flicker band along axis 0.
 
     FFT mask with smooth tanh edges: exact, zero-phase and idempotent (band(band(x)) == band(x)),
     unlike a Gaussian difference which phase-inverts above its geometric-mean cutoff and would
     re-add the very flicker it is meant to cancel.
     """
-    x = np.asarray(x, np.float64); n = len(x)
+    x = np.atleast_1d(np.asarray(x, np.float64)); n = x.shape[0]
     if n < 8 or fps <= 0:
         return np.zeros_like(x)
     fr = np.fft.rfftfreq(n, 1.0 / fps)
     H = 0.5 * (1 + np.tanh((fr - 0.5) / 0.15)) * 0.5 * (1 - np.tanh((fr - 4.0) / 0.6))
-    return np.fft.irfft(np.fft.rfft(x - x.mean()) * H, n)
+    Hsh = H[:, None] if x.ndim > 1 else H
+    return np.fft.irfft(np.fft.rfft(x - x.mean(axis=0), axis=0) * Hsh, n, axis=0)
 
 
 def dominant_freq(x, fps):
