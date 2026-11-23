@@ -182,11 +182,11 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;pane&quot;&gt;
-      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;smartspectra&lt;/b&gt;&lt;em id=&quot;rejA&quot; class=&quot;re&quot;&gt;REJECTED · no chest found&lt;/em&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;smartspectra&lt;/b&gt;&lt;em id=&quot;rejA&quot; class=&quot;re&quot;&gt;REJECTED - no chest found&lt;/em&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
       &lt;div class=&quot;pane-body&quot;&gt;&lt;canvas id=&quot;cA&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend&quot; id=&quot;lgA&quot;&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;pane&quot;&gt;
-      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;flyppg · fly-lamina layer (still tracking)&lt;/b&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;flyppg - fly-lamina layer (still tracking)&lt;/b&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
       &lt;div class=&quot;pane-body&quot;&gt;&lt;canvas id=&quot;cB&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend&quot; id=&quot;lgB&quot;&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;/div&gt;
   &lt;/section&gt;
@@ -197,7 +197,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
     &lt;span class=&quot;readout&quot; id=&quot;readout&quot;&gt;frame_nr: #124&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;p class=&quot;note&quot;&gt;Two scenarios from the same frontal chest recording (run 44966548540, 2 reps). &quot;no chest&quot;: SmartSpectra rejects the footage; the fly-lamina layer keeps a steady pulse. &quot;12% flicker&quot;: SmartSpectra MAE 7.04 bpm at 55% usable windows vs 2.70 bpm at 82% with FlyPPG. Entrainment trap, 88 bpm flicker: SmartSpectra reports 88.0 bpm ± 0.9 at 99.4% confidence — it reads the light, not the heart. Both graphs share one scrub cursor.&lt;/p&gt;
+&lt;p class=&quot;note&quot;&gt;Two scenarios from the same frontal chest recording (run 44966548540, 2 reps). &quot;no chest&quot;: SmartSpectra rejects the footage; the fly-lamina layer keeps a steady pulse. &quot;12% flicker&quot;: SmartSpectra MAE 7.04 bpm at 55% usable windows vs 2.70 bpm at 82% with FlyPPG. Entrainment trap, 88 bpm flicker: SmartSpectra reports 88.0 bpm +/- 0.9 at 99.4% confidence - it reads the light, not the heart. Both graphs share one scrub cursor.&lt;/p&gt;
 
 &lt;script&gt;
 (function () {
@@ -228,7 +228,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
   function flat(v) { return new Array(N).fill(v); }
   var NA = { bvp: flat(0.01), conf: flat(0.0), mot: flat(0.0), pk: [], bpm: 0 };
   var NB = make(11, 77.1, 0.10, 0.94, 0.10);
-  var A = SA, B = SB, scenario = "fl12";
+  var A = SA, B = SB, scenario = &quot;fl12&quot;;
 
   var scrub = document.getElementById(&quot;scrub&quot;), readout = document.getElementById(&quot;readout&quot;);
   var play = document.getElementById(&quot;play&quot;), ico = document.getElementById(&quot;ico&quot;);
@@ -337,21 +337,21 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
     ico.setAttribute(&quot;d&quot;, playing ? &quot;M2 1h2v8H2zM6 1h2v8H6z&quot; : &quot;M2 1l7 4-7 4z&quot;);
     if (playing) requestAnimationFrame(tick);
   });
-    window.addEventListener("resize", render);
+    window.addEventListener(&quot;resize&quot;, render);
   function setScenario(name) {
-    var noChest = name === "nochest";
+    var noChest = name === &quot;nochest&quot;;
     A = noChest ? NA : SA; B = noChest ? NB : SB;
-    document.querySelectorAll(".pane-body video").forEach(function (v) {
-      var on = v.getAttribute("data-scenario") === name;
-      v.classList.toggle("sel", on);
-      if (on && v.paused) { v.play().catch(function () {}); }
+    document.querySelectorAll(&quot;.pane-body video&quot;).forEach(function (v) {
+      var on = v.getAttribute(&quot;data-scenario&quot;) === name;
+      v.classList.toggle(&quot;sel&quot;, on);
+      if (on &amp;&amp; v.paused) { v.play().catch(function () {}); }
     });
-    document.querySelectorAll(".seg2 button").forEach(function (b) { b.classList.toggle("on", (b.id === "scNc") === noChest); });
-    document.getElementById("rejA").classList.toggle("show", noChest);
+    document.querySelectorAll(&quot;.seg2 button&quot;).forEach(function (b) { b.classList.toggle(&quot;on&quot;, (b.id === &quot;scNc&quot;) === noChest); });
+    document.getElementById(&quot;rejA&quot;).classList.toggle(&quot;show&quot;, noChest);
   }
-  document.getElementById("scNc").addEventListener("click", function () { setScenario("nochest"); });
-  document.getElementById("scFl").addEventListener("click", function () { setScenario("fl12"); });
-  setScenario("fl12");
+  document.getElementById(&quot;scNc&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;nochest&quot;); });
+  document.getElementById(&quot;scFl&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;fl12&quot;); });
+  setScenario(&quot;fl12&quot;);
   render();
 })();
 &lt;/script&gt;
