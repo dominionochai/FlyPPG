@@ -184,7 +184,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
       &lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;pane&quot;&gt;
-      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;smartspectra&lt;/b&gt;&lt;em id=&quot;rejA&quot; class=&quot;re&quot;&gt;REJECTED - no chest found&lt;/em&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;pane-head&quot;&gt;&lt;b&gt;smartspectra&lt;/b&gt;&lt;em id=&quot;rejA&quot; class=&quot;re&quot;&gt;REJECTED - no chest found&lt;/em&gt;&lt;em id=&quot;lampA&quot; class=&quot;re&quot;&gt;READING THE LAMP - Entrained by 88 bpm flicker&lt;/em&gt;&lt;span class=&quot;tools&quot;&gt;&lt;span&gt;?&lt;/span&gt;&lt;span&gt;⤢&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
       &lt;div class=&quot;pane-body&quot;&gt;&lt;canvas id=&quot;cA&quot;&gt;&lt;/canvas&gt;&lt;div class=&quot;legend&quot; id=&quot;lgA&quot;&gt;&lt;/div&gt;&lt;/div&gt;
     &lt;/div&gt;
     &lt;div class=&quot;pane&quot;&gt;
@@ -199,7 +199,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
     &lt;span class=&quot;readout&quot; id=&quot;readout&quot;&gt;frame_nr: #124&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-&lt;p class=&quot;note&quot;&gt;Two scenarios from the same frontal chest recording (run 44966548540, 2 reps). &quot;no chest&quot;: SmartSpectra rejects the footage; the fly-lamina layer keeps a steady pulse. &quot;12% flicker&quot;: SmartSpectra MAE 7.04 bpm at 55% usable windows vs 2.70 bpm at 82% with FlyPPG. Entrainment trap, 88 bpm flicker: SmartSpectra reports 88.0 bpm +/- 0.9 at 99.4% confidence - it reads the light, not the heart. Both graphs share one scrub cursor.&lt;/p&gt;
+&lt;p class=&quot;note&quot;&gt;Two scenarios from the same frontal chest recording (run 44966548540, 2 reps). &quot;no chest&quot;: SmartSpectra rejects the footage; the fly-lamina layer keeps a steady pulse. &quot;12% flicker&quot;: SmartSpectra MAE 7.04 bpm at 55% usable windows vs 2.70 bpm at 82% with FlyPPG. Entrainment trap, 88 bpm flicker: both graphs are judged against the person&#x27;s true heart rate, 77.1 bpm from the clean run. SmartSpectra drifts to 88.0 +/- 0.9 bpm at 99.4% confidence - exactly the lamp&#x27;s frequency - while FlyPPG sags to 83.9 with confidence down to 64%: degraded, not entrained. Both graphs share one scrub cursor.&lt;/p&gt;
 
 &lt;script&gt;
 (function () {
@@ -312,6 +312,12 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
         ctx.fillText(row[1], gx + (i ? 14 : 0), ry + 15);
       });
     }
+    if (scenario === &quot;ent88&quot;) {
+      var toff = S.bpm - 77.1;
+      ctx.textAlign = &quot;left&quot;; ctx.textBaseline = &quot;top&quot;; ctx.font = &quot;10px ui-monospace, Menlo, monospace&quot;;
+      ctx.fillStyle = prefix === &quot;smartspectra&quot; : &quot;#ff5d6c&quot; : &quot;#ffb454;
+      ctx.fillText(&quot;true 77.1: &quot; + (toff &gt; 0 ? &quot;+&quot; : &quot;&quot;) + toff.toFixed(1) + &quot; bpm&quot;, gx + 14, T + 37);
+    }
     c._geom = { L: L, pw: pw };
   }
   var cA = document.getElementById(&quot;cA&quot;), cB = document.getElementById(&quot;cB&quot;);
@@ -342,7 +348,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
   });
     window.addEventListener(&quot;resize&quot;, render);
   function setScenario(name) {
-    var noChest = name === &quot;nochest&quot;;
+    var noChest = name === &quot;nochest&quot;, ent88 = name === &quot;ent88&quot;;
     A = noChest ? NA : (name === &quot;ent88&quot; ? EA : SA); B = noChest ? NB : (name === &quot;ent88&quot; ? EB : SB);
     document.querySelectorAll(&quot;.pane-body video&quot;).forEach(function (v) {
       var on = v.getAttribute(&quot;data-scenario&quot;) === name;
@@ -351,6 +357,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
     });
     document.querySelectorAll(&quot;.seg2 button&quot;).forEach(function (b) { b.classList.toggle(&quot;on&quot;, b.id === &quot;scEnt&quot; ? name === &quot;ent88&quot; : (b.id === &quot;scNc&quot;) === noChest); });
     document.getElementById(&quot;rejA&quot;).classList.toggle(&quot;show&quot;, noChest);
+    document.getElementById(&quot;lampA&quot;).classList.toggle(&quot;show&quot;, ent88);
   }
   document.getElementById(&quot;scNc&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;nochest&quot;); });
   document.getElementById(&quot;scFl&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;fl12&quot;); });
