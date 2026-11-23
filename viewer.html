@@ -315,7 +315,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
     if (scenario === &quot;ent88&quot;) {
       var toff = S.bpm - 77.1;
       ctx.textAlign = &quot;left&quot;; ctx.textBaseline = &quot;top&quot;; ctx.font = &quot;10px ui-monospace, Menlo, monospace&quot;;
-      ctx.fillStyle = prefix === &quot;smartspectra&quot; : &quot;#ff5d6c&quot; : &quot;#ffb454;
+      ctx.fillStyle = prefix === &quot;smartspectra&quot; ? &quot;#ff5d6c&quot; : &quot;#ffb454&quot;;
       ctx.fillText(&quot;true 77.1: &quot; + (toff &gt; 0 ? &quot;+&quot; : &quot;&quot;) + toff.toFixed(1) + &quot; bpm&quot;, gx + 14, T + 37);
     }
     c._geom = { L: L, pw: pw };
