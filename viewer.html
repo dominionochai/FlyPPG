@@ -123,7 +123,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
 &lt;div class=&quot;viewer&quot;&gt;
   &lt;div class=&quot;topbar&quot;&gt;
     &lt;div class=&quot;brand&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;span&gt;rppg-compare&lt;/span&gt;&lt;/div&gt;
-    &lt;div class=&quot;seg2&quot;&gt;&lt;button id=&quot;scNc&quot; type=&quot;button&quot;&gt;no chest&lt;/button&gt;&lt;button id=&quot;scFl&quot; type=&quot;button&quot; class=&quot;on&quot;&gt;12% flicker&lt;/button&gt;&lt;/div&gt;
+    &lt;div class=&quot;seg2&quot;&gt;&lt;button id=&quot;scNc&quot; type=&quot;button&quot;&gt;no chest&lt;/button&gt;&lt;button id=&quot;scFl&quot; type=&quot;button&quot; class=&quot;on&quot;&gt;12% flicker&lt;/button&gt;&lt;button id=&quot;scEnt&quot; type=&quot;button&quot;&gt;88 bpm trap&lt;/button&gt;&lt;/div&gt;
     &lt;div class=&quot;layout-btns&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;on&quot;&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
   &lt;/div&gt;
 
@@ -145,6 +145,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
       &lt;div class=&quot;pane-body&quot;&gt;
         &lt;video data-scenario=&quot;nochest&quot; src=&quot;clips/nochest.mp4&quot; muted loop playsinline autoplay&gt;&lt;/video&gt;
         &lt;video data-scenario=&quot;fl12&quot; src=&quot;clips/fl12.mp4&quot; muted loop playsinline autoplay&gt;&lt;/video&gt;
+        &lt;video data-scenario=&quot;ent88&quot; src=&quot;clips/ent088.mp4&quot; muted loop playsinline autoplay&gt;&lt;/video&gt;
         &lt;svg viewBox=&quot;0 0 400 220&quot; preserveAspectRatio=&quot;xMidYMid slice&quot; aria-label=&quot;Face detector view&quot;&gt;
           &lt;defs&gt;
             &lt;linearGradient id=&quot;bgA&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#34424f&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#171d25&quot;/&gt;&lt;/linearGradient&gt;
@@ -165,6 +166,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
       &lt;div class=&quot;pane-body&quot;&gt;
         &lt;video data-scenario=&quot;nochest&quot; src=&quot;clips/nochest.mp4&quot; muted loop playsinline autoplay&gt;&lt;/video&gt;
         &lt;video data-scenario=&quot;fl12&quot; src=&quot;clips/fl12_dn.mp4&quot; muted loop playsinline autoplay&gt;&lt;/video&gt;
+        &lt;video data-scenario=&quot;ent88&quot; src=&quot;clips/ent088_dn.mp4&quot; muted loop playsinline autoplay&gt;&lt;/video&gt;
         &lt;svg viewBox=&quot;0 0 400 220&quot; preserveAspectRatio=&quot;xMidYMid slice&quot; aria-label=&quot;Face landmarker view&quot;&gt;
           &lt;defs&gt;
             &lt;linearGradient id=&quot;bgB&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;1&quot;&gt;&lt;stop offset=&quot;0&quot; stop-color=&quot;#34424f&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#171d25&quot;/&gt;&lt;/linearGradient&gt;
@@ -229,6 +231,7 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
   var NA = { bvp: flat(0.01), conf: flat(0.0), mot: flat(0.0), pk: [], bpm: 0 };
   var NB = make(11, 77.1, 0.10, 0.94, 0.10);
   var A = SA, B = SB, scenario = &quot;fl12&quot;;
+  var EA = make(11, 88.0, 0.02, 0.99, 0.02), EB = make(11, 83.9, 0.15, 0.64, 0.15);
 
   var scrub = document.getElementById(&quot;scrub&quot;), readout = document.getElementById(&quot;readout&quot;);
   var play = document.getElementById(&quot;play&quot;), ico = document.getElementById(&quot;ico&quot;);
@@ -340,17 +343,18 @@ h1 { margin: 0 0 14px; font-size: 22px; font-weight: 650; letter-spacing: -0.02e
     window.addEventListener(&quot;resize&quot;, render);
   function setScenario(name) {
     var noChest = name === &quot;nochest&quot;;
-    A = noChest ? NA : SA; B = noChest ? NB : SB;
+    A = noChest ? NA : (name === &quot;ent88&quot; ? EA : SA); B = noChest ? NB : (name === &quot;ent88&quot; ? EB : SB);
     document.querySelectorAll(&quot;.pane-body video&quot;).forEach(function (v) {
       var on = v.getAttribute(&quot;data-scenario&quot;) === name;
       v.classList.toggle(&quot;sel&quot;, on);
       if (on &amp;&amp; v.paused) { v.play().catch(function () {}); }
     });
-    document.querySelectorAll(&quot;.seg2 button&quot;).forEach(function (b) { b.classList.toggle(&quot;on&quot;, (b.id === &quot;scNc&quot;) === noChest); });
+    document.querySelectorAll(&quot;.seg2 button&quot;).forEach(function (b) { b.classList.toggle(&quot;on&quot;, b.id === &quot;scEnt&quot; ? name === &quot;ent88&quot; : (b.id === &quot;scNc&quot;) === noChest); });
     document.getElementById(&quot;rejA&quot;).classList.toggle(&quot;show&quot;, noChest);
   }
   document.getElementById(&quot;scNc&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;nochest&quot;); });
   document.getElementById(&quot;scFl&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;fl12&quot;); });
+  document.getElementById(&quot;scEnt&quot;).addEventListener(&quot;click&quot;, function () { setScenario(&quot;ent88&quot;); });
   setScenario(&quot;fl12&quot;);
   render();
 })();
